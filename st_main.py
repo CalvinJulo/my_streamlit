@@ -10,6 +10,6 @@
 """
 # CMD Run Command ： streamlit run /Users/xx.py --server.port 8501
 
-import stramlit as st
+import streamlit as st
 
 st.write('hello world')
