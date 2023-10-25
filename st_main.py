@@ -11,5 +11,8 @@
 # CMD Run Command ： streamlit run /Users/xx.py --server.port 8501
 
 import streamlit as st
+import subprocess
+
 
 st.write('hello world')
+subprocess.run(["python","../zhouyi/st_yi.py"])
