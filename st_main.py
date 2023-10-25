@@ -20,4 +20,5 @@ file_path = os.path.dirname(file_path)
 yi_path = os.path.join(file_path, 'zhouyi/st_yi.py')
 
 st.write('hello world')
+st.write(file_path)
 subprocess.run(["python",yi_path])
