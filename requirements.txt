@@ -1,6 +1,4 @@
 # requirements.txt
 
 streamlit
-os
-random
-json
+
