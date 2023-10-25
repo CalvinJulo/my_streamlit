@@ -9,17 +9,11 @@
 # Description： 易经研究
 """
 
-# CMD Run Command ： streamlit run /Users/calvinish/Documents/Py3/案例/Yi/st_yi.py --server.port 8501
+# CMD Run Command ： streamlit run /Users/Yi/st_yi.py --server.port 8501
 import pandas as pd
 import Yi
 import streamlit as st
 
-st.set_page_config(page_title="易经 App", page_icon="🧊", layout="wide",
-                   initial_sidebar_state="expanded",
-                   menu_items={
-                       'Get Help': 'https://www.extremelycoolapp.com/help',
-                       'Report a bug': "https://www.extremelycoolapp.com/bug",
-                       'About': "# This is a header. This is an *extremely* cool app!"})
 
 sessionState_List = ['gua8_data', 'gua64_data', 'gua8_code_name', 'gua64_code_name']
 for i in sessionState_List:
