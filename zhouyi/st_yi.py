@@ -10,7 +10,7 @@
 """
 
 # CMD Run Command ： streamlit run /Users/Yi/st_yi.py --server.port 8501
-import pandas as pd
+
 import Yi
 import streamlit as st
 
