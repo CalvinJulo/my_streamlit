@@ -12,7 +12,12 @@
 
 import streamlit as st
 import subprocess
+import os
+import random
 
+file_path = os.path.abspath(__file__)
+file_path = os.path.dirname(file_path)
+yi_path = os.path.join(file_path, 'zhouyi/st_yi.py')
 
 st.write('hello world')
-subprocess.run(["python","../zhouyi/st_yi.py"])
+subprocess.run(["python",yi_path])
