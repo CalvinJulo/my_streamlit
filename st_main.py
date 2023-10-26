@@ -25,7 +25,8 @@ st.write(file_path)
 zhouyi = st.checkbox('zhouyi')
 if zhouyi:
     #subprocess.run(["streamlit", "run", yi_path])
-    subprocess.run([f"{sys.executable}", yi_path])
+    subprocess.run(["python", "-m", "streamlit", "run", yi_path])
+    #subprocess.run([f"{sys.executable}", yi_path])
     #subprocess.run(["python", yi_path])
 
 
