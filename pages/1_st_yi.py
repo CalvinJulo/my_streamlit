@@ -5,12 +5,12 @@
 # Time       ：2021/9/11 19:02
 # Author     ：
 # version    ：python 3.9
-# Description： 易经研究
+# Description：
 """
 
 # CMD Run Command ： streamlit run /Users/Yi/st_yi.py --server.port 8501
 
-import Yi
+from 1_zhouyi import Yi
 import streamlit as st
 
 
