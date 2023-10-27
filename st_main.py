@@ -17,16 +17,18 @@ import random
 file_path = os.path.abspath(__file__)
 file_path = os.path.dirname(file_path)
 yi_path = os.path.join(file_path, 'zhouyi/st_yi.py')
-
+app1 = os.path.join(file_path, 'st_app1.py')
 st.write('hello world')
 st.write(file_path)
 
 zhouyi = st.checkbox('zhouyi')
 if zhouyi:
-    subprocess.run(["streamlit", "run", yi_path,"--server.port", "85011"])
+    subprocess.run(["streamlit", "run", yi_path])
     #subprocess.run(["python", "-m", "streamlit", "run", yi_path])
     #subprocess.run([f"{sys.executable}", yi_path])
     #subprocess.run(["python", yi_path])
 
 
-
+app1 = st.checkbox('app1')
+if app1:
+    subprocess.run(["streamlit", "run",app1])
