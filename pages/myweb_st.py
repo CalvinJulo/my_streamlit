@@ -7,9 +7,13 @@ import json
 import os
 from pages.myweb import myweb
 
+import sys
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
+
+
 weblist = myweb.weblist
-
-
 web_df = pd.DataFrame(weblist).transpose()
 web_df['tab'] = False
 disabled_list = web_df.columns.to_list().remove('tab')
