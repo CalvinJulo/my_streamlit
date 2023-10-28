@@ -23,7 +23,7 @@ import pandas as pd
 from pages.stock import stock_info
 from pages.stock import tonghuashun_stock
 
-st.set_page_config(page_title="股票基本面分析 App", page_icon="🧊", layout="wide")
+st.set_page_config(layout="wide")
 
 st.write('### Stock Basic Analysis')
 stock_code = st.text_input('Input Stock Code', '000001')
