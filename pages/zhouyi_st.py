@@ -10,7 +10,16 @@
 
 # CMD Run Command ： streamlit run /Users/Yi/st_yi.py --server.port 8501
 
-import Yi
+import sys
+import os
+# 获取当前脚本所在的文件夹路径
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# 将上一级文件夹路径添加到系统路径中
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
+
+
+from zhouyi import Yi
 import streamlit as st
 
 
