@@ -1,4 +1,3 @@
-
 {
 'annas-archive':{'name': 'annas-archive', 'des': 'looking for books', 'url':'https://annas-archive.org/'},
 'online-go':{'name': 'online-go', 'des': 'go game', 'url':'https://online-go.com/'},
@@ -7,4 +6,3 @@
 'whoer':{'name': 'whoer', 'des': 'whoer', 'url':'https://whoer.net/'},
 'bible':{'name': 'bible', 'des': 'bible NASB1995', 'url':'https://www.bible.com/bible/100/JHN.1.NASB1995'},
 }
-
