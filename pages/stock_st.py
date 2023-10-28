@@ -20,8 +20,8 @@ sys.path.append(parent_dir)
 import streamlit as st
 import streamlit.components.v1 as components
 import pandas as pd
-from stock import stock_info
-from stock import tonghuashun_stock
+from pages.stock import stock_info
+from pages.stock import tonghuashun_stock
 
 st.set_page_config(page_title="股票基本面分析 App", page_icon="🧊", layout="wide")
 
