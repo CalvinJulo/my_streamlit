@@ -5,11 +5,9 @@ import streamlit.components.v1 as components
 import pandas as pd
 import json
 import os
+from pages.myweb import myweb
 
-file_path = os.path.abspath(__file__)
-file_path = os.path.dirname(file_path)
-with open(os.path.join(file_path, 'myweb/myweb.json'), 'r') as f:
-    weblist = json.load(f)
+weblist = myweb.weblist
 
 
 web_df = pd.DataFrame(weblist).transpose()
