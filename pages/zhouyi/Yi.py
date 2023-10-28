@@ -7,12 +7,14 @@
 # version    ：python 3.9
 # Description： 
 """
-import json
+
 import os
 import random
+import json
 
 file_path = os.path.abspath(__file__)
 file_path = os.path.dirname(file_path)
+
 with open(os.path.join(file_path, 'yi.json'), 'r') as f:
     yi_json = json.load(f)
 
