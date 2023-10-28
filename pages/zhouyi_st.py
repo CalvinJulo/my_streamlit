@@ -19,7 +19,7 @@ parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 
 
-from zhouyi import Yi
+from pages.zhouyi import Yi
 import streamlit as st
 
 
