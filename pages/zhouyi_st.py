@@ -13,7 +13,11 @@
 import sys
 import os
 
-
+# 获取当前脚本所在的文件夹路径
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# 将上一级文件夹路径添加到系统路径中
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
 
 from pages.zhouyi import Yi
 import streamlit as st
