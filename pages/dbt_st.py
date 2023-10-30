@@ -9,6 +9,7 @@ sys.path.append(parent_dir)
 
 
 import streamlit as st
+from PIL import Image
 
 import json
 file_path = os.path.abspath(__file__)
@@ -70,11 +71,11 @@ with tab_list['Committed action']:
     expander('Your legitimate rights')
 
 with tab_list['Note']:
-  st.image(os.path.join(file_path, 'dbt/tip.jpg')
-  st.image(os.path.join(file_path, 'dbt/DBT.001.jpeg')
-  st.image(os.path.join(file_path, 'dbt/DBT.002.jpeg')
-  st.image(os.path.join(file_path, 'dbt/DBT.003.jpeg')
-  st.image(os.path.join(file_path, 'dbt/DBT.004.jpeg')
+  st.image(Image.open(os.path.join(file_path, 'dbt/tip.jpg')))
+  st.image(Image.open(os.path.join(file_path, 'dbt/DBT001.jpeg')))
+  st.image(Image.open(os.path.join(file_path, 'dbt/DBT002.jpeg')))
+  st.image(Image.open(os.path.join(file_path, 'dbt/DBT003.jpeg')))
+  st.image(Image.open(os.path.join(file_path, 'dbt/DBT004.jpeg')))
 
 
 st.divider()
