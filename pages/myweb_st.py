@@ -27,7 +27,7 @@ select_list = edited_df.loc[edited_df["tab"] == True]
 select_name = select_list['name'].to_list()
 select_url = select_list['url'].to_list()
 st.write(select_list)
-if select_list == None:
+if select_list == []:
     pass
 else:
     for i, j in enumerate(st.tabs(select_name)):
