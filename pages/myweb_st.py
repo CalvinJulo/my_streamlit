@@ -26,7 +26,7 @@ edited_df = st.data_editor(web_df,
 select_list = edited_df.loc[edited_df["tab"] == True]
 select_name = select_list['name'].to_list()
 select_url = select_list['url'].to_list()
-st.write(select_list)
+
 if len(select_list) == 0:
     pass
 else:
