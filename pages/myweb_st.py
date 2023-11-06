@@ -27,9 +27,12 @@ select_list = edited_df.loc[edited_df["tab"] == True]
 select_name = select_list['name'].to_list()
 select_url = select_list['url'].to_list()
 st.write('I am here')
-for i, j in enumerate(st.tabs(select_name)):
-    with j:
-        components.iframe(select_url[i], width=900, height=500, scrolling=True)
+if select_list == None:
+    pass
+else:
+    for i, j in enumerate(st.tabs(select_name)):
+        with j:
+            components.iframe(select_url[i], width=900, height=500, scrolling=True)
 
 # url = 'https://whoer.net/'
 # tab1, tab2 =st.tabs(['tab1','tab2'])
