@@ -12,9 +12,8 @@ import pandas as pd
 import json
 from pages.myweb import myweb
 
-
-
 weblist = myweb.weblist
+st.write(weblist)
 web_df = pd.DataFrame(weblist).transpose()
 web_df['tab'] = False
 disabled_list = web_df.columns.to_list().remove('tab')
