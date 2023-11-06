@@ -1,16 +1,17 @@
 # -*-coding:utf-8 -*-
 
+import sys
+import os
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
+
 import streamlit as st
 import streamlit.components.v1 as components
 import pandas as pd
 import json
-import os
 from pages.myweb import myweb
 
-import sys
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)
-sys.path.append(parent_dir)
 
 
 weblist = myweb.weblist
