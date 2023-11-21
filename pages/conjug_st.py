@@ -36,8 +36,5 @@ verb_a_df,verb_b_df= get_conjug(verb)
 
 st.table(verb_a_df)
 st.table(verb_b_df.loc[mode_tense])
-st.table(verb_b_df.loc[mode_tense])
-st.dataframe(verb_a_df)
-st.dataframe(verb_b_df.loc[mode_tense])
-st.dataframe(verb_b_df.loc[mode_tense_1])
+st.table(verb_b_df.loc[mode_tense_1])
 
