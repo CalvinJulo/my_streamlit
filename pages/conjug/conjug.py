@@ -1,5 +1,5 @@
 from mlconjug3 import Conjugator
-
+import pandas as pd
 
 lang_list = ['fr', 'en', 'es', 'it', 'pt', 'ro']
 
