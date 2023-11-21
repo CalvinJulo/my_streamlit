@@ -12,7 +12,7 @@ import streamlit as st
 from pages.conjug import conjug
 st.header(' Conjugation de Spanish')
 
-verb = st.text('input verb')
+verb = st.text_input('input verb','comer')
 
 @st.cache
 def get_conjug(verb):
