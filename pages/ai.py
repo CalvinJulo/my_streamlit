@@ -35,13 +35,8 @@ st.write('### Text-to-Speech (TTS) App')
 
 text = st.text_area("Enter the text you want to convert to speech:")
 language = st.selectbox("Select language:", ["en", "es", "fr", "de", "zh-cn"])
-if st.button("Convert to Speech"):
-    if text:
-        audio_byte = text_to_audio(text,language)
-        st.success("Conversion successful! Playing audio:")
-        # Play audio
-    else:
-        st.warning("Please enter some text.")
+audio_byte = text_to_audio(text,language)
+
 if audio_byte:      
     st.audio(audio_byte, format="audio/mp3")
     st.download_button(label="Download Speech", data=audio_byte,file_name="speech.mp3", mime="audio/mp3")
