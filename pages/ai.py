@@ -39,9 +39,7 @@ if st.button("Convert to Speech"):
         # Play audio
         st.audio(audio_byte, format="audio/mp3")
         st.download_button(
-            label="Download Speech",
-            data=audio_byte,
-            file_name="speech.mp3",
-            mime="audio/mp3")
+            label="Download Speech", data=audio_byte,
+            file_name="speech.mp3", mime="audio/mp3")
     else:
         st.warning("Please enter some text.")
