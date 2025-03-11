@@ -36,7 +36,6 @@ if st.button("Convert to Speech"):
         # tts.save("output.mp3")
         st.success("Conversion successful! Playing audio:")
         tts_play = tts.write_to_fp(mp3_fp)
-        tts_play.seek(0)
         # Play audio
         st.audio(tts_play, format="audio/mp3")
         st.download_button(
