@@ -17,6 +17,8 @@ sys.path.append(parent_dir)
 import pandas as pd
 import streamlit as st
 from gtts import gTTS
+from io import BytesIO
+
 
 
 
@@ -29,13 +31,15 @@ language = st.selectbox("Select language:", ["en", "es", "fr", "de", "zh-cn"])
 
 if st.button("Convert to Speech"):
     if text:
+        mp3_fp = BytesIO()
         tts = gTTS(text=text, lang=language, slow=False)
         # tts.save("output.mp3")
         st.success("Conversion successful! Playing audio:")
-        st.write(tts)
+        tts_play = tts.write_to_fp(mp3_fp)
+
         # Play audio
         # audio_file = open("output.mp3", "rb")
         # audio_bytes = audio_file.read()
-        # st.audio(audio_bytes, format="audio/mp3")
+        st.audio(tts_play, format="audio/mp3")
     else:
         st.warning("Please enter some text.")
