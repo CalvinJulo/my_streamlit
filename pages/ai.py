@@ -21,12 +21,13 @@ from io import BytesIO
 
 
 
-@st.cache_resource
+@st.cache_data
 def text_to_audio(text,language):
+    audio_byte = BytesIO()
     tts = gTTS(text=text, lang=language, slow=False)
     # tts.save("output.mp3")
     tts.write_to_fp(audio_byte)
-    return
+    return audio_byte
     
 
 st.write('### Text-to-Speech (TTS) App')
@@ -34,15 +35,13 @@ st.write('### Text-to-Speech (TTS) App')
 
 text = st.text_area("Enter the text you want to convert to speech:")
 language = st.selectbox("Select language:", ["en", "es", "fr", "de", "zh-cn"])
-audio_byte = BytesIO()
 if st.button("Convert to Speech"):
     if text:
-        text_to_audio(text,language)
+        audio_byte = text_to_audio(text,language)
         st.success("Conversion successful! Playing audio:")
         # Play audio
+        st.audio(audio_byte, format="audio/mp3")
+        st.download_button(label="Download Speech", data=audio_byte,file_name="speech.mp3", mime="audio/mp3")
     else:
         st.warning("Please enter some text.")
-st.audio(audio_byte, format="audio/mp3")
-st.download_button(
-    label="Download Speech", data=audio_byte,
-    file_name="speech.mp3", mime="audio/mp3")
+
