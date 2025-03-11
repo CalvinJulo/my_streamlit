@@ -31,16 +31,16 @@ language = st.selectbox("Select language:", ["en", "es", "fr", "de", "zh-cn"])
 
 if st.button("Convert to Speech"):
     if text:
-        mp3_fp = BytesIO()
+        audio_byte = BytesIO()
         tts = gTTS(text=text, lang=language, slow=False)
         # tts.save("output.mp3")
         st.success("Conversion successful! Playing audio:")
-        tts_play = tts.write_to_fp(mp3_fp)
+        tts.write_to_fp(audio_byte)
         # Play audio
-        st.audio(tts_play, format="audio/mp3")
+        st.audio(audio_byte, format="audio/mp3")
         st.download_button(
             label="Download Speech",
-            data=tts_play,
+            data=audio_byte,
             file_name="speech.mp3",
             mime="audio/mp3")
     else:
