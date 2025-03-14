@@ -3,5 +3,3 @@
 streamlit
 mlconjug3
 gtts
-speechrecognition
-pyaudio
