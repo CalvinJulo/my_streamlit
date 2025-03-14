@@ -33,7 +33,7 @@ def text_to_audio(text,language):
 st.write('### Text-to-Speech (TTS) App')
 
 
-text = st.text_area("Enter the text you want to convert to speech:")
+text = st.text_area("Enter the text you want to convert to speech:",'')
 language = st.selectbox("Select language:", ["en", "es", "fr", "de", "zh-cn"])
 audio_byte = text_to_audio(text,language)
 
