@@ -36,8 +36,8 @@ accents = {
     "English (United States)": {"lang": "en", "tld": "us"},
     "English (India)": {"lang": "en", "tld": "co.in"},
     "French (France)": {"lang": "fr", "tld": "fr"},
-    "Mandarin (China Mainland)": {"lang": "zh-CN", "tld": ""},
-    "Mandarin (Taiwan)": {"lang": "zh-TW", "tld": ""},
+    "Mandarin (China Mainland)": {"lang": "zh-CN", "tld": "any"},
+    "Mandarin (Taiwan)": {"lang": "zh-TW", "tld": "any"},
     "Portuguese (Portugal)": {"lang": "pt", "tld": "pt"},
     "Spanish (Spain)": {"lang": "es", "tld": "es"},
 }
