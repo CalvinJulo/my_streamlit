@@ -3,4 +3,5 @@
 streamlit
 mlconjug3
 gtts
-speech_recognition
+speechrecognition
+pyaudio
