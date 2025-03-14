@@ -18,7 +18,7 @@ import pandas as pd
 import streamlit as st
 from gtts import gTTS
 from io import BytesIO
-import speech_recognition as sr
+import speechrecognition as sr
 
 
 
