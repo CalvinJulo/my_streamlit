@@ -60,3 +60,29 @@ audio_value = st.audio_input("Record a voice message")
 
 if audio_value:
     st.audio(audio_value)
+
+
+import speech_recognition as sr
+
+st.title("🎙️ Speech to Text Converter")
+
+# Recorder for live speech input
+recognizer = sr.Recognizer()
+
+st.write("Click 'Start Recording' and speak...")
+
+if st.button("Start Recording"):
+    with sr.Microphone() as source:
+        st.write("Listening...")
+        try:
+            audio = recognizer.listen(source, timeout=5)
+            text = recognizer.recognize_google(audio)  # Using Google’s free STT
+            st.success("Transcription:")
+            st.write(text)
+        except sr.UnknownValueError:
+            st.error("Sorry, I couldn't understand the audio.")
+        except sr.RequestError:
+            st.error("Could not request results; please check your internet connection.")
+
+st.write("🎉 Done!")
+
