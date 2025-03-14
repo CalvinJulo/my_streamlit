@@ -18,7 +18,6 @@ import pandas as pd
 import streamlit as st
 from gtts import gTTS
 from io import BytesIO
-import speechrecognition as sr
 
 
 
@@ -55,16 +54,9 @@ if text:
 
 
 st.write('### Accent Change App')
-recognizer = sr.Recognizer()
-with sr.Microphone() as source:
-    st.info("🎧 Speak something...")
-    try:
-        audio = recognizer.listen(source, timeout=5)
-        spoken_text = recognizer.recognize_google(audio)
-        st.success(f"✅ You said: {spoken_text}")
-    except sr.UnknownValueError:
-        st.error("❌ Could not understand audio")
-    except sr.RequestError:
-        st.error("❌ Could not request results")
+import streamlit as st
 
-st.write(spoken_text)
+audio_value = st.audio_input("Record a voice message")
+
+if audio_value:
+    st.audio(audio_value)
