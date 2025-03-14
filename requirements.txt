@@ -3,3 +3,6 @@
 streamlit
 mlconjug3
 gtts
+pyaudio
+pyttsx3
+speechrecognition
