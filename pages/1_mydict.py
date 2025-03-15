@@ -55,7 +55,7 @@ def get_word_details(word):
     details["Examples"] = examples[:3]
 
     # Get Etymology (Root)
-    details["Root/Etymology"] = dictionary.get_etymology(word)
+    # details["Root/Etymology"] = dictionary.get_etymology(word)
 
     return details
 
@@ -73,6 +73,7 @@ word = st.text_input("Enter a word:", "")
 
 if word:
     details = get_word_details(word)
+    st.write(details)
     
     if details["Definition"]:
         st.subheader("📌 Definition")
@@ -94,9 +95,9 @@ if word:
             audio = generate_audio(example)
             st.audio(audio, format="audio/mp3")
 
-    if details["Root/Etymology"]:
-        st.subheader("🌱 Root & Etymology")
-        st.write(details["Root/Etymology"])
+    #if details["Root/Etymology"]:
+    #    st.subheader("🌱 Root & Etymology")
+    #    st.write(details["Root/Etymology"])
 
     # Pronunciation
     st.subheader("🔊 Pronunciation")
