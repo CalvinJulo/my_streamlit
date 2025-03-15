@@ -6,6 +6,7 @@ gtts
 
 pydub
 soundfile
+vosk
 
 # pyttsx3
 # speechrecognition
