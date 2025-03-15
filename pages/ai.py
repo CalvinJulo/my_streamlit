@@ -70,16 +70,14 @@ from vosk import Model, KaldiRecognizer
 import soundfile as sf
 import numpy as np
 
-
 model = Model("model") 
-
 
 if audio_data:
     # Read the audio data
     audio_bytes = audio_data.read()
 
     # Convert audio bytes to NumPy array
-    data, samplerate = sf.read(audio_buffer)
+    data, samplerate = sf.read(audio_data)
 
     # Vosk requires 16kHz mono audio
     if samplerate != 16000:
