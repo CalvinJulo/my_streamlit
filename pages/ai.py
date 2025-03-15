@@ -54,6 +54,15 @@ if text:
     st.download_button(label="Download Speech", data=audio_byte,file_name="speech.mp3", mime="audio/mp3")
 
 
+
+st.write('### Speech-to-Text (STT) App')
+
+
+
+
+
+
+
 st.write('### Accent Change App')
 import streamlit as st
 
@@ -93,6 +102,7 @@ if audio_data:
     buffer = BytesIO()
     audio.export(buffer, format="wav")
     st.audio(buffer, format="audio/wav")
+
 
 
 
