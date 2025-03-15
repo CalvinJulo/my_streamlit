@@ -64,20 +64,15 @@ st.write('### Speech-to-Text (STT) App')
 
 
 st.write('### Accent Change App')
-import streamlit as st
-
-audio_data = st.audio_input("Record a voice message")
-
-if audio_data:
-    
-    st.audio(audio_data)
-
-
 from pydub import AudioSegment
 import numpy as np
 import soundfile as sf
 
+audio_data = st.audio_input("Record a voice message")
+
+
 if audio_data:
+    st.audio(audio_data)
     # Convert audio data to a format Pydub can use
     audio_bytes = audio_data.read()
     audio = AudioSegment.from_file(BytesIO(audio_bytes), format="wav")
