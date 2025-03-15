@@ -34,6 +34,8 @@ word = st.text_input("Enter a word:", "")
 for syn in wn.synsets(word):
     st.write('syn')
     st.write(dir(syn))
+    for i in dir(syn):
+        st.write(syn[i])
 
 
 
