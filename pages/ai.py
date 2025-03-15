@@ -71,7 +71,7 @@ import soundfile as sf
 if audio_data:
     # Convert audio data to a format Pydub can use
     audio_bytes = audio_data.read()
-    audio = AudioSegment.from_file(io.BytesIO(audio_bytes), format="wav")
+    audio = AudioSegment.from_file(BytesIO(audio_bytes), format="wav")
 
     st.audio(audio_bytes, format="audio/wav", start_time=0)
 
