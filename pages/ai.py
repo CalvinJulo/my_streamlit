@@ -64,38 +64,6 @@ if audio_data:
     st.audio(audio_data)
 
 
-
-import json
-from vosk import Model, KaldiRecognizer
-import soundfile as sf
-import numpy as np
-
-model = Model("model/vosk-model-small-en-us") 
-
-if audio_data:
-    # Read the audio data
-    audio_bytes = audio_data.read()
-
-    # Convert audio bytes to NumPy array
-    data, samplerate = sf.read(audio_data)
-
-    # Vosk requires 16kHz mono audio
-    if samplerate != 16000:
-        st.error("Vosk requires 16kHz sample rate. Please record at 16kHz.")
-    else:
-        # Recognizer
-        recognizer = KaldiRecognizer(model, samplerate)
-        recognizer.AcceptWaveform(np.array(data, dtype=np.float32).tobytes())
-
-        # Get transcription result
-        result = json.loads(recognizer.Result())
-
-        # Display the transcribed text
-        st.write("📝 Transcription:", result["text"])
-
-
-
-
 from pydub import AudioSegment
 import numpy as np
 import soundfile as sf
@@ -129,29 +97,4 @@ if audio_data:
 
 
 
-'''
-import speech_recognition as sr
 
-st.title("🎙️ Speech to Text Converter")
-
-# Recorder for live speech input
-recognizer = sr.Recognizer()
-
-st.write("Click 'Start Recording' and speak...")
-
-if st.button("Start Recording"):
-    with sr.Microphone() as source:
-        st.write("Listening...")
-        try:
-            audio = recognizer.listen(source, timeout=5)
-            text = recognizer.recognize_google(audio)  # Using Google’s free STT
-            st.success("Transcription:")
-            st.write(text)
-        except sr.UnknownValueError:
-            st.error("Sorry, I couldn't understand the audio.")
-        except sr.RequestError:
-            st.error("Could not request results; please check your internet connection.")
-
-st.write("🎉 Done!")
-
-'''
