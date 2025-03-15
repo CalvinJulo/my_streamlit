@@ -20,7 +20,8 @@ from gtts import gTTS
 from io import BytesIO
 
 
-# related audio library: pytorch, pyaudio, pyworld, soundfile, sounddevice, pydub, soundillusionist, torchaudio, speech_recognition,pyttsx3
+# related audio library: pytorch, pyaudio, pyworld, soundfile, sounddevice, pydub,
+# soundillusionist, torchaudio, speech_recognition,pyttsx3
 
 @st.cache_data
 def text_to_audio(text,language,topleveldomain='com'):
