@@ -57,7 +57,7 @@ if text:
 
 st.write('### Speech-to-Text (STT) App')
 
-
+st.write( 'Currently the speech_recognition library is not available on streamlit')
 
 
 
