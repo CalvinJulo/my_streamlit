@@ -29,16 +29,16 @@ nltk.download("wordnet")
 # Streamlit UI
 st.title("📖 English Dictionary with Pronunciation")
 word = st.text_input("Enter a word:", "")
-st.write('wn', dir(wn))
 
 for syn in wn.synsets(word):
     details = {}
-    st.write('syn',dir(syn))
+    # st.write('syn',dir(syn))
     details['definition']=syn.definition()
     details['examples']=syn.examples()
     details['lemma']=[str(lemma.name()) for lemma in syn.lemmas()]
     for lemma in syn.lemmas():
-        st.write('lemma',dir(lemma))
+        # st.write('lemma',dir(lemma))
+        print('')
     st.write('details',details)
     st.write('***')
     
