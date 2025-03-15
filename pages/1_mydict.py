@@ -30,19 +30,27 @@ nltk.download("wordnet")
 st.title("📖 English Dictionary with Pronunciation")
 word = st.text_input("Enter a word:", "")
 
+
+st.write(set(wn.words()))
 details = []
 for syn in wn.synsets(word):
     detail = {
         "word": word,
         "definitions": syn.definition(),
+        "part_of_speech": syn.pos(),
         "examples": syn.examples(),
         "synonyms": list(set([lemma.name() for lemma in syn.lemmas()])),
-        "antonyms": list(set([ant.name() for lemma in syn.lemmas() for ant in lemma.antonyms()]))
+        "antonyms": list(set([ant.name() for lemma in syn.lemmas() for ant in lemma.antonyms()])),
+        "phonetics": epi.transliterate(word),  # Get phonetic transcription (IPA)
+        "etymology": '',
+        "paronyms": '',
+        "cognates": '',
+        "phrases": '',
+        "collocations": '',
     }
     details.append(detail)
 st.write(details)
     
-
 
 
 '''
