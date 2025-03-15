@@ -3,9 +3,10 @@
 streamlit
 mlconjug3
 gtts
-pyaudio
+
 pydub
 soundfile
 
 # pyttsx3
 # speechrecognition
+# pyaudio
