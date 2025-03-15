@@ -21,8 +21,7 @@ from gtts import gTTS
 import nltk
 from nltk.corpus import wordnet as wn
 from io import BytesIO
-from pydub import AudioSegment
-from pydub.playback import play
+
 
 # Download nltk resources
 nltk.download("wordnet")
