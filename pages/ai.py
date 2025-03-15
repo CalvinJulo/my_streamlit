@@ -60,7 +60,40 @@ import streamlit as st
 audio_data = st.audio_input("Record a voice message")
 
 if audio_data:
+    
     st.audio(audio_data)
+
+
+
+import json
+from vosk import Model, KaldiRecognizer
+import soundfile as sf
+import numpy as np
+
+
+model = Model("model") 
+
+
+if audio_data:
+    # Read the audio data
+    audio_bytes = audio_data.read()
+
+    # Convert audio bytes to NumPy array
+    data, samplerate = sf.read(audio_buffer)
+
+    # Vosk requires 16kHz mono audio
+    if samplerate != 16000:
+        st.error("Vosk requires 16kHz sample rate. Please record at 16kHz.")
+    else:
+        # Recognizer
+        recognizer = KaldiRecognizer(model, samplerate)
+        recognizer.AcceptWaveform(np.array(data, dtype=np.float32).tobytes())
+
+        # Get transcription result
+        result = json.loads(recognizer.Result())
+
+        # Display the transcribed text
+        st.write("📝 Transcription:", result["text"])
 
 
 
