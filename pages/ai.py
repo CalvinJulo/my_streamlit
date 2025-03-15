@@ -20,7 +20,7 @@ from gtts import gTTS
 from io import BytesIO
 
 
-
+# related audio library: pytorch, pyaudio, pyworld, soundfile, sounddevice, pydub, soundillusionist, torchaudio, speech_recognition,pyttsx3
 
 @st.cache_data
 def text_to_audio(text,language,topleveldomain='com'):
@@ -56,12 +56,48 @@ if text:
 st.write('### Accent Change App')
 import streamlit as st
 
-audio_value = st.audio_input("Record a voice message")
+audio_data = st.audio_input("Record a voice message")
 
-if audio_value:
+if audio_data:
     st.audio(audio_value)
 
 
+
+
+from pydub import AudioSegment
+import numpy as np
+import soundfile as sf
+
+if audio_data:
+    # Convert audio data to a format Pydub can use
+    audio_bytes = audio_data.read()
+    audio = AudioSegment.from_file(io.BytesIO(audio_bytes), format="wav")
+
+    st.audio(audio_bytes, format="audio/wav", start_time=0)
+
+    # Pitch shift (increase or decrease pitch)
+    pitch_shift = st.slider("🎚️ Change pitch", -5, 5, 0)
+    speed_change = st.slider("⚡ Change speed", 0.5, 2.0, 1.0)
+
+    # Apply effects
+    if pitch_shift != 0:
+        audio = audio._spawn(audio.raw_data, overrides={
+            "frame_rate": int(audio.frame_rate * (2.0 ** (pitch_shift / 12.0)))
+        }).set_frame_rate(audio.frame_rate)
+
+    # Change speed
+    if speed_change != 1.0:
+        audio = audio.speedup(playback_speed=speed_change)
+
+    # Export edited audio
+    buffer = BytesIO()
+    audio.export(buffer, format="wav")
+    st.audio(buffer, format="audio/wav")
+
+
+
+
+'''
 import speech_recognition as sr
 
 st.title("🎙️ Speech to Text Converter")
@@ -86,3 +122,4 @@ if st.button("Start Recording"):
 
 st.write("🎉 Done!")
 
+'''
