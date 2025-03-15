@@ -70,7 +70,7 @@ from vosk import Model, KaldiRecognizer
 import soundfile as sf
 import numpy as np
 
-model = Model("model") 
+model = Model("model/vosk-model-small-en-us") 
 
 if audio_data:
     # Read the audio data
