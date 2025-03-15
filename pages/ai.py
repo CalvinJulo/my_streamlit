@@ -77,8 +77,8 @@ if audio_data:
     st.audio(audio_bytes, format="audio/wav", start_time=0)
 
     # Pitch shift (increase or decrease pitch)
-    pitch_shift = st.slider("🎚️ Change pitch", -5, 5, 0)
-    speed_change = st.slider("⚡ Change speed", 0.5, 2.0, 1.0)
+    pitch_shift = st.slider("Change pitch", -5, 5, 0)
+    speed_change = st.slider("Change speed", 0.5, 2.0, 1.0)
 
     # Apply effects
     if pitch_shift != 0:
