@@ -59,7 +59,7 @@ import streamlit as st
 audio_data = st.audio_input("Record a voice message")
 
 if audio_data:
-    st.audio(audio_value)
+    st.audio(audio_data)
 
 
 
