@@ -3,7 +3,8 @@
 streamlit
 mlconjug3
 gtts
-
+pydictionary
+nltk
 pydub
 soundfile
 vosk
