@@ -16,7 +16,6 @@ sys.path.append(parent_dir)
 
 
 import streamlit as st
-from PyDictionary import PyDictionary
 from gtts import gTTS
 import nltk
 from nltk.corpus import wordnet as wn
@@ -26,8 +25,19 @@ from io import BytesIO
 # Download nltk resources
 nltk.download("wordnet")
 
-# Initialize dictionary
-dictionary = PyDictionary()
+
+# Streamlit UI
+st.title("📖 English Dictionary with Pronunciation")
+word = st.text_input("Enter a word:", "")
+
+
+for syn in wn.synsets(word):
+    st.write('syn')
+    st.write(dir(syn))
+
+
+
+'''
 
 # Function to get word details
 def get_word_details(word):
@@ -102,3 +112,4 @@ if word:
     st.subheader("🔊 Pronunciation")
     pronunciation_audio = generate_audio(word)
     st.audio(pronunciation_audio, format="audio/mp3")
+'''
