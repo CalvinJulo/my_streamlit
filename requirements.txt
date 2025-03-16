@@ -9,6 +9,8 @@ pydub
 soundfile
 vosk
 pywikibot
+pyphonetics
+ety
 
 # pyttsx3
 # speechrecognition
