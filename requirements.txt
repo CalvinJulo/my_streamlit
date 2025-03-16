@@ -8,6 +8,7 @@ nltk
 pydub
 soundfile
 vosk
+pywikibot
 
 # pyttsx3
 # speechrecognition
