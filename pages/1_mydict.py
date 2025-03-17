@@ -91,11 +91,9 @@ def fetch_wiktionary_data(word):
     response = request.submit()
 
     pages = response.get("query", {}).get("pages", {})
-    for page_id, page_data in pages.items():
-        if "extract" in page_data:
-            return page_data["extract"]  # Returns the introductory text (definition)
-    
-    return
+    # for page_id, page_data in pages.items():
+
+    return pages
 
 # Example: Fetch Wiktionary data for "articulate"
 word = "articulate"
