@@ -77,7 +77,25 @@ def parse_wiktionary_page(word):
 
     for line in lines:
         line = line.strip()
-
+        if line.startswith("="):
+            if line.count("=") // 2 = 2:
+                section_name = line.strip("=").strip()
+                word_data[section_name] = {}
+                current_2th_section = section_name
+            elif line.count("=") // 2 = 3:
+                section_name = line.strip("=").strip()
+                word_data[current_2th_section][section_name] = []
+                current_3th_section = section_name
+            elif line.count("=") // 2 = 4:
+                section_name = line.strip("=").strip()
+                word_data[current_2th_section][current_3th_section][section_name] = []
+                current_4th_section = section_name
+            elif line.count("=") // 2 = 5:
+                section_name = line.strip("=").strip()
+                word_data[current_2th_section][current_3th_section][current_4th_section][section_name] = []
+                current_5th_section = section_name        
+        in_list = False  # Reset list tracking
+'''
         # Detect Main Sections (Etymology 1, Etymology 2, etc.)
         if line.startswith("==") and line.endswith("==") and not line.startswith("==="):
             section_name = line.strip("=").strip()
@@ -95,7 +113,7 @@ def parse_wiktionary_page(word):
                 current_3th_section = sub_section_name
                 current_meaning = None  # Reset meaning tracking
             in_list = False  # Reset list tracking
-
+'''
         # Detect Lists (Synonyms, Antonyms, Derived Terms)
         elif line.startswith("*"):  
             if current_2th_section and current_3th_section:
