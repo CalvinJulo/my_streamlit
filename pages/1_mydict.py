@@ -58,7 +58,7 @@ import re
 # st.write(family)
 
 
-word = "articulate"
+word = st.text_input("Enter a word:", "articulate")
 
 
 # Connect to English Wiktionary
