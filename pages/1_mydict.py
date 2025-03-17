@@ -95,25 +95,7 @@ def parse_wiktionary_page(word):
                 word_data[current_2th_section][current_3th_section][current_4th_section][section_name] = []
                 current_5th_section = section_name        
             in_list = False  # Reset list tracking
-'''
-        # Detect Main Sections (Etymology 1, Etymology 2, etc.)
-        if line.startswith("==") and line.endswith("==") and not line.startswith("==="):
-            section_name = line.strip("=").strip()
-            word_data[section_name] = {}
-            current_2th_section = section_name
-            current_3th_section = None
-            current_meaning = None
-            in_list = False  # Reset list tracking
 
-        # Detect Sub-sections (Pronunciation, Adjective, Noun, etc.)
-        elif line.startswith("===") and line.endswith("==="):
-            sub_section_name = line.strip("=").strip()
-            if current_2th_section:
-                word_data[current_2th_section][sub_section_name] = []
-                current_3th_section = sub_section_name
-                current_meaning = None  # Reset meaning tracking
-            in_list = False  # Reset list tracking
-'''
         # Detect Lists (Synonyms, Antonyms, Derived Terms)
         elif line.startswith("*"):  
             if current_2th_section and current_3th_section:
