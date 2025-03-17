@@ -95,7 +95,7 @@ def fetch_wiktionary_data(word):
         if "extract" in page_data:
             return page_data["extract"]  # Returns the introductory text (definition)
     
-    return None
+    return
 
 # Example: Fetch Wiktionary data for "articulate"
 word = "articulate"
