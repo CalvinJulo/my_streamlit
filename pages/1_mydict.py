@@ -66,7 +66,7 @@ def parse_wiktionary_page(word):
         return {"error": "Word not found"}
 
     lines = page.text.split("\n")
-    word_data = {"word": word, "sections": {}}
+    word_data = {"word": word}
 
     current_main_section = None
     current_sub_section = None
@@ -80,7 +80,7 @@ def parse_wiktionary_page(word):
         # Detect Main Sections (Etymology 1, Etymology 2, etc.)
         if line.startswith("==") and line.endswith("==") and not line.startswith("==="):
             section_name = line.strip("=").strip()
-            word_data["sections"][section_name] = {}
+            word_data[section_name] = {}
             current_main_section = section_name
             current_sub_section = None
             current_meaning = None
@@ -90,7 +90,7 @@ def parse_wiktionary_page(word):
         elif line.startswith("===") and line.endswith("==="):
             sub_section_name = line.strip("=").strip()
             if current_main_section:
-                word_data["sections"][current_main_section][sub_section_name] = []
+                word_data[current_main_section][sub_section_name] = []
                 current_sub_section = sub_section_name
                 current_meaning = None  # Reset meaning tracking
             in_list = False  # Reset list tracking
@@ -98,7 +98,7 @@ def parse_wiktionary_page(word):
         # Detect Lists (Synonyms, Antonyms, Derived Terms)
         elif line.startswith("*"):  
             if current_main_section and current_sub_section:
-                if isinstance(word_data["sections"][current_main_section][current_sub_section], list):
+                if isinstance(word_data[current_main_section][current_sub_section], list):
                     word_data["sections"][current_main_section][current_sub_section].append(line[2:].strip())
 
         # Detect Meanings (Start with "#")
@@ -106,7 +106,7 @@ def parse_wiktionary_page(word):
             definition = line[2:].strip()
             current_meaning = {"definition": definition, "examples": [], "synonyms": [], "antonyms": []}
             if current_main_section and current_sub_section:
-                word_data["sections"][current_main_section][current_sub_section].append(current_meaning)
+                word_data[current_main_section][current_sub_section].append(current_meaning)
 
         # Detect Examples (Start with "#* ")
         elif line.startswith("#*"):  
@@ -127,15 +127,17 @@ def parse_wiktionary_page(word):
         # Add regular text content if relevant
         elif line:
             if current_main_section and current_sub_section:
-                if isinstance(word_data["sections"][current_main_section][current_sub_section], list):
-                    word_data["sections"][current_main_section][current_sub_section].append(line.strip())
+                if isinstance(word_data[current_main_section][current_sub_section], list):
+                    word_data[current_main_section][current_sub_section].append(line.strip())
 
-    return word_data
+    return word_data,lines
 
 # Example Usage
 word_dict = parse_wiktionary_page("articulate")
 
-st.write(word_dict)
+st.write(word_dict[0])
+st.write(word_dict[1])
+
 
 
 tt= [{"word":"articulate","phonetic":"/ɑː(ɹ)ˈtɪk.jʊ.lət/","phonetics":[{"text":"/ɑː(ɹ)ˈtɪk.jʊ.lət/","audio":"https://api.dictionaryapi.dev/media/pronunciations/en/articulate-1-uk.mp3","sourceUrl":"https://commons.wikimedia.org/w/index.php?curid=57060355","license":{"name":"BY-SA 4.0","url":"https://creativecommons.org/licenses/by-sa/4.0"}},{"text":"/ɑːɹˈtɪk.jə.lət/","audio":"https://api.dictionaryapi.dev/media/pronunciations/en/articulate-1-us.mp3","sourceUrl":"https://commons.wikimedia.org/w/index.php?curid=179574","license":{"name":"BY-SA 3.0","url":"https://creativecommons.org/licenses/by-sa/3.0"}}],"meanings":[{"partOfSpeech":"noun","definitions":[{"definition":"An animal of the subkingdom Articulata.","synonyms":[],"antonyms":[]}],"synonyms":[],"antonyms":[]},{"partOfSpeech":"adjective","definitions":[{"definition":"Clear; effective.","synonyms":[],"antonyms":[]},{"definition":"Speaking in a clear and effective manner.","synonyms":[],"antonyms":[],"example":"She’s a bright, articulate young woman."},{"definition":"Consisting of segments united by joints.","synonyms":[],"antonyms":[],"example":"The robot arm was articulate in two directions."},{"definition":"Distinctly marked off.","synonyms":[],"antonyms":[],"example":"an articulate period in history"},{"definition":"Expressed in articles or in separate items or particulars.","synonyms":[],"antonyms":[]},{"definition":"(of sound) Related to human speech, as distinct from the vocalisation of animals.","synonyms":[],"antonyms":[]}],"synonyms":["eloquent","well-spoken"],"antonyms":[]}],"license":{"name":"CC BY-SA 3.0","url":"https://creativecommons.org/licenses/by-sa/3.0"},"sourceUrls":["https://en.wiktionary.org/wiki/articulate"]},{"word":"articulate","phonetic":"/ɑː(ɹ)ˈtɪk.jʊ.leɪt/","phonetics":[{"text":"/ɑː(ɹ)ˈtɪk.jʊ.leɪt/","audio":"https://api.dictionaryapi.dev/media/pronunciations/en/articulate-2-uk.mp3","sourceUrl":"https://commons.wikimedia.org/w/index.php?curid=57060367","license":{"name":"BY-SA 4.0","url":"https://creativecommons.org/licenses/by-sa/4.0"}},{"text":"/ɑːɹˈtɪk.jə.leɪt/","audio":"https://api.dictionaryapi.dev/media/pronunciations/en/articulate-2-us.mp3","sourceUrl":"https://commons.wikimedia.org/w/index.php?curid=179575","license":{"name":"BY-SA 3.0","url":"https://creativecommons.org/licenses/by-sa/3.0"}}],"meanings":[{"partOfSpeech":"verb","definitions":[{"definition":"To make clear or effective.","synonyms":[],"antonyms":[]},{"definition":"To speak clearly; to enunciate.","synonyms":[],"antonyms":[],"example":"I wish he’d articulate his words more clearly."},{"definition":"To explain; to put into words; to make something specific.","synonyms":[],"antonyms":[],"example":"I like this painting, but I can’t articulate why."},{"definition":"To bend or hinge something at intervals, or to allow or build something so that it can bend.","synonyms":[],"antonyms":[],"example":"an articulated bus"},{"definition":"To attack a note, as by tonguing, slurring, bowing, etc.","synonyms":[],"antonyms":[],"example":"Articulate that passage heavily."},{"definition":"To form a joint or connect by joints","synonyms":[],"antonyms":[],"example":"The lower jaw articulates with the skull at the temporomandibular joint."},{"definition":"To treat or make terms.","synonyms":[],"antonyms":[]}],"synonyms":[],"antonyms":[]}],"license":{"name":"CC BY-SA 3.0","url":"https://creativecommons.org/licenses/by-sa/3.0"},"sourceUrls":["https://en.wiktionary.org/wiki/articulate"]}]
