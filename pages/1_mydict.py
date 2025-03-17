@@ -93,7 +93,7 @@ def fetch_wiktionary_data(word):
     # pages = response.get("query", {}).get("pages", {})
     # for page_id, page_data in pages.items():
 
-    return request
+    return response
 
 # Example: Fetch Wiktionary data for "articulate"
 word = "articulate"
