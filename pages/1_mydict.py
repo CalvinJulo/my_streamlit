@@ -99,7 +99,7 @@ def parse_wiktionary_page(word):
         elif line.startswith("*"):  
             if current_main_section and current_sub_section:
                 if isinstance(word_data[current_main_section][current_sub_section], list):
-                    word_data["sections"][current_main_section][current_sub_section].append(line[2:].strip())
+                    word_data[current_main_section][current_sub_section].append(line[2:].strip())
 
         # Detect Meanings (Start with "#")
         elif line.startswith("#"):  
