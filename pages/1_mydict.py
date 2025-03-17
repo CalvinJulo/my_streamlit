@@ -76,24 +76,25 @@ import json
 # Connect to English Wiktionary
 site = pywikibot.Site("en", "wiktionary")
 
-def fetch_wiktionary_data(word):
-    """Fetches structured data from Wiktionary using the API."""
+def fetch_wiktionary_wikitext(word):
+    """Fetches the raw WikiText of a word from Wiktionary."""
     
     params = {
         "action": "query",
         "format": "json",
-        "prop": "extracts",
-        "exintro": True,
-        "titles": word
+        "titles": word,
+        "prop": "revisions",
+        "rvprop": "content"
     }
     
-    request = api.Request(site=site, action='query',titles='articulate')
+    request = api.Request(site=site, **params)
     response = request.submit()
 
-    # pages = response.get("query", {}).get("pages", {})
-    # for page_id, page_data in pages.items():
+    # Extract page content
+    pages = response.get("query", {}).get("pages", {})
+    page_content = next(iter(pages.values())).get("revisions", [{}])[0].get("*", "")
 
-    return response
+    return page_content
 
 # Example: Fetch Wiktionary data for "articulate"
 word = "articulate"
