@@ -20,7 +20,7 @@ from gtts import gTTS
 import nltk
 from nltk.corpus import wordnet as wn
 from io import BytesIO
-
+import json
 
 # Download nltk resources
 nltk.download("wordnet")
@@ -111,6 +111,9 @@ def parse_wikitext_to_dict(text):
 parsed_dict = parse_wikitext_to_dict(page_text)
 st.write(parsed_dict)
 
+st.write('---')
+
+st.write(json.dumps(parsed_dict, indent=4, ensure_ascii=False)
 
 
 
