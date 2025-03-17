@@ -79,7 +79,7 @@ def parse_wiktionary_page(word):
 
         # Detect Main Sections (Etymology 1, Etymology 2, etc.)
         if line.startswith("==") and line.endswith("=="):
-            section_name = line.strip("= ").strip()
+            section_name = line.strip("=").strip()
             word_data["sections"][section_name] = {}
             current_main_section = section_name
             current_sub_section = None
@@ -88,7 +88,7 @@ def parse_wiktionary_page(word):
 
         # Detect Sub-sections (Pronunciation, Adjective, Noun, etc.)
         elif line.startswith("===") and line.endswith("==="):
-            sub_section_name = line.strip("= ").strip()
+            sub_section_name = line.strip("=").strip()
             if current_main_section:
                 word_data["sections"][current_main_section][sub_section_name] = []
                 current_sub_section = sub_section_name
