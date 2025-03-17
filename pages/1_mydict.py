@@ -66,7 +66,8 @@ def parse_wiktionary_page(word):
 
     lines = page.text.split("\n")
     word_data = {"word": word}
-
+    current_section= {}
+    section_level = {}
     current_2th_section = None
     current_3th_section = None
     current_4th_section = None
@@ -78,22 +79,12 @@ def parse_wiktionary_page(word):
     for line in lines:
         line = line.strip()
         if line.startswith("="):
-            if line.count("=") // 2 == 2:
-                section_name = line.strip("=").strip()
-                word_data[section_name] = {}
-                current_2th_section = section_name
-            elif line.count("=") // 2 == 3:
-                section_name = line.strip("=").strip()
-                word_data[current_2th_section][section_name] = {}
-                current_3th_section = section_name
-            elif line.count("=") // 2 == 4:
-                section_name = line.strip("=").strip()
-                word_data[current_2th_section][current_3th_section][section_name] = {}
-                current_4th_section = section_name
-            elif line.count("=") // 2 == 5:
-                section_name = line.strip("=").strip()
-                word_data[current_2th_section][current_3th_section][current_4th_section][section_name] = {}
-                current_5th_section = section_name   
+            level= line.count("=") // 2
+            section_name = line.strip("=").strip()
+            section_level[f'level_{level}_section']=section_name
+            current_section = word_data
+            for lvl in range(2,level+1):
+                current_section= current_section.setdefault(section_level[f'level_{level}_section'], {})
             in_list = False  # Reset list tracking
 
         # Detect Lists (Synonyms, Antonyms, Derived Terms)
