@@ -96,20 +96,20 @@ def parse_wiktionary_page(word):
             in_list = False  # Reset list tracking
 
         # Detect Lists (Synonyms, Antonyms, Derived Terms)
-        elif line.startswith("* "):  
+        elif line.startswith("*"):  
             if current_main_section and current_sub_section:
                 if isinstance(word_data["sections"][current_main_section][current_sub_section], list):
                     word_data["sections"][current_main_section][current_sub_section].append(line[2:].strip())
 
-        # Detect Meanings (Start with "# ")
-        elif line.startswith("# "):  
+        # Detect Meanings (Start with "#")
+        elif line.startswith("#"):  
             definition = line[2:].strip()
             current_meaning = {"definition": definition, "examples": [], "synonyms": [], "antonyms": []}
             if current_main_section and current_sub_section:
                 word_data["sections"][current_main_section][current_sub_section].append(current_meaning)
 
         # Detect Examples (Start with "#* ")
-        elif line.startswith("#* "):  
+        elif line.startswith("#*"):  
             example = line[3:].strip()
             if current_meaning:
                 current_meaning["examples"].append(example)
