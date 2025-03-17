@@ -83,18 +83,20 @@ def parse_wiktionary_page(word):
             if level == 2:
                 word_data[section_name] = {}
                 current_2th_section = section_name
+                current_section = word_data[section_name]
             elif level == 3:
                 word_data[current_2th_section][section_name] = {}
                 current_3th_section = section_name
+                current_section = word_data[current_2th_section][section_name]
             elif level == 4:
                 word_data[current_2th_section][current_3th_section][section_name] = {}
                 current_4th_section = section_name
+                current_section = word_data[current_2th_section][current_3th_section][section_name]
             elif level == 5:
                 word_data[current_2th_section][current_3th_section][current_4th_section][section_name] = {}
                 current_5th_section = section_name   
+                current_section = word_data[current_2th_section][current_3th_section][current_4th_section][section_name]
             in_list = False  # Reset list tracking
-
-            
 
         # Detect Lists (Synonyms, Antonyms, Derived Terms)
         elif line.startswith("*"):  
@@ -103,14 +105,11 @@ def parse_wiktionary_page(word):
                     word_data[current_2th_section][current_3th_section].append(line[2:].strip())
 
         # Detect Meanings (Start with "#")
-        elif line.startswith("#"):  
+        elif line.startswith("#") and not line.startswith("#*"):  
             definition = line[2:].strip()
-            current_meaning = {"definition": definition, "examples": [], "synonyms": [], "antonyms": []}
-            if current_2th_section and current_3th_section:
-               # word_data[current_2th_section][current_3th_section].append(current_meaning)
-                pass
+            current_section['definition'].append(definition)
 
-        # Detect Examples (Start with "#* ")
+        # Detect Examples (Start with "#*")
         elif line.startswith("#*"):  
             example = line[3:].strip()
             if current_meaning:
