@@ -51,6 +51,7 @@ st.write(details)
 
 
 import pywikibot
+import re
 
 
 family = pywikibot.family.WikimediaFamily.content_families
