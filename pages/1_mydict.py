@@ -129,27 +129,30 @@ def extract_definitions_and_examples(part_of_speech_data):
     return {"Definitions": definitions, "Examples": examples}
 
 def refine_wiktionary_data(parsed_data):
-    """Refine parsed Wiktionary data into structured format."""
+    """Refine parsed Wiktionary data, keeping multiple Etymologies."""
     refined = {}
 
-    # Keep etymology structure
-    if "Etymology" in parsed_data:
-        refined["Etymology"] = parsed_data["Etymology"]
-    
-    # Extract Pronunciation
-    refined["Pronunciation"] = extract_pronunciation(parsed_data)
-    
-    # Extract lists
-    for section in ["Synonyms", "Derived terms", "Translations", "Related terms"]:
-        if section in parsed_data:
-            refined[section] = extract_word_list(parsed_data[section])
+    for etymology_key in parsed_data:
+        if etymology_key.startswith("Etymology"):
+            etymology_data = parsed_data[etymology_key]
+            refined[etymology_key] = {}
 
-    # Extract Part of Speech (Noun, Verb, Adjective)
-    for pos in ["Noun", "Verb", "Adjective"]:
-        if pos in parsed_data:
-            refined[pos] = extract_definitions_and_examples(parsed_data[pos])
+            # Extract pronunciation if present
+            if "Pronunciation" in etymology_data:
+                refined[etymology_key]["Pronunciation"] = extract_pronunciation(etymology_data["Pronunciation"])
+
+            # Extract lists
+            for section in ["Synonyms", "Derived terms", "Translations", "Related terms"]:
+                if section in etymology_data:
+                    refined[etymology_key][section] = extract_word_list(etymology_data[section])
+
+            # Extract Part of Speech (Noun, Verb, Adjective)
+            for pos in ["Noun", "Verb", "Adjective"]:
+                if pos in etymology_data:
+                    refined[etymology_key][pos] = extract_definitions_and_examples(etymology_data[pos])
 
     return refined
+
 
 
 parsed_dict = parse_wikitext_to_dict(page_text)
