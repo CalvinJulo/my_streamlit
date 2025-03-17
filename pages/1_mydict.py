@@ -66,14 +66,7 @@ def parse_wiktionary_page(word):
 
     lines = page.text.split("\n")
     word_data = {"word": word}
-    current_level = word_data.copy()
 
-    current_section= {}
-    section_level = {}
-    current_2th_section = None
-    current_3th_section = None
-    current_4th_section = None
-    current_5th_section = None
     current_meaning = None
     current_list = []
     in_list = False  # Track whether we are inside a list
@@ -83,10 +76,6 @@ def parse_wiktionary_page(word):
         if line.startswith("="):
             level= line.count("=") // 2
             section_name = line.strip("=").strip()
-
-            section_level[f'level {level}'] = section_name
-            for lv in range(2, level):
-                current_level = current_level.setdefault(section_level[f'level {level}'], {})                
             if level == 2:
                 word_data[section_name] = {}
                 current_2th_section = section_name
@@ -138,8 +127,6 @@ def parse_wiktionary_page(word):
             if current_2th_section and current_3th_section:
                 if isinstance(word_data[current_2th_section][current_3th_section], list):
                     word_data[current_2th_section][current_3th_section].append(line.strip())
-    st.write('re',current_level)
-
     return word_data,lines
 
 
