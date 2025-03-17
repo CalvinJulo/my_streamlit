@@ -82,15 +82,15 @@ def parse_wiktionary_page(word):
                 section_name = line.strip("=").strip()
                 word_data[section_name] = {}
                 current_2th_section = section_name
-            elif line.count("=") // 2 = 3:
+            elif line.count("=") // 2 == 3:
                 section_name = line.strip("=").strip()
                 word_data[current_2th_section][section_name] = []
                 current_3th_section = section_name
-            elif line.count("=") // 2 = 4:
+            elif line.count("=") // 2 == 4:
                 section_name = line.strip("=").strip()
                 word_data[current_2th_section][current_3th_section][section_name] = []
                 current_4th_section = section_name
-            elif line.count("=") // 2 = 5:
+            elif line.count("=") // 2 == 5:
                 section_name = line.strip("=").strip()
                 word_data[current_2th_section][current_3th_section][current_4th_section][section_name] = []
                 current_5th_section = section_name        
