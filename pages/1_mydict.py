@@ -51,6 +51,8 @@ st.write(details)
 
 
 import pywikibot
+family = pywikibot.config.family
+st.write(f"Supported Wikimedia sites: {family}")
 site = pywikibot.Site("en", "wiktionary")
 page = pywikibot.Page(site, 'articulate')
 text = page.text
