@@ -65,7 +65,6 @@ word = "articulate"
 site = pywikibot.Site("en", "wiktionary")
 page = pywikibot.Page(site, word)
 page_text = page.text
-st.code(page_text)
 
 
 
@@ -162,7 +161,7 @@ refined_data = refine_wiktionary_data(parsed_dict)
 
 
 
-
+st.write(parsed_dict)
 st.write(refined_data)
 
 tt ='https://api.dictionaryapi.dev/api/v2/entries/en/articulate'
