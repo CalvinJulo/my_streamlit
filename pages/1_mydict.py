@@ -81,10 +81,18 @@ def parse_wiktionary_page(word):
         if line.startswith("="):
             level= line.count("=") // 2
             section_name = line.strip("=").strip()
-            section_level[f'level_{level}_section']=section_name
-            current_section = word_data
-            for lvl in range(2,level+1):
-                current_section= current_section.setdefault(section_level[f'level_{level}_section'], {})
+            if level == 2:
+                word_data[section_name] = {}
+                current_2th_section = section_name
+            elif level 2 == 3:
+                word_data[current_2th_section][section_name] = {}
+                current_3th_section = section_name
+            elif level == 4:
+                word_data[current_2th_section][current_3th_section][section_name] = {}
+                current_4th_section = section_name
+            elif level == 5:
+                word_data[current_2th_section][current_3th_section][current_4th_section][section_name] = {}
+                current_5th_section = section_name   
             in_list = False  # Reset list tracking
 
         # Detect Lists (Synonyms, Antonyms, Derived Terms)
