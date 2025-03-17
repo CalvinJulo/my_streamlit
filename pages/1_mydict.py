@@ -117,13 +117,7 @@ st.write(json.dumps(parsed_dict, indent=4, ensure_ascii=False)
 
 
 
-def clean_text(text):
-    """Removes brackets, templates, and formatting."""
-    text = re.sub(r"\{\{.*?\}\}", "", text)  # Remove {{template}}
-    text = re.sub(r"\[\[(?:[^|\]]+\|)?([^|\]]+)\]\]", r"\1", text)  # Remove [[links]]
-    text = re.sub(r"'''(.*?)'''", r"\1", text)  # Remove bold
-    text = re.sub(r":\s*", "", text)  # Remove extra colons
-    return text.strip()
+
 
 def parse_wiktionary_page(word):
     site = pywikibot.Site("en", "wiktionary")
