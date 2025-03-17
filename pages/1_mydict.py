@@ -66,6 +66,10 @@ def parse_wiktionary_page(word):
 
     lines = page.text.split("\n")
     word_data = {"word": word}
+    current_2th_section=None
+    current_3th_section=None
+    current_4th_section=None
+    current_5th_section=None
 
     current_meaning = None
     current_list = []
