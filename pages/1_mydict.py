@@ -94,7 +94,7 @@ def parse_wikitext_to_dict(text):
 
 def extract_pronunciation(data):
     """Extract IPA and audio files from Pronunciation section."""
-    pronunciation_data = data.get('English').get('Etymology 1').get("Pronunciation", {}).get("content", [])
+    pronunciation_data = data.get("content", [])
     ipa_list = []
     audio_list = []
     for line in pronunciation_data:
