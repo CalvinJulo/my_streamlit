@@ -160,7 +160,7 @@ refined_data = refine_wiktionary_data(parsed_dict)
 
 
 
-
+st.write(f'{parsed_dict}')
 st.write(parsed_dict)
 st.write(refined_data)
 
