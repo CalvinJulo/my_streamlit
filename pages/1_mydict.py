@@ -110,12 +110,41 @@ ipa_list = extract_section(page_text, "Pronunciation")
 etymology = extract_section(page_text, "Etymology 1")
 Related_terms=extract_section(page_text, "Related terms")
 
-st.write("English",extract_section(page_text, "English"))
-st.write("Pronunciation",extract_section(page_text, "Pronunciation"))
-st.write("Definitions:", definitions[:5])  # Show only first 5
-st.write("IPA Pronunciation:", ipa_list)
-st.write("Etymology:", etymology)
-st.write("Related terms:", Related_terms)
+def parse_wikitext_to_dict(wikitext):
+    """Parses raw WikiText into a structured five-level dictionary."""
+    
+    lines = wikitext.split("\n")
+    structure = {}
+    stack = [structure]  # Stack to track nested levels
+    
+    section_levels = {}  # Track previous sections and their nesting levels
+
+    for line in lines:
+        # Match headings with = signs
+        match = re.match(r"^(=+)\s*(.*?)\s*\1$", line)
+        
+        if match:
+            level = len(match.group(1))  # Number of '=' determines hierarchy
+            title = match.group(2)
+            
+            # Navigate stack to correct depth
+            while len(stack) >= level:
+                stack.pop()
+            
+            # Create new nested dictionary
+            stack[-1][title] = {}
+            stack.append(stack[-1][title])
+        
+        elif line.strip():  # Non-empty lines (content)
+            stack[-1].setdefault("content", []).append(line.strip())
+
+    return structure
+
+# Example: Fetch Wiktionary data for "articulate"
+parsed_dict = parse_wikitext_to_dict(page_text)
+st.write(parsed_dict)
+
+
 
 
 
