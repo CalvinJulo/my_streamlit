@@ -56,7 +56,7 @@ import pywikibot
 family = pywikibot.family.WikimediaFamily.content_families
 # st.write(family)
 site = pywikibot.Site("en", "wiktionary")
-page = pywikibot.Page(site, word)
+page = pywikibot.Page(site, 'articulate')
 text = page.text
 
 def clean_text(text):
@@ -67,6 +67,7 @@ def clean_text(text):
     text = re.sub(r":\s*", "", text)  # Remove extra colons
     return text.strip()
 
+st.write(text)
 st.write(clean_text(text))
 
 
