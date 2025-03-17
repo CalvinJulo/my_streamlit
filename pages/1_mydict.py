@@ -80,7 +80,7 @@ page = pywikibot.Page(site, word)
 page_text = page.text
 # *** Method 2 ***
 # page_text = fetch_wiktionary_text(word)
-# st.code(page_text)
+st.code(page_text)
 
 
 
