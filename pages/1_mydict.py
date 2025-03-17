@@ -138,7 +138,7 @@ def parse_wiktionary_page(word):
             if current_2th_section and current_3th_section:
                 if isinstance(word_data[current_2th_section][current_3th_section], list):
                     word_data[current_2th_section][current_3th_section].append(line.strip())
-        st.write('re',current_level)
+    st.write('re',current_level)
 
     return word_data,lines
 
