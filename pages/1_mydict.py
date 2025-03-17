@@ -97,6 +97,7 @@ def parse_wiktionary_page(word):
                 current_5th_section = section_name   
                 current_section = word_data[current_2th_section][current_3th_section][current_4th_section][section_name]
             in_list = False  # Reset list tracking
+            current_section['info'] =[]
 
         # Detect Lists (Synonyms, Antonyms, Derived Terms)
         elif line.startswith("*"):  
@@ -107,7 +108,7 @@ def parse_wiktionary_page(word):
         # Detect Meanings (Start with "#")
         elif line.startswith("#") and not line.startswith("#*"):  
             definition = line[2:].strip()
-            current_section.append(definition)
+            current_section['info'].append(definition)
 
         # Detect Examples (Start with "#*")
         elif line.startswith("#*"):  
