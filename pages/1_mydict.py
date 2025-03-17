@@ -117,8 +117,6 @@ st.write(json.dumps(parsed_dict, indent=4, ensure_ascii=False)
 
 
 
-
-
 def clean_text(text):
     """Removes brackets, templates, and formatting."""
     text = re.sub(r"\{\{.*?\}\}", "", text)  # Remove {{template}}
