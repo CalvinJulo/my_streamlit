@@ -132,7 +132,7 @@ def refine_wiktionary_data(parsed_data):
     """Refine parsed Wiktionary data, keeping multiple Etymologies."""
     refined = {}
 
-    for etymology_key in parsed_data:
+    for etymology_key in parsed_data['English']:
         if etymology_key.startswith("Etymology"):
             etymology_data = parsed_data[etymology_key]
             refined[etymology_key] = {}
