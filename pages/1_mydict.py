@@ -94,7 +94,6 @@ def parse_wiktionary_page(word):
                 section_name = line.strip("=").strip()
                 word_data[current_2th_section][current_3th_section][current_4th_section][section_name] = {}
                 current_5th_section = section_name   
-            current_meaning = None
             in_list = False  # Reset list tracking
 
         # Detect Lists (Synonyms, Antonyms, Derived Terms)
@@ -108,7 +107,8 @@ def parse_wiktionary_page(word):
             definition = line[2:].strip()
             current_meaning = {"definition": definition, "examples": [], "synonyms": [], "antonyms": []}
             if current_2th_section and current_3th_section:
-                word_data[current_2th_section][current_3th_section].append(current_meaning)
+               # word_data[current_2th_section][current_3th_section].append(current_meaning)
+                pass
 
         # Detect Examples (Start with "#* ")
         elif line.startswith("#*"):  
