@@ -63,7 +63,8 @@ def parse_wiktionary_page(word):
 
     if not page.exists():
         return {"error": "Word not found"}
-
+    st.write(page.text)
+    st.write('---')
     lines = page.text.split("\n")
     word_data = {"word": word}
     current_2th_section=None
