@@ -68,9 +68,39 @@ def clean_text(text):
     text = re.sub(r":\s*", "", text)  # Remove extra colons
     return text.strip()
 
-st.write(text)
-st.write(clean_text(text))
 
+
+from pywikibot.data import api
+import json
+
+# Connect to English Wiktionary
+site = pywikibot.Site("en", "wiktionary")
+
+def fetch_wiktionary_data(word):
+    """Fetches structured data from Wiktionary using the API."""
+    
+    params = {
+        "action": "query",
+        "format": "json",
+        "prop": "extracts",
+        "exintro": True,
+        "titles": word
+    }
+    
+    request = api.Request(site=site, **params)
+    response = request.submit()
+
+    pages = response.get("query", {}).get("pages", {})
+    for page_id, page_data in pages.items():
+        if "extract" in page_data:
+            return page_data["extract"]  # Returns the introductory text (definition)
+    
+    return None
+
+# Example: Fetch Wiktionary data for "articulate"
+word = "articulate"
+result = fetch_wiktionary_data(word)
+st.write(result)
 
 
 def parse_wiktionary_page(word):
