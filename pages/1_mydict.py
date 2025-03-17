@@ -58,6 +58,76 @@ st.write(family)
 site = pywikibot.Site("en", "wiktionary")
 
 
+
+def parse_wiktionary_page(word):
+    site = pywikibot.Site("en", "wiktionary")
+    page = pywikibot.Page(site, word)
+
+    if not page.exists():
+        return {"error": "Word not found"}
+
+    lines = page.text.split("\n")
+    word_data = {"word": word, "sections": {}}
+
+    section_stack = []
+    current_section = word_data["sections"]
+    last_level = 0
+
+    def get_current_dict(level):
+        """ Get the current dictionary level based on the section stack. """
+        temp = word_data["sections"]
+        for sec in section_stack[:level]:
+            temp = temp[sec]
+        return temp
+
+    for line in lines:
+        line = line.strip()
+
+        # Detect different levels of sections (Etymology, Pronunciation, Noun, etc.)
+        if line.startswith("=") and line.endswith("="):
+            level = line.count("=") // 2  # Count "==", "===", "====", etc.
+            section_name = line.strip("= ").strip()
+
+            # Pop stack to the current level
+            section_stack = section_stack[:level-1]
+            section_stack.append(section_name)
+
+            # Create nested dictionary structure
+            current_dict = get_current_dict(level-1)
+            current_dict[section_name] = {}
+            last_level = level
+
+        # Detect lists (usually synonyms, antonyms, related terms, etc.)
+        elif line.startswith("* "):  
+            item = line[2:].strip()
+            current_dict = get_current_dict(last_level)
+            if isinstance(current_dict, list):
+                current_dict.append(item)
+            else:
+                section_stack.append("list")
+                current_dict["list"] = [item]
+
+        # Detect meanings (lines starting with "# ")
+        elif line.startswith("# "):  
+            meaning = line[2:].strip()
+            current_dict = get_current_dict(last_level)
+            if "meanings" not in current_dict:
+                current_dict["meanings"] = []
+            current_dict["meanings"].append({"definition": meaning, "examples": [], "synonyms": [], "antonyms": []})
+
+        # Detect examples (lines starting with "#* ")
+        elif line.startswith("#* "):
+            example = line[3:].strip()
+            current_dict = get_current_dict(last_level)
+            if "meanings" in current_dict and current_dict["meanings"]:
+                current_dict["meanings"][-1]["examples"].append(example)
+
+    return word_data
+
+
+
+
+'''
 def parse_wiktionary_page(word):
     site = pywikibot.Site("en", "wiktionary")
     page = pywikibot.Page(site, word)
@@ -68,8 +138,10 @@ def parse_wiktionary_page(word):
     lines = page.text.split("\n")
     word_data = {"word": word}
 
-    current_main_section = None
-    current_sub_section = None
+    current_2th_section = None
+    current_3th_section = None
+    current_4th_section = None
+    current_5th_section = None
     current_meaning = None
     current_list = []
     in_list = False  # Track whether we are inside a list
@@ -81,32 +153,32 @@ def parse_wiktionary_page(word):
         if line.startswith("==") and line.endswith("==") and not line.startswith("==="):
             section_name = line.strip("=").strip()
             word_data[section_name] = {}
-            current_main_section = section_name
-            current_sub_section = None
+            current_2th_section = section_name
+            current_3th_section = None
             current_meaning = None
             in_list = False  # Reset list tracking
 
         # Detect Sub-sections (Pronunciation, Adjective, Noun, etc.)
         elif line.startswith("===") and line.endswith("==="):
             sub_section_name = line.strip("=").strip()
-            if current_main_section:
-                word_data[current_main_section][sub_section_name] = []
-                current_sub_section = sub_section_name
+            if current_2th_section:
+                word_data[current_2th_section][sub_section_name] = []
+                current_3th_section = sub_section_name
                 current_meaning = None  # Reset meaning tracking
             in_list = False  # Reset list tracking
 
         # Detect Lists (Synonyms, Antonyms, Derived Terms)
         elif line.startswith("*"):  
-            if current_main_section and current_sub_section:
-                if isinstance(word_data[current_main_section][current_sub_section], list):
-                    word_data[current_main_section][current_sub_section].append(line[2:].strip())
+            if current_2th_section and current_3th_section:
+                if isinstance(word_data[current_2th_section][current_3th_section], list):
+                    word_data[current_2th_section][current_3th_section].append(line[2:].strip())
 
         # Detect Meanings (Start with "#")
         elif line.startswith("#"):  
             definition = line[2:].strip()
             current_meaning = {"definition": definition, "examples": [], "synonyms": [], "antonyms": []}
-            if current_main_section and current_sub_section:
-                word_data[current_main_section][current_sub_section].append(current_meaning)
+            if current_2th_section and current_3th_section:
+                word_data[current_2th_section][current_3th_section].append(current_meaning)
 
         # Detect Examples (Start with "#* ")
         elif line.startswith("#*"):  
@@ -126,11 +198,12 @@ def parse_wiktionary_page(word):
 
         # Add regular text content if relevant
         elif line:
-            if current_main_section and current_sub_section:
-                if isinstance(word_data[current_main_section][current_sub_section], list):
-                    word_data[current_main_section][current_sub_section].append(line.strip())
+            if current_2th_section and current_3th_section:
+                if isinstance(word_data[current_2th_section][current_3th_section], list):
+                    word_data[current_2th_section][current_3th_section].append(line.strip())
 
     return word_data,lines
+'''
 
 # Example Usage
 word_dict = parse_wiktionary_page("articulate")
