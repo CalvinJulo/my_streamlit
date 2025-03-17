@@ -97,16 +97,13 @@ def extract_pronunciation(data):
     pronunciation_data = data.get('English').get('Etymology 1').get("Pronunciation", {}).get("content", [])
     ipa_list = []
     audio_list = []
-
     for line in pronunciation_data:
         ipa_match = re.findall(r"[^|]*\/", line)
         if ipa_match:
-            ipa_list.extend(ipa_match)
-        
+            ipa_list.extend(ipa_match)   
         audio_match = re.findall(r"[^|]*\.ogg", line)
         if audio_match:
             audio_list.extend(audio_match)
-
     return {"IPA": ipa_list, "Audio": audio_list}
 
 def extract_word_list(section_data):
