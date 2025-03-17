@@ -78,7 +78,7 @@ def parse_wiktionary_page(word):
         line = line.strip()
 
         # Detect Main Sections (Etymology 1, Etymology 2, etc.)
-        if line.startswith("==") and line.endswith("=="):
+        if line.startswith("==") and line.endswith("==") and not line.startswith("==="):
             section_name = line.strip("=").strip()
             word_data["sections"][section_name] = {}
             current_main_section = section_name
