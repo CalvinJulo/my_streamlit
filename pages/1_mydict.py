@@ -113,7 +113,7 @@ st.write(parsed_dict)
 
 st.write('---')
 
-st.write(json.dumps(parsed_dict, indent=4, ensure_ascii=False)
+st.write(json.dumps(parsed_dict, indent=4, ensure_ascii=False))
 
 
 
