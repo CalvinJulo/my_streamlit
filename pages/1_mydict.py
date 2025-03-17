@@ -56,9 +56,65 @@ import re
 
 family = pywikibot.family.WikimediaFamily.content_families
 # st.write(family)
+
+
+# Connect to English Wiktionary
 site = pywikibot.Site("en", "wiktionary")
-page = pywikibot.Page(site, 'articulate')
-text = page.text
+
+def fetch_wiktionary_text(word):
+    """Use data.api to fetches the raw WikiText of a word from Wiktionary."""
+    """The same to pywikibot.Page(site,word)"""
+    params = {"action": "query", "format": "json", "titles": word, "prop": "revisions", "rvprop": "content"}
+    request = pywikibot.data.api.Request(site=site, **params)
+    response = request.submit()
+    # Extract page content
+    pages = response.get("query", {}).get("pages", {})
+    page_content = next(iter(pages.values())).get("revisions", [{}])[0].get("*", "")
+    return page_content
+
+# Example: Fetch Wiktionary data for "articulate"
+word = "articulate"
+
+# *** Method 1 ***
+page = pywikibot.Page(site, word)
+page_text = page.text
+# *** Method 2 ***
+# page_text = fetch_wiktionary_text(word)
+# st.code(page_text)
+
+
+
+def extract_section(text, section):
+    """Extracts a specific section from WikiText using regex."""
+    
+    pattern = rf"==\s*{section}\s*==([\s\S]*?)(?=\n==|\Z)"
+    match = re.search(pattern, text, re.MULTILINE)
+    
+    return match.group(1).strip() if match else None
+
+def extract_definitions(text):
+    """Extracts definitions from the 'Definitions' section."""
+    
+    pattern = r"#\s*(.*)"
+    return re.findall(pattern, text)
+
+def extract_ipa(text):
+    """Extracts IPA pronunciation from the 'Pronunciation' section."""
+    
+    pattern = r"\{\{IPA\|([^}|]*)"
+    return re.findall(pattern, text)
+
+
+definitions = extract_definitions(extract_section(page_text, "English"))
+ipa_list = extract_ipa(extract_section(page_text, "Pronunciation"))
+etymology = extract_section(page_text, "Etymology")
+
+
+st.write("Definitions:", definitions[:5])  # Show only first 5
+st.write("IPA Pronunciation:", ipa_list)
+st.write("Etymology:", etymology)
+
+
 
 def clean_text(text):
     """Removes brackets, templates, and formatting."""
@@ -67,41 +123,6 @@ def clean_text(text):
     text = re.sub(r"'''(.*?)'''", r"\1", text)  # Remove bold
     text = re.sub(r":\s*", "", text)  # Remove extra colons
     return text.strip()
-
-
-
-from pywikibot.data import api
-import json
-
-# Connect to English Wiktionary
-site = pywikibot.Site("en", "wiktionary")
-
-def fetch_wiktionary_wikitext(word):
-    """Fetches the raw WikiText of a word from Wiktionary."""
-    params = {
-        "action": "query",
-        "format": "json",
-        "titles": word,
-        "prop": "revisions",
-        "rvprop": "content"
-    }
-
-    request = api.Request(site=site, **params)
-    response = request.submit()
-    # Extract page content
-    pages = response.get("query", {}).get("pages", {})
-    page_content = next(iter(pages.values())).get("revisions", [{}])[0].get("*", "")
-
-    return page_content
-
-# Example: Fetch Wiktionary data for "articulate"
-word = "articulate"
-result = fetch_wiktionary_wikitext(word)
-st.code(result)
-
-page = pywikibot.Page(site, word)
-st.code(page.text)
-
 
 def parse_wiktionary_page(word):
     site = pywikibot.Site("en", "wiktionary")
