@@ -84,7 +84,7 @@ def parse_wiktionary_page(word):
             if level == 2:
                 word_data[section_name] = {}
                 current_2th_section = section_name
-            elif level 2 == 3:
+            elif level == 3:
                 word_data[current_2th_section][section_name] = {}
                 current_3th_section = section_name
             elif level == 4:
