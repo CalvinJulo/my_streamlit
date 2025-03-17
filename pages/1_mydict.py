@@ -109,7 +109,8 @@ definitions = extract_definitions(extract_section(page_text, "English"))
 ipa_list = extract_ipa(extract_section(page_text, "Pronunciation"))
 etymology = extract_section(page_text, "Etymology")
 
-
+st.write("English",extract_section(page_text, "English"))
+st.write("Pronunciation",extract_section(page_text, "Pronunciation"))
 st.write("Definitions:", definitions[:5])  # Show only first 5
 st.write("IPA Pronunciation:", ipa_list)
 st.write("Etymology:", etymology)
