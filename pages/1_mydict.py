@@ -84,61 +84,28 @@ st.code(page_text)
 
 
 
-def extract_section(text, section):
-    """Extracts a specific section from WikiText using regex."""
-    
-    pattern = rf"==\s*{section}\s*==([\s\S]*?)(?=\n==|\Z)"
-    match = re.search(pattern, text, re.MULTILINE)
-    
-    return match.group(1).strip() if match else None
-
-def extract_definitions(text):
-    """Extracts definitions from the 'Definitions' section."""
-    
-    pattern = r"#\s*(.*)"
-    return re.findall(pattern, text)
-
-def extract_ipa(text):
-    """Extracts IPA pronunciation from the 'Pronunciation' section."""
-    
-    pattern = r"\{\{IPA\|([^}|]*)"
-    return re.findall(pattern, text)
-
-
-definitions = extract_definitions(page_text)
-ipa_list = extract_section(page_text, "Pronunciation")
-etymology = extract_section(page_text, "Etymology 1")
-Related_terms=extract_section(page_text, "Related terms")
-
-def parse_wikitext_to_dict(wikitext):
-    """Parses raw WikiText into a structured five-level dictionary."""
-    
-    lines = wikitext.split("\n")
-    structure = {}
-    stack = [structure]  # Stack to track nested levels
-    
+def parse_wikitext_to_dict(text):
+    """Parses raw WikiText into a structured five-level dictionary.""" 
+    lines = text.split("\n")
+    text_to_dict = {}
+    stack = [text_to_dict]  # Stack to track nested levels
     section_levels = {}  # Track previous sections and their nesting levels
 
     for line in lines:
         # Match headings with = signs
         match = re.match(r"^(=+)\s*(.*?)\s*\1$", line)
-        
         if match:
             level = len(match.group(1))  # Number of '=' determines hierarchy
             title = match.group(2)
-            
             # Navigate stack to correct depth
             while len(stack) >= level:
                 stack.pop()
-            
             # Create new nested dictionary
             stack[-1][title] = {}
             stack.append(stack[-1][title])
-        
         elif line.strip():  # Non-empty lines (content)
             stack[-1].setdefault("content", []).append(line.strip())
-
-    return structure
+    return text_to_dict
 
 # Example: Fetch Wiktionary data for "articulate"
 parsed_dict = parse_wikitext_to_dict(page_text)
