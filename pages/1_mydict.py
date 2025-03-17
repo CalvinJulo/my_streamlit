@@ -78,7 +78,7 @@ def parse_wiktionary_page(word):
     for line in lines:
         line = line.strip()
         if line.startswith("="):
-            if line.count("=") // 2 = 2:
+            if line.count("=") // 2 == 2:
                 section_name = line.strip("=").strip()
                 word_data[section_name] = {}
                 current_2th_section = section_name
