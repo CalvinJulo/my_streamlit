@@ -93,7 +93,8 @@ def parse_wiktionary_page(word):
             elif line.count("=") // 2 == 5:
                 section_name = line.strip("=").strip()
                 word_data[current_2th_section][current_3th_section][current_4th_section][section_name] = {}
-                current_5th_section = section_name        
+                current_5th_section = section_name   
+            current_meaning = None
             in_list = False  # Reset list tracking
 
         # Detect Lists (Synonyms, Antonyms, Derived Terms)
