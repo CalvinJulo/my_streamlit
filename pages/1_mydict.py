@@ -108,7 +108,7 @@ def parse_wiktionary_page(word):
         # Detect Meanings (Start with "#")
         elif line.startswith("#") and not line.startswith("#*"):  
             definition = line[2:].strip()
-            current_section['info'].append(definition)
+            current_section['definition'].append(definition)
 
         # Detect Examples (Start with "#*")
         elif line.startswith("#*"):  
