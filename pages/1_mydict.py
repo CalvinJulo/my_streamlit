@@ -130,7 +130,7 @@ def parse_wiktionary_page(word):
                 if isinstance(word_data["sections"][current_main_section][current_sub_section], list):
                     word_data["sections"][current_main_section][current_sub_section].append(line.strip())
 
-    return lines
+    return word_data
 
 # Example Usage
 word_dict = parse_wiktionary_page("articulate")
