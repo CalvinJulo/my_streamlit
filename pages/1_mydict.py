@@ -92,6 +92,11 @@ def fetch_wiktionary_wikitext(word):
 
     # Extract page content
     pages = response.get("query", {}).get("pages", {})
+    st.write(pages)
+    st.write(pages.values())
+    st.write(iter(pages.values()))
+    st.write(next(iter(pages.values())))
+    st.write(next(iter(pages.values())).get("revisions", [{}]))
     page_content = next(iter(pages.values())).get("revisions", [{}])[0].get("*", "")
 
     return page_content
