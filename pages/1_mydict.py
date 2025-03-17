@@ -78,7 +78,6 @@ site = pywikibot.Site("en", "wiktionary")
 
 def fetch_wiktionary_wikitext(word):
     """Fetches the raw WikiText of a word from Wiktionary."""
-    
     params = {
         "action": "query",
         "format": "json",
@@ -86,17 +85,11 @@ def fetch_wiktionary_wikitext(word):
         "prop": "revisions",
         "rvprop": "content"
     }
-    
+
     request = api.Request(site=site, **params)
     response = request.submit()
-
     # Extract page content
     pages = response.get("query", {}).get("pages", {})
-    st.write(pages)
-    st.write(pages.values())
-    st.write(iter(pages.values()))
-    st.write(next(iter(pages.values())))
-    st.write(next(iter(pages.values())).get("revisions", [{}]))
     page_content = next(iter(pages.values())).get("revisions", [{}])[0].get("*", "")
 
     return page_content
@@ -105,6 +98,9 @@ def fetch_wiktionary_wikitext(word):
 word = "articulate"
 result = fetch_wiktionary_wikitext(word)
 st.code(result)
+
+page = pywikibot.Page(site, word)
+st.code(page.text)
 
 
 def parse_wiktionary_page(word):
