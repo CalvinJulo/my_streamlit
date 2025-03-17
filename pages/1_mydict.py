@@ -105,7 +105,7 @@ def extract_ipa(text):
     return re.findall(pattern, text)
 
 
-definitions = extract_definitions(page_text))
+definitions = extract_definitions(page_text)
 ipa_list = extract_section(page_text, "Pronunciation")
 etymology = extract_section(page_text, "Etymology 1")
 
