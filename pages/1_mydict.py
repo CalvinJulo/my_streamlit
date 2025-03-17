@@ -54,32 +54,17 @@ import pywikibot
 import re
 
 
-family = pywikibot.family.WikimediaFamily.content_families
+# family = pywikibot.family.WikimediaFamily.content_families
 # st.write(family)
+
+
+word = "articulate"
 
 
 # Connect to English Wiktionary
 site = pywikibot.Site("en", "wiktionary")
-
-def fetch_wiktionary_text(word):
-    """Use data.api to fetches the raw WikiText of a word from Wiktionary."""
-    """The same to pywikibot.Page(site,word)"""
-    params = {"action": "query", "format": "json", "titles": word, "prop": "revisions", "rvprop": "content"}
-    request = pywikibot.data.api.Request(site=site, **params)
-    response = request.submit()
-    # Extract page content
-    pages = response.get("query", {}).get("pages", {})
-    page_content = next(iter(pages.values())).get("revisions", [{}])[0].get("*", "")
-    return page_content
-
-# Example: Fetch Wiktionary data for "articulate"
-word = "articulate"
-
-# *** Method 1 ***
 page = pywikibot.Page(site, word)
 page_text = page.text
-# *** Method 2 ***
-# page_text = fetch_wiktionary_text(word)
 st.code(page_text)
 
 
@@ -107,101 +92,78 @@ def parse_wikitext_to_dict(text):
             stack[-1].setdefault("content", []).append(line.strip())
     return text_to_dict
 
-# Example: Fetch Wiktionary data for "articulate"
+
+def extract_pronunciation(data):
+    """Extract IPA and audio files from Pronunciation section."""
+    pronunciation_data = data.get("Pronunciation", {}).get("content", [])
+    ipa_list = []
+    audio_list = []
+
+    for line in pronunciation_data:
+        ipa_match = re.findall(r"{{IPA\|([^}]*)}}", line)
+        if ipa_match:
+            ipa_list.extend(ipa_match)
+        
+        audio_match = re.findall(r"\[\[File:([^]]+)\]\]", line)
+        if audio_match:
+            audio_list.extend(audio_match)
+
+    return {"IPA": ipa_list, "Audio": audio_list}
+
+def extract_word_list(section_data):
+    """Extract words from bullet-point lists."""
+    words = []
+    for line in section_data.get("content", []):
+        match = re.match(r"^\*+\s*\[\[(.*?)\]\]", line)  # Match [[word]]
+        if match:
+            words.append(match.group(1))
+    return words
+
+def extract_definitions_and_examples(part_of_speech_data):
+    """Extract definitions and examples from adjective, noun, verb sections."""
+    definitions = []
+    examples = []
+    
+    for line in part_of_speech_data.get("content", []):
+        if line.startswith("# "):  # Definition
+            definitions.append(line[2:])
+        elif line.startswith("#* "):  # Example
+            examples.append(line[3:])
+    
+    return {"Definitions": definitions, "Examples": examples}
+
+def refine_wiktionary_data(parsed_data):
+    """Refine parsed Wiktionary data into structured format."""
+    refined = {}
+
+    # Keep etymology structure
+    if "Etymology" in parsed_data:
+        refined["Etymology"] = parsed_data["Etymology"]
+    
+    # Extract Pronunciation
+    refined["Pronunciation"] = extract_pronunciation(parsed_data)
+    
+    # Extract lists
+    for section in ["Synonyms", "Derived terms", "Translations", "Related terms"]:
+        if section in parsed_data:
+            refined[section] = extract_word_list(parsed_data[section])
+
+    # Extract Part of Speech (Noun, Verb, Adjective)
+    for pos in ["Noun", "Verb", "Adjective"]:
+        if pos in parsed_data:
+            refined[pos] = extract_definitions_and_examples(parsed_data[pos])
+
+    return refined
+
+
 parsed_dict = parse_wikitext_to_dict(page_text)
-st.write(parsed_dict)
-
-st.write('---')
-
-st.write(json.dumps(parsed_dict, indent=4, ensure_ascii=False))
+refined_data = refine_wiktionary_data(parsed_dict)
 
 
 
 
 
-def parse_wiktionary_page(word):
-    site = pywikibot.Site("en", "wiktionary")
-    page = pywikibot.Page(site, word)
-
-    if not page.exists():
-        return {"error": "Word not found"}
-    st.code(page.text)
-    st.write('---')
-    lines = page.text.split("\n")
-    word_data = {"word": word}
-    current_2th_section=None
-    current_3th_section=None
-    current_4th_section=None
-    current_5th_section=None
-
-    current_meaning = None
-    current_list = []
-    in_list = False  # Track whether we are inside a list
-
-    for line in lines:
-        line = line.strip()
-        if line.startswith("="):
-            level= line.count("=") // 2
-            section_name = line.strip("=").strip()
-            if level == 2:
-                word_data[section_name] = {}
-                current_2th_section = section_name
-                current_section = word_data[section_name]
-            elif level == 3:
-                word_data[current_2th_section][section_name] = {}
-                current_3th_section = section_name
-                current_section = word_data[current_2th_section][section_name]
-            elif level == 4:
-                word_data[current_2th_section][current_3th_section][section_name] = {}
-                current_4th_section = section_name
-                current_section = word_data[current_2th_section][current_3th_section][section_name]
-            elif level == 5:
-                word_data[current_2th_section][current_3th_section][current_4th_section][section_name] = {}
-                current_5th_section = section_name   
-                current_section = word_data[current_2th_section][current_3th_section][current_4th_section][section_name]
-            in_list = False  # Reset list tracking
-            current_section['definition'] =[]
-
-        # Detect Lists (Synonyms, Antonyms, Derived Terms)
-        elif line.startswith("*"):  
-            if current_2th_section and current_3th_section:
-                if isinstance(word_data[current_2th_section][current_3th_section], list):
-                    word_data[current_2th_section][current_3th_section].append(line[2:].strip())
-
-        # Detect Meanings (Start with "#")
-        elif line.startswith("#") and not line.startswith("#*"):  
-            definition = line[2:].strip()
-            current_section['definition'].append(definition)
-
-        # Detect Examples (Start with "#*")
-        elif line.startswith("#*"):  
-            example = line[3:].strip()
-            if current_meaning:
-                current_meaning["examples"].append(example)
-
-        # Detect Synonyms and Antonyms (Start with "{{synonyms}}" or "{{antonyms}}")
-        elif line.startswith("{{synonyms|"):
-            synonyms = line.replace("{{synonyms|", "").replace("}}", "").split(", ")
-            if current_meaning:
-                current_meaning["synonyms"].extend(synonyms)
-        elif line.startswith("{{antonyms|"):
-            antonyms = line.replace("{{antonyms|", "").replace("}}", "").split(", ")
-            if current_meaning:
-                current_meaning["antonyms"].extend(antonyms)
-
-        # Add regular text content if relevant
-        elif line:
-            if current_2th_section and current_3th_section:
-                if isinstance(word_data[current_2th_section][current_3th_section], list):
-                    word_data[current_2th_section][current_3th_section].append(line.strip())
-    return word_data,lines
-
-
-# Example Usage
-# word_dict = parse_wiktionary_page("articulate")
-
-
-
+st.write(refined_data)
 
 tt ='https://api.dictionaryapi.dev/api/v2/entries/en/articulate'
 ss = [{"word":"articulation","phonetics":[{"audio":"https://api.dictionaryapi.dev/media/pronunciations/en/articulation-au.mp3","sourceUrl":"https://commons.wikimedia.org/w/index.php?curid=75729565","license":{"name":"BY-SA 4.0","url":"https://creativecommons.org/licenses/by-sa/4.0"}},{"text":"/ɑːˌtɪk.jəˈleɪ.ʃən/","audio":""},{"text":"/ɑɹˌtɪk.jəˈleɪ.ʃən/","audio":"https://api.dictionaryapi.dev/media/pronunciations/en/articulation-us.mp3","sourceUrl":"https://commons.wikimedia.org/w/index.php?curid=194530","license":{"name":"BY-SA 3.0","url":"https://creativecommons.org/licenses/by-sa/3.0"}}],"meanings":[{"partOfSpeech":"noun","definitions":[{"definition":"A joint or the collection of joints at which something is articulated, or hinged, for bending.","synonyms":[],"antonyms":[],"example":"The articulation allowed the robot to move around corners."},{"definition":"A manner or method by which elements of a system are connected.","synonyms":[],"antonyms":[]},{"definition":"The quality, clarity or sharpness of speech.","synonyms":[],"antonyms":[],"example":"His volume is reasonable, but his articulation could use work."},{"definition":"The manner in which a phoneme is pronounced.","synonyms":[],"antonyms":[]},{"definition":"The manner in which something is articulated (tongued, slurred or bowed).","synonyms":[],"antonyms":[],"example":"The articulation in this piece is tricky because it alternates between legato and staccato."},{"definition":"The interrelation and congruence of the flow of data between financial statements of an entity, especially between the income statement and balance sheet.","synonyms":[],"antonyms":[]}],"synonyms":[],"antonyms":[]}],"license":{"name":"CC BY-SA 3.0","url":"https://creativecommons.org/licenses/by-sa/3.0"},"sourceUrls":["https://en.wiktionary.org/wiki/articulation"]}]
