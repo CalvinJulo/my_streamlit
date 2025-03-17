@@ -87,13 +87,13 @@ def fetch_wiktionary_data(word):
         "titles": word
     }
     
-    request = api.Request(site=site, **params)
+    request = api.Request(site=site, params=params)
     response = request.submit()
 
     pages = response.get("query", {}).get("pages", {})
     # for page_id, page_data in pages.items():
 
-    return pages
+    return response
 
 # Example: Fetch Wiktionary data for "articulate"
 word = "articulate"
