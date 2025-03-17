@@ -99,7 +99,7 @@ def fetch_wiktionary_wikitext(word):
 # Example: Fetch Wiktionary data for "articulate"
 word = "articulate"
 result = fetch_wiktionary_wikitext(word)
-st.write(result)
+st.code(result)
 
 
 def parse_wiktionary_page(word):
