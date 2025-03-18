@@ -57,14 +57,10 @@ st.write(wn.synonyms(word))
 st.header("Data From wordnet by nltk")
 # st.write(fetch_wordnet_data_nltk(word))
 for syn in wn.synsets(word):
-    st.write(sys.definition())
-    st.write(sys.examples())
-    st.write(sys.lemmas())
-    st.write(sys.lemma_names())
-    st.write(sys.lemmas())
-    st.write(sys.lemmas())
-    st.write(sys.lemmas())
-    st.write(sys.lemmas())
+    st.write(syn.definition())
+    st.write(syn.examples())
+    st.write(syn.lemmas())
+    st.write(syn.lemma_names())
 
 
 
