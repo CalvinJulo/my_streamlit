@@ -87,7 +87,8 @@ def fetch_wordnet_data_nltk(word):
         details.append(detail)
     return details
 
-st.write(wn.words())
+
+st.write('## Data From wordnet by nltk')
 
 st.write(fetch_wordnet_data_nltk(word))
 
@@ -95,7 +96,8 @@ st.write(fetch_wordnet_data_nltk(word))
 # ********************************************************************
 # Data From Ety
 
-st.write(ety.origins(word, recursive=True))
+st.write('## Data From Ety')
+# st.write(ety.origins(word, recursive=True))
 st.write(ety.tree(word))
 
 
@@ -159,7 +161,7 @@ Wiktionary (Pywikibot)
 
 
 
-word = st.text_input("Enter a word:", "articulate")
+
 site = pywikibot.Site("en", "wiktionary")
 
 # Connect to English Wiktionary
