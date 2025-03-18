@@ -24,6 +24,7 @@ import json
 import requests
 import pywikibot
 import re
+import ety
 
 
 st.title("English Dictionary")
@@ -91,7 +92,11 @@ st.write(wn.words())
 st.write(fetch_wordnet_data_nltk(word))
 
 
+# ********************************************************************
+# Data From Ety
 
+st.write(ety.origins(word, recursive=True))
+st.write(ety.tree(word))
 
 
 
