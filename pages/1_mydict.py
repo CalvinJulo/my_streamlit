@@ -21,6 +21,10 @@ import nltk
 from nltk.corpus import wordnet as wn
 from io import BytesIO
 import json
+import requests
+import pywikibot
+import re
+
 
 # Download nltk resources
 nltk.download("wordnet")
@@ -50,16 +54,13 @@ for syn in wn.synsets(word):
 st.write(details)
 
 
-import pywikibot
-import re
 
+# Data From Wiktionay by pywikibot
 
 # family = pywikibot.family.WikimediaFamily.content_families
 # st.write(family)
 
-
 word = st.text_input("Enter a word:", "articulate")
-
 
 # Connect to English Wiktionary
 site = pywikibot.Site("en", "wiktionary")
@@ -67,7 +68,7 @@ page = pywikibot.Page(site, word)
 page_text = page.text
 
 
-st.write('## Data From Wiktionay by wikibot')
+st.write('## Data From Wiktionay by pywikibot')
 st.code(page_text)
 
 def parse_wikitext_to_dict(text):
@@ -161,11 +162,13 @@ parsed_dict = parse_wikitext_to_dict(page_text)
 refined_data = refine_wiktionary_data(parsed_dict)
 
 
-
-
-
-api_url ='https://api.dictionaryapi.dev/api/v2/entries/en/articulate'
-api_text = [{"word":"articulation","phonetics":[{"audio":"https://api.dictionaryapi.dev/media/pronunciations/en/articulation-au.mp3","sourceUrl":"https://commons.wikimedia.org/w/index.php?curid=75729565","license":{"name":"BY-SA 4.0","url":"https://creativecommons.org/licenses/by-sa/4.0"}},{"text":"/ɑːˌtɪk.jəˈleɪ.ʃən/","audio":""},{"text":"/ɑɹˌtɪk.jəˈleɪ.ʃən/","audio":"https://api.dictionaryapi.dev/media/pronunciations/en/articulation-us.mp3","sourceUrl":"https://commons.wikimedia.org/w/index.php?curid=194530","license":{"name":"BY-SA 3.0","url":"https://creativecommons.org/licenses/by-sa/3.0"}}],"meanings":[{"partOfSpeech":"noun","definitions":[{"definition":"A joint or the collection of joints at which something is articulated, or hinged, for bending.","synonyms":[],"antonyms":[],"example":"The articulation allowed the robot to move around corners."},{"definition":"A manner or method by which elements of a system are connected.","synonyms":[],"antonyms":[]},{"definition":"The quality, clarity or sharpness of speech.","synonyms":[],"antonyms":[],"example":"His volume is reasonable, but his articulation could use work."},{"definition":"The manner in which a phoneme is pronounced.","synonyms":[],"antonyms":[]},{"definition":"The manner in which something is articulated (tongued, slurred or bowed).","synonyms":[],"antonyms":[],"example":"The articulation in this piece is tricky because it alternates between legato and staccato."},{"definition":"The interrelation and congruence of the flow of data between financial statements of an entity, especially between the income statement and balance sheet.","synonyms":[],"antonyms":[]}],"synonyms":[],"antonyms":[]}],"license":{"name":"CC BY-SA 3.0","url":"https://creativecommons.org/licenses/by-sa/3.0"},"sourceUrls":["https://en.wiktionary.org/wiki/articulation"]}]
+# Data from DictionaryAPI.dev
+def fetch_dictionaryapi_data(word):
+    api_url = f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}"
+    response = requests.get(api_url)
+    if response.status_code == 200:
+        api_data = response.json()
+    return api_data
 st.write('## Data from DictionaryAPI.dev')
-st.write(ss)
+st.write(fetch_dictionaryapi_data(word))
 
