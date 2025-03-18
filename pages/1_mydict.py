@@ -88,7 +88,7 @@ def fetch_wordnet_data_nltk(word):
         details.append(detail)
     return details
 
-st.write(wn.word())
+st.write(wn.words())
 
 st.write(fetch_wordnet_data_nltk(word))
 
