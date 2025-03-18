@@ -105,6 +105,10 @@ def fetch_Stand4_data(word):
     api_url = f"https://www.stands4.com/services/v2/defs.php?uid=13205&tokenid=01eaLfSB05gMMM8a&word={word}&format=json"
     st.write(api_url)
     response = requests.get(api_url)
+    if response:
+        st.write('a')
+    else:
+        st.write('b')
     if response.status_code == 200:
         api_data = response.json()
     else:
