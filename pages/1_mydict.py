@@ -32,6 +32,38 @@ word = st.text_input("Enter a word:", "")
 # *****************************************************************
 # Data From wordnet by nltk
 
+
+'''
+WordNet
+│
+├── Synset (Synonym Set)
+│   ├── Lemma (Word + Sense)
+│   │   ├── name() → Returns the lemma name
+│   │   ├── antonyms() → Opposite meaning words
+│   │   ├── derivationally_related_forms() → Related word forms
+│   │   ├── pertainyms() → Related adjectives/adverbs
+│   │
+│   ├── definition() → Returns the meaning of a synset
+│   ├── examples() → Returns example sentences
+│   ├── hypernyms() → More general concepts (e.g., "dog" → "animal")
+│   ├── hyponyms() → More specific concepts (e.g., "dog" → "poodle")
+│   ├── meronyms() → Parts of a whole (e.g., "tree" → "branch")
+│   ├── holonyms() → The whole that something is a part of (e.g., "branch" → "tree")
+│   ├── entailments() → Verbs that logically imply another verb (e.g., "snore" → "sleep")
+│
+├── WordNet Corpus Reader
+│   ├── synsets(word) → Returns all synsets of a word
+│   ├── lemma_names() → Returns all lemmas of synsets
+│   ├── all_synsets(pos) → Returns all synsets for a given POS
+│   ├── words() → Returns all words in WordNet
+│
+└── Parts of Speech (POS)
+    ├── Noun (n)
+    ├── Verb (v)
+    ├── Adjective (a)
+    ├── Adverb (r)
+'''
+
 # Download nltk resources
 nltk.download("wordnet")
 
@@ -39,29 +71,27 @@ def fetch_wordnet_data_nltk(word):
     details = []
     for syn in wn.synsets(word):
         detail = {
-            "word": word,"definitions": syn.definition(),"part_of_speech": syn.pos(),
+            "word": word,
+            "definitions": syn.definition(),
+            "part_of_speech": syn.pos(),
             "examples": syn.examples(),
+            "hypernyms":syn.hypernyms(),
+            "hyponyms":syn.hyponyms(),
+            "meronyms":syn.meronyms(),
+            "holonyms":syn.holonyms(),
+            "entailments":syn.entailments(),         
             "synonyms": list(set([lemma.name() for lemma in syn.lemmas()])),
             "antonyms": list(set([ant.name() for lemma in syn.lemmas() for ant in lemma.antonyms()])),
-            "phonetics": '',  # Get phonetic transcription (IPA)
-            "etymology": '', #https://www.etymonline.com/word
-            "paronyms": '',
-            "cognates": '',
-            "phrases": '',
-            "collocations": '',}
+            "derivationally_related_forms": list(set([drf.name() for lemma in syn.lemmas() for drf in lemma.derivationally_related_forms()])),
+            "pertainyms": list(set([per.name() for lemma in syn.lemmas() for per in lemma.pertainyms()])),
+        }
         details.append(detail)
     return details
 
-st.write('dir(wn)',dir(wn))
-st.write('dir(wn.synsets(word))',dir(wn.synsets(word)))
-st.write('dir(wn.synonyms(word))',dir(wn.synonyms(word)))
-st.header("Data From wordnet by nltk")
-# st.write(fetch_wordnet_data_nltk(word))
-st.write('wn.synsets(word)',wn.synsets(word))
-for syn in wn.synsets(word):
-    st.write('dir(syn)',dir(syn))
-    st.write('syn.lemmas()',syn.lemmas())
-    st.write('dir(syn.lemmas()[0])',dir(syn.lemmas()[0]))
+st.write(wn.word())
+
+st.write(fetch_wordnet_data_nltk(word))
+
 
 
 
@@ -72,6 +102,59 @@ for syn in wn.synsets(word):
 
 # family = pywikibot.family.WikimediaFamily.content_families
 # st.write(family)
+
+'''
+Wiktionary (Pywikibot)
+│
+├── Page (pywikibot.Page)
+│   ├── title (word)
+│   ├── text (raw Wiktionary content)
+│
+├── Parsed Content
+│   ├── Etymology
+│   │   ├── Etymology 1
+│   │   ├── Etymology 2
+│   │   ├── ...
+│   │
+│   ├── Pronunciation
+│   │   ├── IPA
+│   │   ├── Audio Pronunciations
+│   │
+│   ├── Part of Speech (POS)
+│   │   ├── Noun
+│   │   │   ├── Definitions
+│   │   │   ├── Examples
+│   │   │
+│   │   ├── Verb
+│   │   │   ├── Definitions
+│   │   │   ├── Examples
+│   │   │
+│   │   ├── Adjective
+│   │   │   ├── Definitions
+│   │   │   ├── Examples
+│   │
+│   ├── Synonyms
+│   │   ├── Word List
+│   │
+│   ├── Derived Terms
+│   │   ├── Word List
+│   │
+│   ├── Related Terms
+│   │   ├── Word List
+│   │
+│   ├── Translations
+│   │   ├── Language 1: [word1, word2]
+│   │   ├── Language 2: [word3, word4]
+│
+├── Pywikibot Actions
+│   ├── site = pywikibot.Site("en", "wiktionary")
+│   ├── page = pywikibot.Page(site, "word")
+│   ├── text = page.text
+│   ├── Parsing Functions
+│   ├── Data Extraction
+'''
+
+
 
 word = st.text_input("Enter a word:", "articulate")
 site = pywikibot.Site("en", "wiktionary")
