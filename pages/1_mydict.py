@@ -53,7 +53,9 @@ def fetch_wordnet_data_nltk(word):
     return details
 
 st.header("Data From wordnet by nltk")
-st.write(fetch_wordnet_data_nltk(word))
+# st.write(fetch_wordnet_data_nltk(word))
+for syn in wn.synsets(word):
+    st.write(sys,dir(sys))
 
 # ********************************************************************
 # Data From Wiktionay by pywikibot
