@@ -102,7 +102,7 @@ st.write(fetch_dictionaryapi_data(word))
 # ********************************************************************
 # Data from Stand4 network
 def fetch_Stand4_data(word):
-    api_url = f"https://www.stands4.com/services/v2/def.php?uid=13205&tokenid=01eaLfSB05gMMM8a&word={word}&format=json"
+    api_url = f"https://www.stands4.com/services/v2/def.php?uid=13205&tokenid=01eaLfSB05gMMM8a&word={word}&format=xml"
     response = requests.get(api_url)
     if response.status_code == 200:
         api_data = response.json()
