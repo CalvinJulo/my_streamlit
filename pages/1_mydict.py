@@ -33,9 +33,6 @@ word = st.text_input("Enter a word:", "")
 # *****************************************************************
 # Data From wordnet by nltk
 
-
-
-
 # Download nltk resources
 nltk.download("wordnet")
 
@@ -71,18 +68,11 @@ st.write('## Data From Ety')
 # st.write(ety.origins(word, recursive=True))
 st.write(ety.tree(word))
 
-
-
 # ********************************************************************
 # Data From Wiktionay by pywikibot
 
 # family = pywikibot.family.WikimediaFamily.content_families
 # st.write(family)
-
-
-
-
-
 
 site = pywikibot.Site("en", "wiktionary")
 
@@ -106,6 +96,20 @@ def fetch_dictionaryapi_data(word):
     return api_data
 st.write('## Data from DictionaryAPI.dev')
 st.write(fetch_dictionaryapi_data(word))
+
+
+
+# ********************************************************************
+# Data from Stand4 network
+def fetch_Stand4_data(word):
+    api_url = f"https://www.stands4.com/services/v2/def.php?uid=13205&tokenid=01eaLfSB05gMMM8a&word={word}&format=json"
+    response = requests.get(api_url)
+    if response.status_code == 200:
+        api_data = response.json()
+    return api_data
+st.write('## Data from Stand4 network')
+st.write(fetch_Stand4_data(word))
+
 
 
 # ********************************************************************
