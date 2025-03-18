@@ -52,17 +52,16 @@ def fetch_wordnet_data_nltk(word):
         details.append(detail)
     return details
 
-st.write(dir(wn))
-st.write(dir(wn.synsets(word)))
-st.write(dir(wn.synonyms(word)))
-st.write(dir(wn.synonyms(word)))
+st.write('dir(wn)',dir(wn))
+st.write('dir(wn.synsets(word))',dir(wn.synsets(word)))
+st.write('dir(wn.synonyms(word))',dir(wn.synonyms(word)))
 st.header("Data From wordnet by nltk")
 # st.write(fetch_wordnet_data_nltk(word))
-st.write(wn.synsets(word))
+st.write('wn.synsets(word)',wn.synsets(word))
 for syn in wn.synsets(word):
-    st.write(dir(syn))
-    st.write(syn.lemmas())
-    st.write(dir(syn.lemmas()[0]))
+    st.write('dir(syn)',dir(syn))
+    st.write('syn.lemmas()',syn.lemmas())
+    st.write('dir(syn.lemmas()[0])',dir(syn.lemmas()[0]))
 
 
 
