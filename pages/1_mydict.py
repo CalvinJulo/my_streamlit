@@ -77,7 +77,6 @@ def fetch_wordnet_data_nltk(word):
             "examples": syn.examples(),
             "hypernyms":syn.hypernyms(),
             "hyponyms":syn.hyponyms(),
-            "holonyms":syn.holonyms(),
             "entailments":syn.entailments(),         
             "synonyms": list(set([lemma.name() for lemma in syn.lemmas()])),
             "antonyms": list(set([ant.name() for lemma in syn.lemmas() for ant in lemma.antonyms()])),
