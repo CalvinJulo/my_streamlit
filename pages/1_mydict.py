@@ -171,7 +171,8 @@ def fetch_wiktionay_data(word):
     return page_text
 
 st.write('## Data From Wiktionay by pywikibot')
-st.code(fetch_wiktionay_data(word))
+with st.expander('Expander'):
+    st.code(fetch_wiktionay_data(word))
 
 # ********************************************************************
 # Data from DictionaryAPI.dev
