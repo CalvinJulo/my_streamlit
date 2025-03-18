@@ -185,3 +185,14 @@ def fetch_dictionaryapi_data(word):
 st.write('## Data from DictionaryAPI.dev')
 st.write(fetch_dictionaryapi_data(word))
 
+
+# ********************************************************************
+# Data source mainly from wordnet and wiktionary
+# Data from spaCy
+# Data from TextBlob
+# Data from pattern.en
+# www.synonyms.com/
+# www.beedictionary.com/
+# www.finedictionary.com/
+
+
