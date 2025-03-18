@@ -52,7 +52,7 @@ def fetch_wordnet_data_nltk(word):
         details.append(detail)
     return details
 
-st.subtitle('Data From wordnet by nltk')
+st.subtitle("Data From wordnet by nltk")
 st.write(fetch_wordnet_data_nltk(word))
 
 # ********************************************************************
