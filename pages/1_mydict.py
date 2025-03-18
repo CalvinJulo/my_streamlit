@@ -33,7 +33,7 @@ word = st.text_input("Enter a word:", "")
 # Data From wordnet by nltk
 
 
-'''
+wn_strucure = '''
 WordNet
 │
 ├── Synset (Synonym Set)
@@ -77,7 +77,6 @@ def fetch_wordnet_data_nltk(word):
             "examples": syn.examples(),
             "hypernyms":syn.hypernyms(),
             "hyponyms":syn.hyponyms(),
-            "meronyms":syn.meronyms(),
             "holonyms":syn.holonyms(),
             "entailments":syn.entailments(),         
             "synonyms": list(set([lemma.name() for lemma in syn.lemmas()])),
@@ -103,7 +102,7 @@ st.write(fetch_wordnet_data_nltk(word))
 # family = pywikibot.family.WikimediaFamily.content_families
 # st.write(family)
 
-'''
+wikitionary_structure = '''
 Wiktionary (Pywikibot)
 │
 ├── Page (pywikibot.Page)
