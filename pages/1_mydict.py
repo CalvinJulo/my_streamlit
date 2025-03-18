@@ -34,36 +34,7 @@ word = st.text_input("Enter a word:", "")
 # Data From wordnet by nltk
 
 
-wn_strucure = '''
-WordNet
-│
-├── Synset (Synonym Set)
-│   ├── Lemma (Word + Sense)
-│   │   ├── name() → Returns the lemma name
-│   │   ├── antonyms() → Opposite meaning words
-│   │   ├── derivationally_related_forms() → Related word forms
-│   │   ├── pertainyms() → Related adjectives/adverbs
-│   │
-│   ├── definition() → Returns the meaning of a synset
-│   ├── examples() → Returns example sentences
-│   ├── hypernyms() → More general concepts (e.g., "dog" → "animal")
-│   ├── hyponyms() → More specific concepts (e.g., "dog" → "poodle")
-│   ├── meronyms() → Parts of a whole (e.g., "tree" → "branch")
-│   ├── holonyms() → The whole that something is a part of (e.g., "branch" → "tree")
-│   ├── entailments() → Verbs that logically imply another verb (e.g., "snore" → "sleep")
-│
-├── WordNet Corpus Reader
-│   ├── synsets(word) → Returns all synsets of a word
-│   ├── lemma_names() → Returns all lemmas of synsets
-│   ├── all_synsets(pos) → Returns all synsets for a given POS
-│   ├── words() → Returns all words in WordNet
-│
-└── Parts of Speech (POS)
-    ├── Noun (n)
-    ├── Verb (v)
-    ├── Adjective (a)
-    ├── Adverb (r)
-'''
+
 
 # Download nltk resources
 nltk.download("wordnet")
@@ -108,56 +79,7 @@ st.write(ety.tree(word))
 # family = pywikibot.family.WikimediaFamily.content_families
 # st.write(family)
 
-wikitionary_structure = '''
-Wiktionary (Pywikibot)
-│
-├── Page (pywikibot.Page)
-│   ├── title (word)
-│   ├── text (raw Wiktionary content)
-│
-├── Parsed Content
-│   ├── Etymology
-│   │   ├── Etymology 1
-│   │   ├── Etymology 2
-│   │   ├── ...
-│   │
-│   ├── Pronunciation
-│   │   ├── IPA
-│   │   ├── Audio Pronunciations
-│   │
-│   ├── Part of Speech (POS)
-│   │   ├── Noun
-│   │   │   ├── Definitions
-│   │   │   ├── Examples
-│   │   │
-│   │   ├── Verb
-│   │   │   ├── Definitions
-│   │   │   ├── Examples
-│   │   │
-│   │   ├── Adjective
-│   │   │   ├── Definitions
-│   │   │   ├── Examples
-│   │
-│   ├── Synonyms
-│   │   ├── Word List
-│   │
-│   ├── Derived Terms
-│   │   ├── Word List
-│   │
-│   ├── Related Terms
-│   │   ├── Word List
-│   │
-│   ├── Translations
-│   │   ├── Language 1: [word1, word2]
-│   │   ├── Language 2: [word3, word4]
-│
-├── Pywikibot Actions
-│   ├── site = pywikibot.Site("en", "wiktionary")
-│   ├── page = pywikibot.Page(site, "word")
-│   ├── text = page.text
-│   ├── Parsing Functions
-│   ├── Data Extraction
-'''
+
 
 
 
