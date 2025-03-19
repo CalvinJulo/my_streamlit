@@ -101,7 +101,27 @@ st.write(fetch_dictionaryapi_data(word))
 
 # ********************************************************************
 # Data from Stand4 network
-def fetch_Stand4_data(word):
+
+stands4_api = {
+    "Definitions.net": f"https://www.stands4.com/services/v2/defs.php?uid=USER_ID&tokenid=01eaLfSB05gMMM8a&word={word}&format=xml",
+    "Anagrams.net": f"https://www.stands4.com/services/v2/ana.php?uid=USER_ID&tokenid=01eaLfSB05gMMM8a&term={word}&format=xml",
+    "Abbreviations.com": f"https://www.stands4.com/services/v2/abbr.php?uid=13205&tokenid=01eaLfSB05gMMM8a324&term={word}&format=xml",
+    "Conversions.net": f"https://www.stands4.com/services/v2/conv.php?uid=13205&tokenid=01eaLfSB05gMMM8a324&expression={word}&format=xml",
+    "Synonyms.com": f"https://www.stands4.com/services/v2/syno.php?uid=13205&tokenid=01eaLfSB05gMMM8a&word={word}&format=xml",
+    "Quotes.net": "https://www.stands4.com/services/v2/quotes.php?uid=13205&tokenid=01eaLfSB05gMMM8a324&searchtype=AUTHOR&query=Albert+Einstein&format=xml",
+    "Poetry.com": f"https://www.stands4.com/services/v2/poetry.php?uid=13205&tokenid=01eaLfSB05gMMM8a&term={word}&format=xml",
+    "Lyrics.com": f"https://www.stands4.com/services/v2/lyrics.php?uid=13205&tokenid=01eaLfSB05gMMM8a&term={word}&artist=Alphaville&format=xml",
+    "Grammar.com": f"https://www.stands4.com/services/v2/grammar.php?uid=13205&tokenid=01eaLfSB05gMMM8a&text={word}&format=json",
+    "Literature.com": f"https://www.stands4.com/services/v2/literature.php?uid=13205&tokenid=01eaLfSB05gMMM8a&term={word}&format=xml",
+    "Scripts.com": f"https://www.stands4.com/services/v2/scripts.php?uid=13205&tokenid=01eaLfSB05gMMM8a&term={word}&format=xml",
+    "Biographies.net": None,
+    "Phrases.com": f"https://www.stands4.com/services/v2/phrases.php?uid=13205&tokenid=01eaLfSB05gMMM8a&phrase={word}&format=xml",
+    "Symbols.com": None,
+    "References.net": None,
+    "Rhymes.net": f"https://www.stands4.com/services/v2/rhymes.php?uid=13205&tokenid=01eaLfSB05gMMM8a&term={word}&format=xml",
+    "uszip.com": f"https://www.stands4.com/services/v2/zip.php?uid=13205&tokenid=01eaLfSB05gMMM8a324&zip={word}&format=xml"
+}
+def fetch_stand4_data(word):
     api_url = f"https://www.stands4.com/services/v2/defs.php?uid=13205&tokenid=01eaLfSB05gMMM8a&word={word}&format=json"
     st.write(api_url)
     response = requests.get(api_url)
@@ -115,7 +135,7 @@ def fetch_Stand4_data(word):
         api_data = 'No response'
     return api_data
 st.write('## Data from Stand4 network')
-st.write(fetch_Stand4_data(word))
+st.write(fetch_stand4_data(word))
 
 
 
