@@ -103,8 +103,8 @@ st.write(fetch_dictionaryapi_data(word))
 # Data from Stand4 network
 
 stands4_api = {
-    "Definitions.net": f"https://www.stands4.com/services/v2/defs.php?uid=USER_ID&tokenid=01eaLfSB05gMMM8a&word={word}&format=xml",
-    "Anagrams.net": f"https://www.stands4.com/services/v2/ana.php?uid=USER_ID&tokenid=01eaLfSB05gMMM8a&term={word}&format=xml",
+    "Definitions.net": f"https://www.stands4.com/services/v2/defs.php?uid=13205&tokenid=01eaLfSB05gMMM8a&word={word}&format=xml",
+    "Anagrams.net": f"https://www.stands4.com/services/v2/ana.php?uid=13205&tokenid=01eaLfSB05gMMM8a&term={word}&format=xml",
     "Abbreviations.com": f"https://www.stands4.com/services/v2/abbr.php?uid=13205&tokenid=01eaLfSB05gMMM8a324&term={word}&format=xml",
     "Conversions.net": f"https://www.stands4.com/services/v2/conv.php?uid=13205&tokenid=01eaLfSB05gMMM8a324&expression={word}&format=xml",
     "Synonyms.com": f"https://www.stands4.com/services/v2/syno.php?uid=13205&tokenid=01eaLfSB05gMMM8a&word={word}&format=xml",
