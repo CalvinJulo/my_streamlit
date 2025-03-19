@@ -55,7 +55,13 @@ def fetch_wordnet_data_nltk(word):
         details.append(detail)
     return details
 
-
+a = wn.synsets('bank')
+st.write(a)
+for i in a:
+    st.write('syn:', i,i.lemmas())
+    for l in i.lemmas():
+        st.write('lemmas',l.name())
+    
 st.write('## Data From wordnet by nltk')
 
 st.write(fetch_wordnet_data_nltk(word))
