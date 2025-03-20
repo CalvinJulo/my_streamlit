@@ -62,7 +62,7 @@ c=[]
 for i in wn.synsets(word):
     d={}
     d[i.name()]=i.lemmas()
-    d['lemmas_names']=i.lemma_names(
+    d['lemmas_names']=i.lemma_names()
     c.append(d)
 st.write('c',c)
 
