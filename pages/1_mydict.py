@@ -55,8 +55,9 @@ def fetch_wordnet_data_nltk(word):
         details.append(detail)
     return details
 
-a1 = wn.synsets('bank')[0]
+a1 = wn.synsets('dog')[0]
 b1 = a1.lemmas()[0]
+st.write(b1)
 
 st.write("acyclic_tree",a1.acyclic_tree())
 st.write("also_sees",a1.also_sees())
