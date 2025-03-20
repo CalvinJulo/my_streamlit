@@ -57,7 +57,6 @@ def fetch_wordnet_data_nltk(word):
 
 a1 = wn.synsets('dog')[0]
 b1 = a1.lemmas()[0]
-st.write(dir(b1))
 
 st.write("acyclic_tree",a1.acyclic_tree())
 st.write("also_sees",a1.also_sees())
@@ -105,7 +104,42 @@ st.write("topic_domains",a1.topic_domains())
 # st.write("tree",a1.tree())
 st.write("usage_domains",a1.usage_domains())
 st.write("verb_groups",a1.verb_groups())
-st.write("wup_similarity",a1.wup_similarity())
+# st.write("wup_similarity",a1.wup_similarity())
+
+st.write('***')
+
+st.write("also_sees",b1.also_sees())
+st.write("antonyms",b1.antonyms())
+st.write("attributes",b1.attributes())
+st.write("causes",b1.causes())
+st.write("count",b1.count())
+st.write("derivationally_related_forms",b1.derivationally_related_forms())
+st.write("entailments",b1.entailments())
+st.write("frame_ids",b1.frame_ids())
+st.write("frame_strings",b1.frame_strings())
+st.write("hypernyms",b1.hypernyms())
+st.write("hyponyms",b1.hyponyms())
+st.write("in_region_domains",b1.in_region_domains())
+st.write("in_topic_domains",b1.in_topic_domains())
+st.write("in_usage_domains",b1.in_usage_domains())
+st.write("instance_hypernyms",b1.instance_hypernyms())
+st.write("key",b1.key())
+st.write("lang",b1.lang())
+st.write("member_holonyms",b1.member_holonyms())
+st.write("member_meronyms",b1.member_meronyms())
+st.write("name",b1.name())
+st.write("part_holonyms",b1.part_holonyms())
+st.write("part_meronyms",b1.part_meronyms())
+st.write("pertainyms",b1.pertainyms())
+st.write("region_domains",b1.region_domains())
+st.write("similar_tos",b1.similar_tos())
+st.write("substance_holonyms",b1.substance_holonyms())
+st.write("substance_meronyms",b1.substance_meronyms())
+st.write("synset",b1.synset())
+st.write("syntactic_marker",b1.syntactic_marker())
+st.write("topic_domains",b1.topic_domains())
+st.write("usage_domains",b1.usage_domains())
+st.write("verb_groups",b1.verb_groups())
 
 
     
