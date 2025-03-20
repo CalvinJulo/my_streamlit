@@ -63,7 +63,7 @@ for i in wn.synsets(word):
     d={}
     d[i.name()]=i.lemmas()
     d['lemmas_names']=i.lemma_names()
-    d['example']=i.example()
+    d['example']=i.examples()
     d['definition']=i.definition()
     d['name']=i.name()
     d['pos']=i.pos()
