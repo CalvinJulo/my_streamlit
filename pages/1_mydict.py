@@ -55,9 +55,11 @@ def fetch_wordnet_data_nltk(word):
         details.append(detail)
     return details
 
-a1 = wn.synsets(word)[0]
-b1 = a1.lemmas()[0]
+
 st.write(len(set(wn.all_lemma_names())))
+st.write('langs',wn.langs())
+st.write('sorted(wn.langs())', sorted(wn.langs()))
+st.write('wn.synonyms(word)', wn.synonyms(word))
 c=[]
 for i in wn.synsets(word):
     d={}
@@ -79,6 +81,8 @@ for i in wn.synsets(word):
         e['name']=j.name()
         e['synset']=j.synset()
         e['verb_groups']=j.verb_groups()
+        e['derivation']=j.derivationally_related_forms()
+        e['pertainyms']=j.pertainyms()       
         d['lemmas'].append(e)
     c.append(d)
 st.write('c',c)
