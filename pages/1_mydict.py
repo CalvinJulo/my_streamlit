@@ -59,7 +59,7 @@ a1 = wn.synsets(word)[0]
 b1 = a1.lemmas()[0]
 
 c=[]
-for i in wn.synsers(word):
+for i in wn.synsets(word):
     d={}
     d[i]=i.lemmas()
     c.append(d)
