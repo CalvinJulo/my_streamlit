@@ -57,7 +57,7 @@ def fetch_wordnet_data_nltk(word):
 
 a1 = wn.synsets(word)[0]
 b1 = a1.lemmas()[0]
-
+st.write(len(set(wordnet.all_lemma_names())))
 c=[]
 for i in wn.synsets(word):
     d={}
