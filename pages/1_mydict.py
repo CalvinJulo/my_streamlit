@@ -57,11 +57,12 @@ def fetch_wordnet_data_nltk(word):
 
 a1 = wn.synsets('bank')[0]
 b1 = a1.lemmas()[0]
+
 st.write("acyclic_tree",a1.acyclic_tree())
 st.write("also_sees",a1.also_sees())
 st.write("causes",a1.causes())
 # st.write("closure",a1.closure())
-st.write("common_hypernyms",a1.common_hypernyms())
+# st.write("common_hypernyms",a1.common_hypernyms())
 st.write("definition",a1.definition())
 st.write("entailments",a1.entailments())
 st.write("examples",a1.examples())
