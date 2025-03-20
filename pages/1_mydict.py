@@ -87,7 +87,6 @@ for i in wn.synsets(word):
         e['derivation']=j.derivationally_related_forms()
         e['pertainyms']=j.pertainyms()       
         d['lemmas'].append(e)
-    d['g']=i.lemma_names('jpn')
     c.append(d)
 st.write('c',c)
 
