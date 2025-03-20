@@ -55,7 +55,10 @@ def fetch_wordnet_data_nltk(word):
         details.append(detail)
     return details
 
-
+langs= ['als', 'arb', 'bul', 'cat', 'cmn', 'dan', 'ell', 'eng', 'eus',
+'fin', 'fra', 'glg', 'heb', 'hrv', 'ind', 'isl', 'ita', 'ita_iwn',
+'jpn', 'lit', 'nld', 'nno', 'nob', 'pol', 'por', 'ron', 'slk',
+'slv', 'spa', 'swe', 'tha', 'zsm']
 st.write(len(set(wn.all_lemma_names())))
 st.write('langs',wn.langs())
 st.write('sorted(wn.langs())', sorted(wn.langs()))
@@ -84,6 +87,9 @@ for i in wn.synsets(word):
         e['derivation']=j.derivationally_related_forms()
         e['pertainyms']=j.pertainyms()       
         d['lemmas'].append(e)
+    for k in langs:
+        g={}
+        g[k]=i.lemma_names(k)
     c.append(d)
 st.write('c',c)
 
