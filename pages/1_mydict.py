@@ -58,6 +58,13 @@ def fetch_wordnet_data_nltk(word):
 a1 = wn.synsets(word)[0]
 b1 = a1.lemmas()[0]
 
+c=[]
+for i in wn.synsers(word):
+    d={}
+    d[i]=i.lemmas()
+    c.append(d)
+st.write('c',c)
+
 st.write("acyclic_tree",a1.acyclic_tree())
 st.write("also_sees",a1.also_sees())
 st.write("causes",a1.causes())
