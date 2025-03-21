@@ -66,13 +66,15 @@ st.write(len(set(wn.all_synsets())))
 # st.write('wn.synonyms(word)', wn.synonyms(word))
 
 st.write(wn.synsets('dog'))
-st.write(wn.synsets('dog')[0].offset())
-st.write(wn.synsets('dog')[0].frame_ids())
-st.write(wn.synsets('dog')[1].offset())
-st.write(wn.synsets('dog')[1].frame_ids())
+for syn in wn.synsets('dog'):
+    st.write(syn,syn.name(),syn.offset())
+    for lemma in syn.lemmas():
+        st.write(lemma,lemma.name(),lemma.key(),lemma.frame_strings(),lemma.frame_ids())
+
 st.write('---')
 st.write(wn.synset('dog.n.01'))
 st.write(wn.synset('dog.n.01').lemmas())
+
 st.write(wn.synset('dog.n.01').lemmas()[0].frame_strings())
 st.write(wn.synset('dog.n.01').lemmas()[0].frame_ids())
 st.write(wn.synset('dog.n.01').lemmas()[0].key())
