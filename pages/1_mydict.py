@@ -73,7 +73,6 @@ st.write(wn.synset('dog.n.04'))
 st.write(wn.synset('dog.n.05'))
 st.write(wn.synset('dog.n.06'))
 st.write(wn.synset('dog.n.07'))
-st.write(wn.synset('dog.n.08'))
 
 st.write(wn.synsets('dog'))
 for syn in wn.synsets('dog'):
