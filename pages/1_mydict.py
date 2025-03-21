@@ -65,6 +65,16 @@ st.write(len(set(wn.all_synsets())))
 # st.write('sorted(wn.langs())', sorted(wn.langs()))
 # st.write('wn.synonyms(word)', wn.synonyms(word))
 
+sw.write(wn.synset('dog.n.01'))
+sw.write(wn.synset('dog.n.02'))
+sw.write(wn.synset('dog.n.02').lemma_names())
+sw.write(wn.synset('dog.n.03'))
+sw.write(wn.synset('dog.n.04'))
+sw.write(wn.synset('dog.n.05'))
+sw.write(wn.synset('dog.n.06'))
+sw.write(wn.synset('dog.n.07'))
+sw.write(wn.synset('dog.n.08'))
+
 st.write(wn.synsets('dog'))
 for syn in wn.synsets('dog'):
     st.write(syn,syn.name(),syn.offset())
