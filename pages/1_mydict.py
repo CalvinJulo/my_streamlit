@@ -60,9 +60,18 @@ langs= ['als', 'arb', 'bul', 'cat', 'cmn', 'dan', 'ell', 'eng', 'eus',
 'jpn', 'lit', 'nld', 'nno', 'nob', 'pol', 'por', 'ron', 'slk',
 'slv', 'spa', 'swe', 'tha', 'zsm']
 st.write(len(set(wn.all_lemma_names())))
-st.write('langs',wn.langs())
-st.write('sorted(wn.langs())', sorted(wn.langs()))
-st.write('wn.synonyms(word)', wn.synonyms(word))
+st.write(len(set(wn.all_synsets())))
+# st.write('langs',wn.langs())
+# st.write('sorted(wn.langs())', sorted(wn.langs()))
+# st.write('wn.synonyms(word)', wn.synonyms(word))
+
+st.write(wn.synsets('dog'))
+st.write(wn.synset('dog.n.01'))
+st.write(wn.synset('dog').lemmas())
+st.write(wn.lemmas('dog', pos='n',lang='ita'))
+st.write(wn.lemma('dog.n.01.dog').synset())
+st.write(wn.synonyms('dog'))
+
 c=[]
 for i in wn.synsets(word):
     d={}
