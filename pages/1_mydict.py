@@ -67,7 +67,7 @@ st.write(len(set(wn.all_synsets())))
 
 st.write(wn.synsets('dog'))
 st.write(wn.synset('dog.n.01'))
-st.write(wn.synset('dog').lemmas())
+st.write(wn.synset('dog.n.01').lemmas())
 st.write(wn.lemmas('dog', pos='n',lang='ita'))
 st.write(wn.lemma('dog.n.01.dog').synset())
 st.write(wn.synonyms('dog'))
