@@ -66,6 +66,7 @@ st.write(len(set(wn.all_synsets())))
 # st.write('wn.synonyms(word)', wn.synonyms(word))
 
 st.write(wn.synsets('dog'))
+st.write(wn.synsets('dog').key())
 st.write(wn.synsets('dog')[0].offset())
 st.write(wn.synsets('dog')[0].frame_ids())
 st.write(wn.synsets('dog')[1].offset())
