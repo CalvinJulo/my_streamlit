@@ -92,7 +92,7 @@ st.write('##', data_nltk_wn['word'])
 for pos in etymology:
     st.write('###', pos)
     for syn in pos:
-        st.write(syn['sense_num'],syn['synset_name'])
+        st.write(syn['synset_name'])
         st.write('defintion:',syn['definition'])
         st.write('examples:',syn['examples'])
         st.write('synonyms:',syn['synonyms'])
