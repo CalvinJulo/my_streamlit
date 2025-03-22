@@ -41,6 +41,7 @@ nltk.download("wordnet")
 def fetch_synset_info(synset):
     syn = synset
     syn_detail ={
+        'synset_name':syn.name(),
         "definition": syn.definition(),
         'offset':syn.offset(),
         "examples": syn.examples(),
@@ -61,7 +62,7 @@ def fetch_wordnet_data_nltk(word):
     details = {"word": word, 'etymology':{}}
     for pos in pos_tags:
         details['etymology'][pos]=[]
-        for sense_num in range(:len(wn.synsets(word,pos=pos)):
+        for sense_num in range(len(wn.synsets(word,pos=pos)):
             synset=wn.synset(f'{word}.{pos}.{sense_num+1}')
             details['etymology'][pos].append(fetch_synset_info(synset))
     return details
