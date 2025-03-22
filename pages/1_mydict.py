@@ -130,12 +130,13 @@ with st.expander('Expander'):
 # Data from DictionaryAPI.dev
 def fetch_dictionaryapi_data(word):
     api_url = f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}"
+    st.write(api_url)
     response = requests.get(api_url)
     if response.status_code == 200:
         api_data = response.json()
     return api_data
 st.write('## Data from DictionaryAPI.dev')
-st.write(fetch_dictionaryapi_data(word))
+data_dictionaryAPI=fetch_dictionaryapi_data(word)
 
 
 
