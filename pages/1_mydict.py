@@ -89,10 +89,10 @@ st.write('## Data From wordnet by nltk')
 data_nltk_wn=fetch_wordnet_data_nltk(word)
 etymology=data_nltk_wn['etymology']
 st.write('##', data_nltk_wn['word'])
-for pos in etymology:
+for pos,syn in etymology.items():
     st.write('###', pos)
-    for syn in pos:
-        st.write(syn['synset_name'])
+    if pos:
+        st.write(syn['sense_num'],syn['synset_name'])
         st.write('defintion:',syn['definition'])
         st.write('examples:',syn['examples'])
         st.write('synonyms:',syn['synonyms'])
