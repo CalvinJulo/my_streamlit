@@ -95,7 +95,7 @@ for pos,synsets in etymology.items():
         st.write(syn['sense_num'],syn['synset_name'])
         st.write('defintion:',syn['definition'])
         st.write('examples:',set(syn['examples']))
-        st.write('synonyms:',set(syn['synonyms'])
+        st.write('synonyms:',set(syn['synonyms']))
         st.write('antonyms:',set(syn['antonyms']))
         st.write('derivation:',set(syn['derivation']))
         st.write('pertainyms:',set(syn['pertainyms']))
