@@ -38,6 +38,17 @@ nltk.download("wordnet")
 
 
 
+langs= ['als', 'arb', 'bul', 'cat', 'cmn', 'dan', 'ell', 'eng', 'eus',
+'fin', 'fra', 'glg', 'heb', 'hrv', 'ind', 'isl', 'ita', 'ita_iwn',
+'jpn', 'lit', 'nld', 'nno', 'nob', 'pol', 'por', 'ron', 'slk',
+'slv', 'spa', 'swe', 'tha', 'zsm']
+st.write(len(set(wn.all_lemma_names())))
+st.write(len(set(wn.all_synsets())))
+# st.write('langs',wn.langs())
+# st.write('sorted(wn.langs())', sorted(wn.langs()))
+# st.write('wn.synonyms(word)', wn.synonyms(word))
+
+
 def fetch_synset_info(synset):
     syn = synset
     syn_detail ={
@@ -68,21 +79,6 @@ def fetch_wordnet_data_nltk(word):
             detail['sense_num']= f'{word}.{pos}.{sense_num+1}'
             details['etymology'][pos].append(detail)
     return details
-        
-
-
-
-langs= ['als', 'arb', 'bul', 'cat', 'cmn', 'dan', 'ell', 'eng', 'eus',
-'fin', 'fra', 'glg', 'heb', 'hrv', 'ind', 'isl', 'ita', 'ita_iwn',
-'jpn', 'lit', 'nld', 'nno', 'nob', 'pol', 'por', 'ron', 'slk',
-'slv', 'spa', 'swe', 'tha', 'zsm']
-st.write(len(set(wn.all_lemma_names())))
-st.write(len(set(wn.all_synsets())))
-# st.write('langs',wn.langs())
-# st.write('sorted(wn.langs())', sorted(wn.langs()))
-# st.write('wn.synonyms(word)', wn.synonyms(word))
-
-
 
 
 # st.write("tree",a1.tree())
@@ -90,7 +86,19 @@ st.write(len(set(wn.all_synsets())))
     
 st.write('## Data From wordnet by nltk')
 
-st.write(fetch_wordnet_data_nltk(word))
+data_nltk_wn=fetch_wordnet_data_nltk(word)
+etymology=data_nltk_wn['etymology']
+st.write('##', data_nltk_wn['word'])
+for pos in etymology:
+    st.write(por)
+    for syn in pos:
+        st.write(syn['sense_num'],syn['synset_name'])
+        st.write('defintion:',syn['definition'])
+        st.write('examples:',syn['examples'])
+        st.write('synonyms:',syn['synonyms'])
+        st.write('antonyms:',syn['antonyms'])
+        st.write('derivation:',syn['derivation'])
+        st.write('pertainyms:',syn['pertainyms'])
 
 
 # ********************************************************************
