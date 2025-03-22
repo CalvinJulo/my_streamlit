@@ -42,7 +42,7 @@ def fetch_synset_info(synset):
     syn = synset
     syn_detail ={
         "definition": syn.definition(),
-        'offset':syn.offset()
+        'offset':syn.offset(),
         "examples": syn.examples(),
         "hypernyms":syn.hypernyms(),
         "hyponyms":syn.hyponyms(),
