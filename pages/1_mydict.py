@@ -43,16 +43,16 @@ def fetch_synset_info(synset):
     syn_detail ={
         'synset_name':syn.name(),
         "definition": syn.definition(),
-        'offset':syn.offset(),
+        'syn_offset':syn.offset(),
         "examples": syn.examples(),
         "hypernyms":syn.hypernyms(),
         "hyponyms":syn.hyponyms(),
         "entailments":syn.entailments(),
         "synonyms": list(set([lemma.name() for lemma in syn.lemmas()])),
         "antonyms": list(set([ant.name() for lemma in syn.lemmas() for ant in lemma.antonyms()])),
-        "derivationally_related_forms": list(set([drf.name() for lemma in syn.lemmas() for drf in lemma.derivationally_related_forms()])),
+        "derivation": list(set([drf.name() for lemma in syn.lemmas() for drf in lemma.derivationally_related_forms()])),
         "pertainyms": list(set([per.name() for lemma in syn.lemmas() for per in lemma.pertainyms()])),
-        "keys": list(set([lemma.key() for lemma in syn.lemmas()])),}
+        "lemma_keys": list(set([lemma.key() for lemma in syn.lemmas()])),}
     return syn_detail
 
 
@@ -64,7 +64,9 @@ def fetch_wordnet_data_nltk(word):
         details['etymology'][pos]=[]
         for sense_num in range(len(wn.synsets(word,pos=pos))):
             synset=wn.synset(f'{word}.{pos}.{sense_num+1}')
-            details['etymology'][pos].append(fetch_synset_info(synset))
+            detail = fetch_synset_info(synset)
+            detail['sense_num']= f'{word}.{pos}.{sense_num+1}'
+            details['etymology'][pos].append(detail)
     return details
         
 
