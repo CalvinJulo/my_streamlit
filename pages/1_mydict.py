@@ -36,24 +36,38 @@ word = st.text_input("Enter a word:", "")
 # Download nltk resources
 nltk.download("wordnet")
 
+
+
+def fetch_synset_info(synset):
+    syn = synset
+    syn_detail ={
+        "definition": syn.definition(),
+        'offset':syn.offset()
+        "examples": syn.examples(),
+        "hypernyms":syn.hypernyms(),
+        "hyponyms":syn.hyponyms(),
+        "entailments":syn.entailments(),
+        "synonyms": list(set([lemma.name() for lemma in syn.lemmas()])),
+        "antonyms": list(set([ant.name() for lemma in syn.lemmas() for ant in lemma.antonyms()])),
+        "derivationally_related_forms": list(set([drf.name() for lemma in syn.lemmas() for drf in lemma.derivationally_related_forms()])),
+        "pertainyms": list(set([per.name() for lemma in syn.lemmas() for per in lemma.pertainyms()])),
+        "keys": list(set([lemma.key() for lemma in syn.lemmas()])),}
+    return syn_detail
+
+
+
 def fetch_wordnet_data_nltk(word):
-    details = []
-    for syn in wn.synsets(word):
-        detail = {
-            "word": word,
-            "definitions": syn.definition(),
-            "part_of_speech": syn.pos(),
-            "examples": syn.examples(),
-            "hypernyms":syn.hypernyms(),
-            "hyponyms":syn.hyponyms(),
-            "entailments":syn.entailments(),         
-            "synonyms": list(set([lemma.name() for lemma in syn.lemmas()])),
-            "antonyms": list(set([ant.name() for lemma in syn.lemmas() for ant in lemma.antonyms()])),
-            "derivationally_related_forms": list(set([drf.name() for lemma in syn.lemmas() for drf in lemma.derivationally_related_forms()])),
-            "pertainyms": list(set([per.name() for lemma in syn.lemmas() for per in lemma.pertainyms()])),
-        }
-        details.append(detail)
+    pos_tags = list(set([synset.pos() for synset in wn.synsets(word)]))
+    details = {"word": word, 'etymology':{}}
+    for pos in pos_tags:
+        details['etymology'][pos]=[]
+        for sense_num in range(:len(wn.synsets(word,pos=pos)):
+            synset=wn.synset(f'{word}.{pos}.{sense_num+1}')
+            details['etymology'][pos].append(fetch_synset_info(synset))
     return details
+        
+
+
 
 langs= ['als', 'arb', 'bul', 'cat', 'cmn', 'dan', 'ell', 'eng', 'eus',
 'fin', 'fra', 'glg', 'heb', 'hrv', 'ind', 'isl', 'ita', 'ita_iwn',
@@ -65,73 +79,10 @@ st.write(len(set(wn.all_synsets())))
 # st.write('sorted(wn.langs())', sorted(wn.langs()))
 # st.write('wn.synonyms(word)', wn.synonyms(word))
 
-st.write(wn.synset('dog.n.01'))
-st.write(wn.synset('dog.n.02'))
-st.write(wn.synset('dog.n.02').lemma_names())
-st.write(wn.synset('dog.n.03'))
-st.write(wn.synset('dog.n.04'))
-st.write(wn.synset('dog.n.05'))
-st.write(wn.synset('dog.n.06'))
-st.write(wn.synset('dog.n.07'))
-
-st.write(wn.synsets('dog'))
-for syn in wn.synsets('dog'):
-    st.write(syn,syn.name(),syn.offset())
-    for lemma in syn.lemmas():
-        st.write(lemma,lemma.name(),lemma.key(),lemma.frame_strings(),lemma.frame_ids())
-
-st.write('---')
-st.write(wn.synset('dog.n.01'))
-st.write(wn.synset('dog.n.01').lemmas())
-
-st.write(wn.synset('dog.n.01').lemmas()[0].frame_strings())
-st.write(wn.synset('dog.n.01').lemmas()[0].frame_ids())
-st.write(wn.synset('dog.n.01').lemmas()[0].key())
-st.write(wn.synset('dog.n.01').lemmas()[1].frame_strings())
-st.write(wn.synset('dog.n.01').lemmas()[0].frame_ids())
-st.write(wn.synset('dog.n.01').lemmas()[1].key())
-st.write(wn.synset('dog.n.01').lemmas()[1].key())
-st.write(wn.lemma_from_key(wn.synset('dog.n.01').lemmas()[1].key()))
-
-st.write('---')
-st.write(wn.lemmas('dog'))
-st.write(wn.lemma('dog.n.01.dog').synset())
-st.write(wn.synonyms('dog'))
-
-c=[]
-for i in wn.synsets(word):
-    d={}
-    d[i.name()]=i.lemmas()
-    d['lemmas_names']=i.lemma_names()
-    d['example']=i.examples()
-    d['definition']=i.definition()
-    d['name']=i.name()
-    d['pos']=i.pos()
-    d['verb_groups']=i.verb_groups()
-    d['lemmas']=[]
-    for j in i.lemmas():
-        e={}
-        e['verb_groups']=j.count()
-        e['attributes']=j.attributes()
-        e['antonyms']=j.antonyms()
-        e['key']=j.key()
-        e['lang']=j.lang()
-        e['name']=j.name()
-        e['synset']=j.synset()
-        e['verb_groups']=j.verb_groups()
-        e['derivation']=j.derivationally_related_forms()
-        e['pertainyms']=j.pertainyms()       
-        d['lemmas'].append(e)
-    c.append(d)
-st.write('c',c)
-
 
 
 
 # st.write("tree",a1.tree())
-
-
-
 
     
 st.write('## Data From wordnet by nltk')
