@@ -91,6 +91,7 @@ etymology=data_nltk_wn['etymology']
 st.write('##', data_nltk_wn['word'])
 for pos,syn in etymology.items():
     st.write('###', pos)
+    st.write(syn)
     if pos:
         st.write(syn['sense_num'],syn['synset_name'])
         st.write('defintion:',syn['definition'])
