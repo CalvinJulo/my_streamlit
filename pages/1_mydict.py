@@ -133,22 +133,15 @@ def parser_wikitionary_data(word):
         line = line.strip()
         if not line:
             continue  # Skip empty lines
-        
+            
         # Check if it's a section header (Markdown format: == Section ==)
         match = re.match(r"^(=+)\s*(.*?)\s*\1$", line)
         if match:
-            st.write('group',match.group())
-            st.write('group1',match.group(1))
-            st.write('group2',match.group(2))
             level = len(match.group(1))  # Number of '=' determines hierarchy
             section_name = match.group(2).strip()
-
             # Adjust section stack to match the level
             while len(section_stack)+2 > level:
-                st.write('section_stack ahs',set(section_stack),len(section_stack),level)
                 section_stack.pop()
-            st.write('section_stack',set(section_stack),len(section_stack),level)
-
             # Navigate to the correct parent level
             parent = section_dict
             for sec in section_stack:
@@ -156,7 +149,6 @@ def parser_wikitionary_data(word):
             # Create new section
             parent[section_name] = {}
             section_stack.append(section_name)
-            st.write('section_stack hhh',set(section_stack))
 
         else:
             # If it's content, add it to the last section in the stack
@@ -171,7 +163,7 @@ def parser_wikitionary_data(word):
     
 st.write('## Data From Wiktionay by pywikibot')
 st.write(parser_wikitionary_data(word))
-
+st.code(fetch_wiktionary_data(word))
 
 
 
