@@ -133,31 +133,24 @@ def parser_wikitionary_data(word):
         line = line.strip()
         if not line:
             continue  # Skip empty lines
-            
         # Check if it's a section header (Markdown format: == Section ==)
         match = re.match(r"^(=+)\s*(.*?)\s*\1$", line)
         if match:
             level = len(match.group(1))  # Number of '=' determines hierarchy
             section_name = match.group(2).strip()
-            # Adjust section stack to match the level
             while len(section_stack)+2 > level:
                 section_stack.pop()
-            # Navigate to the correct parent level
             parent = section_dict
             for sec in section_stack:
                 parent = parent[sec]
-            # Create new section
             parent[section_name] = {}
             section_stack.append(section_name)
-
         else:
             # If it's content, add it to the last section in the stack
             if section_stack:
                 parent = section_dict
                 for sec in section_stack:
                     parent = parent[sec]
-                
-                # Append text content
                 parent.setdefault("_content", []).append(line)
     return section_dict
     
@@ -212,4 +205,5 @@ st.write(fetch_stand4_data(word))
 st.write('## Other network')
 st.write(f'https://www.merriam-webster.com/dictionary/{word}')
 st.write(f'https://dictionary.cambridge.org/dictionary/english/{word}')
+st.write(f'https://www.wordreference.com/es/translation.asp?tranword={word}')
 
