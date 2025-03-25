@@ -163,6 +163,8 @@ st.write('## Data From Wiktionay by pywikibot')
 # st.code(fetch_wiktionary_data(word))
 
 page = pywikibot.Page(site, word)
+st.write('page.get',page.get())
+st.write('page.get_parsed_page',page.get_parsed_page())
 page_text = page.text
 sect = pywikibot.textlib.extract_sections(page.text, site)
 
