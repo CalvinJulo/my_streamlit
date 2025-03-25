@@ -137,9 +137,9 @@ def parser_wikitionary_data(word):
         # Check if it's a section header (Markdown format: == Section ==)
         match = re.match(r"^(=+)\s*(.*?)\s*\1$", line)
         if match:
-            st.write(match.group())
-            st.write(match.group(1))
-            st.write(match.group(2))
+            st.write('group',match.group())
+            st.write('group1',match.group(1))
+            st.write('group2',match.group(2))
             level = len(match.group(1))  # Number of '=' determines hierarchy
             section_name = match.group(2).strip()
 
