@@ -144,7 +144,7 @@ def parser_wikitionary_data(word):
             section_name = match.group(2).strip()
 
             # Adjust section stack to match the level
-            while len(section_stack)+1 > level:
+            while len(section_stack)+2 > level:
                 st.write('section_stack ahs',set(section_stack),len(section_stack),level)
                 section_stack.pop()
             st.write('section_stack',set(section_stack),len(section_stack),level)
