@@ -117,14 +117,58 @@ st.write(ety.tree(word))
 site = pywikibot.Site("en", "wiktionary")
 
 # Connect to English Wiktionary
-def fetch_wiktionay_data(word):
+def fetch_wiktionary_data(word):
     page = pywikibot.Page(site, word)
     page_text = page.text
     return page_text
 
+def parser_wikitionary_data(word):
+    text=fetch_wiktionary_data(word)
+    lines = text.split("\n")
+    section_dict = {}
+    section_stack = []  # Stack to track section hierarchy
+    current_section = section_dict  # Start at root level
+    
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue  # Skip empty lines
+        
+        # Check if it's a section header (Markdown format: == Section ==)
+        match = re.match(r"^(=+)\s*(.*?)\s*\1$", line)
+        if match:
+            level = len(match.group(1))  # Number of '=' determines hierarchy
+            section_name = match.group(2).strip()
+
+            # Adjust section stack to match the level
+            while len(section_stack) >= level:
+                section_stack.pop()
+            
+            # Navigate to the correct parent level
+            parent = section_dict
+            for sec in section_stack:
+                parent = parent[sec]
+
+            # Create new section
+            parent[section_name] = {}
+            section_stack.append(section_name)
+        else:
+            # If it's content, add it to the last section in the stack
+            if section_stack:
+                parent = section_dict
+                for sec in section_stack:
+                    parent = parent[sec]
+                
+                # Append text content
+                parent.setdefault("_content", []).append(line)
+    return section_dict
+    
 st.write('## Data From Wiktionay by pywikibot')
-with st.expander('Expander'):
-    st.code(fetch_wiktionay_data(word))
+st.write(parser_wikitionary_data(word))
+
+
+
+
 
 # ********************************************************************
 # Data from DictionaryAPI.dev
@@ -146,6 +190,7 @@ data_dictionaryAPI=fetch_dictionaryapi_data(word)
 def fetch_stand4_data(word):
     api_url = f"https://www.stands4.com/services/v2/defs.php?uid=13205&tokenid=01eaLfSB05gMMM8a&word={word}&format=json"
     st.write(api_url)
+    st.write(f'https://www.definitions.net/definition/{word}'
     response = requests.get(api_url)
     if response.status_code == 200:
         api_data = response.json()
