@@ -166,9 +166,9 @@ page = pywikibot.Page(site, word)
 page_text = page.text
 sect = pywikibot.textlib.extract_sections(page.text, site)
 
-st.write('pywikibot',set(dir(pywikibot)))
-st.write('page',set(dir(page)))
-st.write('page_text',set(dir(page_text)))
+st.write('pywikibot',dir(pywikibot))
+st.write('page',dir(page))
+st.write('page_text',dir(page_text))
 st.write('sect',sect)
 
 # ********************************************************************
