@@ -156,11 +156,13 @@ def parser_wikitionary_data(word):
     return section_dict
     
 st.write('## Data From Wiktionay by pywikibot')
-st.write(parser_wikitionary_data(word))
-st.code(fetch_wiktionary_data(word))
+# st.write(parser_wikitionary_data(word))
+# st.code(fetch_wiktionary_data(word))
 
-
-
+page = pywikibot.Page(site, word)
+page_text = page.text
+sect = pywikibot.textlib.extract_sections(page.text, site)
+st.write('sect',sect)
 
 # ********************************************************************
 # Data from DictionaryAPI.dev
