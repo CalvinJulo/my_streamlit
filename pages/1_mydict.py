@@ -137,6 +137,9 @@ def parser_wikitionary_data(word):
         # Check if it's a section header (Markdown format: == Section ==)
         match = re.match(r"^(=+)\s*(.*?)\s*\1$", line)
         if match:
+            st.write(match.group())
+            st.write(match.group(1))
+            st.write(match.group(2))
             level = len(match.group(1))  # Number of '=' determines hierarchy
             section_name = match.group(2).strip()
 
@@ -211,4 +214,7 @@ st.write(fetch_stand4_data(word))
 # www.beedictionary.com/
 # www.finedictionary.com/
 
+st.write('## Other network')
+st.write(f'https://www.merriam-webster.com/dictionary/{word}')
+st.write(f'https://dictionary.cambridge.org/dictionary/english/{word}')
 
