@@ -131,6 +131,7 @@ def parser_wikitionary_data(word):
     
     for line in lines:
         line = line.strip()
+        st.write(line)
         if not line:
             continue  # Skip empty lines
         # Check if it's a section header (Markdown format: == Section ==)
