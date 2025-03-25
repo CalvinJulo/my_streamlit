@@ -146,7 +146,7 @@ def parser_wikitionary_data(word):
             # Adjust section stack to match the level
             while len(section_stack) >= level:
                 section_stack.pop()
-            st.write('section_stack',section_stack)
+            st.write('section_stack',set(section_stack),len(section_stack),level)
 
             # Navigate to the correct parent level
             parent = section_dict
@@ -155,7 +155,7 @@ def parser_wikitionary_data(word):
             # Create new section
             parent[section_name] = {}
             section_stack.append(section_name)
-            st.write('section_stack hhh',section_stack)
+            st.write('section_stack hhh',set(section_stack))
 
         else:
             # If it's content, add it to the last section in the stack
