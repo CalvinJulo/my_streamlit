@@ -81,24 +81,27 @@ def fetch_wordnet_data_nltk(word):
     return details
 
 
+def output_to_streamlit(word):
+    data_nltk_wn=fetch_wordnet_data_nltk(word)
+    etymology=data_nltk_wn['etymology']
+    st.write('##', data_nltk_wn['word'])
+    for pos,synsets in etymology.items():
+        st.write('###', pos)
+        for syn in synsets:
+            st.write(syn['sense_num'],syn['synset_name'])
+            st.write('defintion:',syn['definition'])
+            st.write('examples:',set(syn['examples']))
+            st.write('synonyms:',set(syn['synonyms']))
+            st.write('antonyms:',set(syn['antonyms']))
+            st.write('derivation:',set(syn['derivation']))
+            st.write('pertainyms:',set(syn['pertainyms']))
+
 # st.write("tree",a1.tree())
 
     
 st.write('## Data From wordnet by nltk')
+# output_to_streamlit(word)
 
-data_nltk_wn=fetch_wordnet_data_nltk(word)
-etymology=data_nltk_wn['etymology']
-st.write('##', data_nltk_wn['word'])
-for pos,synsets in etymology.items():
-    st.write('###', pos)
-    for syn in synsets:
-        st.write(syn['sense_num'],syn['synset_name'])
-        st.write('defintion:',syn['definition'])
-        st.write('examples:',set(syn['examples']))
-        st.write('synonyms:',set(syn['synonyms']))
-        st.write('antonyms:',set(syn['antonyms']))
-        st.write('derivation:',set(syn['derivation']))
-        st.write('pertainyms:',set(syn['pertainyms']))
 
 
 # ********************************************************************
@@ -162,6 +165,10 @@ st.write('## Data From Wiktionay by pywikibot')
 page = pywikibot.Page(site, word)
 page_text = page.text
 sect = pywikibot.textlib.extract_sections(page.text, site)
+
+st.write('pywikibot',set(dir(pywikibot)))
+st.write('page',set(dir(page)))
+st.write('page_text',set(dir(page_text)))
 st.write('sect',sect)
 
 # ********************************************************************
