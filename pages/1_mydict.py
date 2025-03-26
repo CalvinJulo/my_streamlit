@@ -163,7 +163,7 @@ st.write('## Data From Wiktionay by pywikibot')
 # st.write(parser_wikitionary_data(word))
 # st.code(fetch_wiktionary_data(word))
 
-page = pywikibot.Page(site, word)
+# page = pywikibot.Page(site, word)
 
 # page.get_parsed_page()
 # page_text = page.text
