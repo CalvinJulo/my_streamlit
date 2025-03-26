@@ -187,7 +187,8 @@ def parse_wiktionary_by_bs(word):
     section_stack = []  
     current_section = section_dict  # Start at root level
     for elem in elements:
-        if elem.get('style'):
+        if elem.name=='ul':
+            st.write(elem)
             st.write(elem.get('style'))
         if elem.get('class') and elem.get('class')[0]=='mw-heading':
             level=elem.get('class')[1][-1]
