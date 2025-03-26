@@ -189,7 +189,7 @@ def parse_wiktionary_by_bs(word):
     for elem in elements:
         if elem.get('class') and elem.get('class')[0]=='mw-heading':
             level=elem.get('class')[1][-1]
-            section_name=elem.get_text()[:-6]
+            section_name=elem.get_text().replace('[edit]','').strip()
             while len(section_stack)+2 > int(level):
                 section_stack.pop()
             parent = section_dict
@@ -198,6 +198,11 @@ def parse_wiktionary_by_bs(word):
             parent[section_name] = {}
             current_section=parent[section_name]
             section_stack.append(section_name)
+        elif elem.get('class') and elem.get('class')=='NavFrame':
+            Navhead = elem.find(class_='NavHead').get_text()
+            st.write(Navhead)
+            #current_section.setdefault("content", []).append(text)
+            
         elif elem.name=='p':
             current_section['intro_']=elem.get_text()
         elif elem.name=='ul' and not elem.get('style')=="display: block;":
@@ -211,11 +216,11 @@ def parse_wiktionary_by_bs(word):
         elif elem.name=='ol':
             for li in elem.find_all('li'):
                 st.write('***')
-                st.write(li)
+                # st.write(li)
                 meanings={}
                 examples=[]
                 definition=li.get_text()
-                st.write(definition)
+                # st.write(definition)
                 for ul in li.find_all('ul'):
                     if ul:
                         definition=definition.replace(ul.get_text(), '')
@@ -226,7 +231,7 @@ def parse_wiktionary_by_bs(word):
                         definition=definition.replace(example, '')
                 meanings['definition'] = definition.strip()
                 meanings['examples'] =examples
-                st.write(meanings)
+                # st.write(meanings)
                 current_section.setdefault('meaning', []).append(meanings)
 
     return section_dict
