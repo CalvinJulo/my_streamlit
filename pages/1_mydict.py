@@ -204,6 +204,7 @@ def parse_wiktionary_by_bs(word):
         elif elem.name=='ul':
             for li in elem.find_all('li'):
                 audio = li.find_all('a')
+                st.write(audio)
                 if audio[1] and audio[1].get_text()=='file':
                     st.write(audio[1].get_text())
                     text=li.get_text()+'https://en.wiktionary.org'+audio[1].get('href')
