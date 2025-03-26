@@ -199,7 +199,8 @@ def parse_wiktionary_by_bs(word):
             current_section=parent[section_name]
             section_stack.append(section_name)
         elif elem.get('class') and elem.get('class')=='NavFrame':
-            Navhead = elem.find(class_='NavHead').get_text()
+            Navhead = elem.find_all(class_='NavHead')[0].get_text()
+            st.write('kkkk')
             st.write(Navhead)
             #current_section.setdefault("content", []).append(text)
             
