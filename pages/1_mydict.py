@@ -203,11 +203,12 @@ def parse_wiktionary_by_bs(word):
             current_section['headword_']=elem.get_text()
         elif elem.name=='ul':
             for li in elem.find_all('li'):
-                if li.find_all('a','class_'="mw-tmh-play"):
+                if li.find_all('a','class_'="mw-tmh-play")[0]:
                     audio = li.find_all('a','class_'="mw-tmh-play")[0]
-                    current_section.setdefault("content", []).append(li.get_text(),'https://en.wiktionary.org',audio.get('href'))
+                    text=li.get_text()+'https://en.wiktionary.org'+audio.get('href')
                 else:
-                    current_section.setdefault("content", []).append(li.get_text())
+                    text =li.get_text()
+                current_section.setdefault("content", []).append(text)
                 
     # elements = [elem for elem in body if (elem.name == 'div' and elem.get('class_') == re.compile(r'mw-heading mw-heading'))) or elem.name in ['ul', 'p','ol']]
     # body = soup.find_all('div',class_="mw-content-ltr mw-parser-output")[0].find_all()
