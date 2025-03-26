@@ -211,7 +211,7 @@ def parse_wiktionary_by_bs(word):
         elif elem.name=='ol':
             for li in elem.find_all('li'):
                 st.write('***')
-                st.write(elem)
+                st.write(li)
                 meanings={}
                 examples=[]
                 for dd in li.find_all('dd'):
