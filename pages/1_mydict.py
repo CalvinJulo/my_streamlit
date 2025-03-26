@@ -163,9 +163,9 @@ st.write('## Data From Wiktionay by pywikibot')
 # st.write(parser_wikitionary_data(word))
 # st.code(fetch_wiktionary_data(word))
 
-page = pywikibot.Page(site, word)
+# page = pywikibot.Page(site, word)
 
-st.write('hha',page.get_parsed_page())
+# page.get_parsed_page()
 # page_text = page.text
 # page_text = page.get()
 # sect = pywikibot.textlib.extract_sections(page.text, site)
@@ -181,9 +181,8 @@ def parse_wiktionary_by_bs(word):
     page = pywikibot.Page(site, word)
     page_html = page.get_parsed_page()
     soup = bs(page_html, 'html.parser')
-    
     return soup
-# st.write(parse_wiktionary_by_bs(word))
+st.write(parse_wiktionary_by_bs(word))
 
 
 
