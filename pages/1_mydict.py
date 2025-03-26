@@ -184,7 +184,9 @@ def parse_wiktionary_by_bs(word):
     body = soup.find_all('div',class_='mw-content-ltr mw-parser-output')
     elements = soup.find_all(['div', 'ul','ol','p'])
     for elem in elements:
-        if elem.find_all('div',class_=re.compile(r'mw-heading mw-heading')):
+        st.write('sdksldka')
+        if elem.find_all('div',class_=re.compile(r'mw-heading mw-heading')) is not None:
+            st.write('sd')
             st.write(elem.find_all('div',class_=re.compile(r'mw-heading mw-heading'))[0].get_text())
     # elements = [elem for elem in body if (elem.name == 'div' and elem.get('class_') == re.compile(r'mw-heading mw-heading'))) or elem.name in ['ul', 'p','ol']]
     # body = soup.find_all('div',class_="mw-content-ltr mw-parser-output")[0].find_all()
