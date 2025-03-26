@@ -25,6 +25,7 @@ import requests
 import pywikibot
 import re
 import ety
+from bs4 import BeautifulSoup as bs
 
 
 st.title("English Dictionary")
@@ -163,15 +164,29 @@ st.write('## Data From Wiktionay by pywikibot')
 # st.code(fetch_wiktionary_data(word))
 
 page = pywikibot.Page(site, word)
-st.write('page.get',page.get())
-st.write('page.get_parsed_page',page.get_parsed_page())
-page_text = page.text
-sect = pywikibot.textlib.extract_sections(page.text, site)
 
-st.write('pywikibot',dir(pywikibot))
-st.write('page',dir(page))
-st.write('page_text',dir(page_text))
-st.write('sect',sect)
+# page.get_parsed_page()
+# page_text = page.text
+# page_text = page.get()
+# sect = pywikibot.textlib.extract_sections(page.text, site)
+
+# st.write('pywikibot',dir(pywikibot))
+# st.write('page',dir(page))
+# st.write('page_text',dir(page_text))
+
+# ********************************************************************
+# parse the wiktionary by page.get_parsed_page
+
+def parse_wiktionary_by_bs(word):
+    page = pywikibot.Page(site, word)
+    page_html = page.get_parsed_page()
+    soup = bs(page_html, 'html.parser')
+    
+    return soup
+st.write(parse_wiktionary_by_bs(word))
+
+
+
 
 # ********************************************************************
 # Data from DictionaryAPI.dev
