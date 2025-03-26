@@ -203,7 +203,10 @@ def parse_wiktionary_by_bs(word):
             current_section['headword_']=elem.get_text()
         elif elem.name=='ul':
             for li in elem.find_all('li'):
-                if li.find_all('a',title="Play audio")[0] and li.find_all('a',title="Play audio")[0].get('title')[0]=='Play audio':
+                audio = li.find_all('a',title="Play audio")
+                st.write(audio)
+                if False:
+                #if li.find_all('a',title="Play audio")[0] and li.find_all('a',title="Play audio")[0].get('title')[0]=='Play audio':
                     st.write('sss')
                     text=li.get_text()+'https://en.wiktionary.org'+audio.get('href')
                 else:
