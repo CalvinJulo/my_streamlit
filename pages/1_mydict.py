@@ -187,9 +187,6 @@ def parse_wiktionary_by_bs(word):
     section_stack = []  
     current_section = section_dict  # Start at root level
     for elem in elements:
-        if elem.get('class'):
-            st.write(elem.get('class'))
-            st.write(elem.get('style'))
         if elem.get('class') and elem.get('class')[0]=='mw-heading':
             level=elem.get('class')[1][-1]
             section_name=elem.get_text().replace('[edit]','').strip()
@@ -201,8 +198,7 @@ def parse_wiktionary_by_bs(word):
             parent[section_name] = {}
             current_section=parent[section_name]
             section_stack.append(section_name)
-        elif elem.get('class') and elem.get('class')=='NavFrame':
-            st.write(elem)
+        elif elem.get('class') and elem.get('class')[0]=='NavFrame':
             Navhead = elem.find_all(class_='NavHead')[0].get_text()
             st.write('kkkk')
             st.write(Navhead)
