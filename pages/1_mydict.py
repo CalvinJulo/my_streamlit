@@ -222,6 +222,7 @@ def parse_wiktionary_by_bs(word):
                         dd.decompose()
                 meanings['definition'] =li.get_text()
                 meanings['examples'] =examples
+                st.write(meanings)
                 current_section.setdefault('meaning', []).append(meanings)
                 
     # elements = [elem for elem in body if (elem.name == 'div' and elem.get('class_') == re.compile(r'mw-heading mw-heading'))) or elem.name in ['ul', 'p','ol']]
