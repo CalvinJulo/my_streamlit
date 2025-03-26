@@ -234,7 +234,7 @@ def parse_wiktionary_by_bs(word):
                 meanings['definition'] = definition.strip()
                 meanings['examples'] =examples
                 # st.write(meanings)
-                if li.find(class_='usage-label-sense') is not None:
+                if li.find('a') is not None:
                     current_section.setdefault('meaning', []).append(meanings)
 
     return section_dict
