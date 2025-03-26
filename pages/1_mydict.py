@@ -175,7 +175,7 @@ st.write('## Data From Wiktionay by pywikibot')
 # st.write('page_text',dir(page_text))
 
 # ********************************************************************
-# parse the wiktionary by page.get_parsed_page
+# parse the wiktionary by page.get_parsed_page and beautifulsoup
 
 def parse_wiktionary_by_bs(word):
     page = pywikibot.Page(site, word)
@@ -209,6 +209,18 @@ def parse_wiktionary_by_bs(word):
                 else:
                     text =li.get_text()
                 current_section.setdefault("content", []).append(text)
+        elif elem.name=='ol':
+            for li in elem.find_all('li'):
+                meanings={}
+                examples=[]
+                for dl in li.find_all('dl'):
+                    if dl:
+                        example = dl.get_text()
+                        examples.append(example)
+                        dl.decompose()
+                meanings['meaning'] =li.get_text()
+                meanings['examples'] =examples
+                current_section.setdefault('meaning', []).append(meanings)
                 
     # elements = [elem for elem in body if (elem.name == 'div' and elem.get('class_') == re.compile(r'mw-heading mw-heading'))) or elem.name in ['ul', 'p','ol']]
     # body = soup.find_all('div',class_="mw-content-ltr mw-parser-output")[0].find_all()
