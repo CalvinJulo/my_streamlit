@@ -187,8 +187,7 @@ def parse_wiktionary_by_bs(word):
     section_stack = []  
     current_section = section_dict  # Start at root level
     for elem in elements:
-        st.write(elem)
-        if elem.get('class') and elem.get('class')[0]=='mw-heading':
+        if len(elem.get('class'))>0 and elem.get('class')[0]=='mw-heading':
             level=elem.get('class')[1][-1]
             section_name=elem.get_text()[:-6]
             while len(section_stack)+2 > int(level):
@@ -210,6 +209,7 @@ def parse_wiktionary_by_bs(word):
                     text =li.get_text()
                 current_section.setdefault("content", []).append(text)
         elif elem.name=='ol':
+            st.write(elem)
             for li in elem.find_all('li'):
                 meanings={}
                 examples=[]
@@ -218,7 +218,7 @@ def parse_wiktionary_by_bs(word):
                         example = dl.get_text()
                         examples.append(example)
                         dl.decompose()
-                meanings['meaning'] =li.get_text()
+                meanings['definition'] =li.get_text()
                 meanings['examples'] =examples
                 current_section.setdefault('meaning', []).append(meanings)
                 
