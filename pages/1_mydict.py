@@ -203,7 +203,7 @@ def parse_wiktionary_by_bs(word):
             current_section['headword_']=elem.get_text()
         elif elem.name=='ul':
             for li in elem.find_all('li'):
-                if li.get('class') and li.get('class')=="mw-tmh-play":
+                if li.get('class') and li.get('class')[0]=="mw-tmh-play":
                     current_section.setdefault("content", []).append(li.get_text(),'https://en.wiktionary.org',li.get('href'))
                 else:
                     current_section.setdefault("content", []).append(li.get_text())
