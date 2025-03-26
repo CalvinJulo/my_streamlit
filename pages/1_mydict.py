@@ -214,10 +214,10 @@ def parse_wiktionary_by_bs(word):
                 st.write(li)
                 meanings={}
                 examples=[]
-                definition=li.get_text()
+                definition=li.get_text().stripe()
                 for dd in li.find_all('dd'):
                     if dd:
-                        example = dd.get_text()
+                        example = dd.get_text().stripe()
                         examples.append(example)
                         definition=definition[:-len(example)]
                         # dd.decompose()
