@@ -209,21 +209,7 @@ def parse_wiktionary_by_bs(word):
                 else:
                     text =li.get_text()
                 current_section.setdefault("content", []).append(text)
-        elif elem.name=='ol':
-            st.write('***')
-            st.write(elem)
-            for li in elem.find_all('li'):
-                meanings={}
-                examples=[]
-                for dd in li.find_all('dd'):
-                    if dd:
-                        example = dd.get_text()
-                        examples.append(example)
-                        dd.decompose()
-                meanings['definition'] =li.get_text()
-                meanings['examples'] =examples
-                st.write(meanings)
-                current_section.setdefault('meaning', []).append(meanings)
+
                 
     # elements = [elem for elem in body if (elem.name == 'div' and elem.get('class_') == re.compile(r'mw-heading mw-heading'))) or elem.name in ['ul', 'p','ol']]
     # body = soup.find_all('div',class_="mw-content-ltr mw-parser-output")[0].find_all()
