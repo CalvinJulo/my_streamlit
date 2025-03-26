@@ -200,7 +200,7 @@ def parse_wiktionary_by_bs(word):
             section_stack.append(section_name)
         elif elem.name=='p':
             current_section['intro_']=elem.get_text()
-        elif elem.name=='ul':
+        elif elem.name=='ul' and not elem.get('style')=="display: block;":
             for li in elem.find_all('li'):
                 audio = li.find_all('a')
                 if len(audio)==2 and audio[1].get_text()=='file':
