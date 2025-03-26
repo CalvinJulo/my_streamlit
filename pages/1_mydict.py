@@ -186,7 +186,7 @@ def parse_wiktionary_by_bs(word):
     for elem in elements[1:]:
         # st.write(elem.name)
         st.write('gggg')
-        if str(elem.get('class'))[:10]=='mw-heading':
+        if elem.get('class')[0]=='mw-heading':
             st.write(elem.get('class'))
             st.write(elem.get_text())
     # elements = [elem for elem in body if (elem.name == 'div' and elem.get('class_') == re.compile(r'mw-heading mw-heading'))) or elem.name in ['ul', 'p','ol']]
