@@ -210,7 +210,6 @@ def parse_wiktionary_by_bs(word):
                     text =li.get_text()
                 current_section.setdefault("content", []).append(text)
         elif elem.name=='ol':
-            st.write(elem)
             for li in elem.find_all('li'):
                 meanings={}
                 examples=[]
