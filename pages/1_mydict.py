@@ -221,7 +221,7 @@ def parse_wiktionary_by_bs(word):
                         example = dd.get_text()
                         examples.append(example)
                         definition=definition.replace(example, '')
-                meanings['definition'] = definition
+                meanings['definition'] = definition.strip()
                 meanings['examples'] =examples
                 st.write(meanings)
                 current_section.setdefault('meaning', []).append(meanings)
