@@ -200,7 +200,11 @@ def parse_wiktionary_by_bs(word):
             current_section=parent[section_name]
             section_stack.append(section_name)
         elif elem.name=='p':
-            current_section['definition']=elem.get_text()            
+            current_section['headword_']=elem.get_text()
+        elif elem.name=='ul':
+            for li in elem.find_all('li'):
+                current_section.setdefault("content", []).append(li.get_text())
+                
     # elements = [elem for elem in body if (elem.name == 'div' and elem.get('class_') == re.compile(r'mw-heading mw-heading'))) or elem.name in ['ul', 'p','ol']]
     # body = soup.find_all('div',class_="mw-content-ltr mw-parser-output")[0].find_all()
     # body = soup.find_all('main',id='content',class_='mw-body')[0].get_text()
