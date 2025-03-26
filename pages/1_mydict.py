@@ -182,6 +182,7 @@ def parse_wiktionary_by_bs(word):
     page_html = page.get_parsed_page()
     soup = bs(page_html, 'html.parser')
     body = soup.find_all('div',class_='mw-content-ltr mw-parser-output')
+    st.write(body)
     elements = body.find_all(['div', 'ul','ol','p'])
     for elem in elements:
         if elem.find_all('div',class_=re.compile(r'mw-heading mw-heading')):
