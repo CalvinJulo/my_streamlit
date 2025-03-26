@@ -200,7 +200,7 @@ def parse_wiktionary_by_bs(word):
             current_section=parent[section_name]
             section_stack.append(section_name)
         elif elem.name=='p':
-            current_section['headword_']=elem.get_text()
+            current_section['intro']=elem.get_text()
         elif elem.name=='ul':
             for li in elem.find_all('li'):
                 audio = li.find_all('a')
@@ -210,6 +210,7 @@ def parse_wiktionary_by_bs(word):
                     text =li.get_text()
                 current_section.setdefault("content", []).append(text)
         elif elem.name=='ol':
+            st.write(elem)
             for li in elem.find_all('li'):
                 meanings={}
                 examples=[]
