@@ -203,8 +203,9 @@ def parse_wiktionary_by_bs(word):
             current_section['headword_']=elem.get_text()
         elif elem.name=='ul':
             for li in elem.find_all('li'):
-                if li.get('class') and li.get('class')[0]=="mw-tmh-play":
-                    current_section.setdefault("content", []).append(li.get_text(),'https://en.wiktionary.org',li.get('href'))
+                if li.find_all('a','class_'="mw-tmh-play"):
+                    audio = li.find_all('a','class_'="mw-tmh-play")[0]
+                    current_section.setdefault("content", []).append(li.get_text(),'https://en.wiktionary.org',audio.get('href'))
                 else:
                     current_section.setdefault("content", []).append(li.get_text())
                 
