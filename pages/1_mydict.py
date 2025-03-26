@@ -218,10 +218,11 @@ def parse_wiktionary_by_bs(word):
                     if dd:
                         example = dd.get_text()
                         examples.append(example)
-                        dd.decompose()
-#                for ul in li.find_all('ul'):
-#                    if ul:
-#                        ul.decompose()
+                        # dd.decompose()
+               for ul in li.find_all('ul'):
+                    if ul:
+                        # ul.decompose()
+                        pass
                 meanings['definition'] =li.get_text()
                 meanings['examples'] =examples
                 st.write(meanings)
