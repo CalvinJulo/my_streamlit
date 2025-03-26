@@ -200,10 +200,9 @@ def parse_wiktionary_by_bs(word):
             section_stack.append(section_name)
         elif elem.get('class') and elem.get('class')[0]=='NavFrame':
             Navhead = elem.find_all(class_='NavHead')[0].get_text()
-            st.write('kkkk')
-            st.write(Navhead)
-            #current_section.setdefault("content", []).append(text)
-            
+            for li in elem.find_all('li'):
+                text =li.get_text()
+                current_section.setdefault(Navhead, []).append(text)
         elif elem.name=='p':
             current_section['intro_']=elem.get_text()
         elif elem.name=='ul' and not elem.get('style')=="display: block;":
