@@ -208,6 +208,8 @@ def parse_wiktionary_by_bs(word):
         elif elem.name=='p':
             current_section['intro_']=elem.get_text()
         elif elem.name=='ul' and not section_name=="Translations":
+            if elem.find(class_='citation-whole') is not None :
+                pass
             for li in elem.find_all('li'):
                 audio = li.find_all('a')
                 if len(audio)==2 and audio[1].get_text()=='file':
