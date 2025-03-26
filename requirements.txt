@@ -11,6 +11,7 @@ vosk
 pywikibot
 pyphonetics
 ety
+bs4
 
 # pyttsx3
 # speechrecognition
