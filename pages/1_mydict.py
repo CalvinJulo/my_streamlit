@@ -213,11 +213,11 @@ def parse_wiktionary_by_bs(word):
             for li in elem.find_all('li'):
                 meanings={}
                 examples=[]
-                for dl in li.find_all('dl'):
-                    if dl:
-                        example = dl.get_text()
+                for dd in li.find_all('dd'):
+                    if dd:
+                        example = dd.get_text()
                         examples.append(example)
-                        dl.decompose()
+                        dd.decompose()
                 meanings['definition'] =li.get_text()
                 meanings['examples'] =examples
                 current_section.setdefault('meaning', []).append(meanings)
