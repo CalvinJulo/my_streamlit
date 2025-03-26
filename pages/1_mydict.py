@@ -207,6 +207,7 @@ def parse_wiktionary_by_bs(word):
                 if audio[1]:
                     st.write(audio[1].get_text())
                     text=li.get_text()+'https://en.wiktionary.org'+audio[1].get('href')
+                    st.write(text)
                 else:
                     text =li.get_text()
                 current_section.setdefault("content", []).append(text)
