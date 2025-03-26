@@ -181,7 +181,10 @@ def parse_wiktionary_by_bs(word):
     page = pywikibot.Page(site, word)
     page_html = page.get_parsed_page()
     soup = bs(page_html, 'html.parser')
-    return soup
+    body = soup.find_all('mian',class_='mw-body')[0].get_text()
+    # body = soup.find_all('mian',class_='mw-body')[0].get_text()
+    # mw-heading mw-heading2
+    return body
 st.write(parse_wiktionary_by_bs(word))
 
 
