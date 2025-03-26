@@ -212,10 +212,15 @@ def parse_wiktionary_by_bs(word):
             for li in elem.find_all('li'):
                 st.write('***')
                 st.write(li)
+                if len(li.find_all('span',class_="cited-source"))>0:
+                    pass
                 meanings={}
                 examples=[]
                 definition=li.get_text()
                 st.write(definition)
+                for ul in li.find_all('ul'):
+                    if ul:
+                        definition=definition.replace(ul.get_text(), '')
                 for dd in li.find_all('dd'):
                     if dd:
                         example = dd.get_text()
