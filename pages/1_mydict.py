@@ -215,6 +215,7 @@ def parse_wiktionary_by_bs(word):
                 meanings={}
                 examples=[]
                 definition=li.get_text()
+                st.write(definition)
                 for dd in li.find_all('dd'):
                     if dd:
                         example = dd.get_text()
