@@ -181,8 +181,8 @@ def parse_wiktionary_by_bs(word):
     page = pywikibot.Page(site, word)
     page_html = page.get_parsed_page()
     soup = bs(page_html, 'html.parser')
-    body = soup.find_all('div',class_=re.compile(r'mw-heading mw-heading'))
-    
+    # body = soup.find_all('div',class_=re.compile(r'mw-heading mw-heading'))
+    body = soup.find_all()
     # body = soup.find_all('div',class_="mw-content-ltr mw-parser-output")[0].find_all()
     # body = soup.find_all('main',id='content',class_='mw-body')[0].get_text()
     # mw-heading mw-heading2
