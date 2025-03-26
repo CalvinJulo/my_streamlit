@@ -214,12 +214,14 @@ def parse_wiktionary_by_bs(word):
                 st.write(li)
                 meanings={}
                 examples=[]
+                definition=li.get_text()
                 for dd in li.find_all('dd'):
                     if dd:
                         example = dd.get_text()
                         examples.append(example)
+                        definition=definition[:-len(example)]
                         # dd.decompose()
-                meanings['definition'] =li.get_text()
+                meanings['definition'] = definition
                 meanings['examples'] =examples
                 st.write(meanings)
                 current_section.setdefault('meaning', []).append(meanings)
