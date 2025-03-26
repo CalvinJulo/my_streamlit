@@ -212,8 +212,6 @@ def parse_wiktionary_by_bs(word):
             for li in elem.find_all('li'):
                 st.write('***')
                 st.write(li)
-                if len(li.find_all('span',class_="cited-source"))>0:
-                    pass
                 meanings={}
                 examples=[]
                 definition=li.get_text()
