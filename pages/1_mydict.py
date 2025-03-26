@@ -37,8 +37,6 @@ word = st.text_input("Enter a word:", "")
 # Download nltk resources
 nltk.download("wordnet")
 
-
-
 langs= ['als', 'arb', 'bul', 'cat', 'cmn', 'dan', 'ell', 'eng', 'eus',
 'fin', 'fra', 'glg', 'heb', 'hrv', 'ind', 'isl', 'ita', 'ita_iwn',
 'jpn', 'lit', 'nld', 'nno', 'nob', 'pol', 'por', 'ron', 'slk',
@@ -98,10 +96,9 @@ def output_to_streamlit(word):
             st.write('pertainyms:',set(syn['pertainyms']))
 
 # st.write("tree",a1.tree())
-
     
 st.write('## Data From wordnet by nltk')
-# output_to_streamlit(word)
+output_to_streamlit(word)
 
 
 
@@ -115,63 +112,13 @@ st.write(ety.tree(word))
 # ********************************************************************
 # Data From Wiktionay by pywikibot
 
-# family = pywikibot.family.WikimediaFamily.content_families
-# st.write(family)
-
 site = pywikibot.Site("en", "wiktionary")
 
 # Connect to English Wiktionary
-def fetch_wiktionary_data(word):
+def fetch_wiktionary_text(word):
     page = pywikibot.Page(site, word)
     page_text = page.text
     return page_text
-
-def parser_wikitionary_data(word):
-    text=fetch_wiktionary_data(word)
-    lines = text.split("\n")
-    section_dict = {}
-    section_stack = []  # Stack to track section hierarchy
-    current_section = section_dict  # Start at root level
-    
-    for line in lines:
-        line = line.strip()
-        if not line:
-            continue  # Skip empty lines
-        # Check if it's a section header (Markdown format: == Section ==)
-        match = re.match(r"^(=+)\s*(.*?)\s*\1$", line)
-        if match:
-            level = len(match.group(1))  # Number of '=' determines hierarchy
-            section_name = match.group(2).strip()
-            while len(section_stack)+2 > level:
-                section_stack.pop()
-            parent = section_dict
-            for sec in section_stack:
-                parent = parent[sec]
-            parent[section_name] = {}
-            section_stack.append(section_name)
-        else:
-            # If it's content, add it to the last section in the stack
-            if section_stack:
-                parent = section_dict
-                for sec in section_stack:
-                    parent = parent[sec]
-                parent.setdefault("_content", []).append(line)
-    return section_dict
-    
-st.write('## Data From Wiktionay by pywikibot')
-# st.write(parser_wikitionary_data(word))
-# st.code(fetch_wiktionary_data(word))
-
-# page = pywikibot.Page(site, word)
-
-# page.get_parsed_page()
-# page_text = page.text
-# page_text = page.get()
-# sect = pywikibot.textlib.extract_sections(page.text, site)
-
-# st.write('pywikibot',dir(pywikibot))
-# st.write('page',dir(page))
-# st.write('page_text',dir(page_text))
 
 # ********************************************************************
 # parse the wiktionary by page.get_parsed_page and beautifulsoup
@@ -232,9 +179,8 @@ def parse_wiktionary_by_bs(word):
 
     return section_dict
  
-
+st.write('## Data From Wiktionay by pywikibot')
 st.write(parse_wiktionary_by_bs(word))
-
 
 
 
@@ -249,7 +195,7 @@ def fetch_dictionaryapi_data(word):
     return api_data
 st.write('## Data from DictionaryAPI.dev')
 data_dictionaryAPI=fetch_dictionaryapi_data(word)
-
+st.write(data_dictionaryAPI)
 
 
 # ********************************************************************
@@ -267,7 +213,6 @@ def fetch_stand4_data(word):
     return api_data
 st.write('## Data from Stand4 network')
 st.write(fetch_stand4_data(word))
-
 
 
 # ********************************************************************
