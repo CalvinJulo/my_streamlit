@@ -185,9 +185,9 @@ def parse_wiktionary_by_bs(word):
     elements = body.find_all(['div', 'ul','ol','p'])
     for elem in elements[1:]:
         # st.write(elem.name)
-        if elem.get('class'):
-            if elem.get('class')[0]=='mw-heading':
-                st.write(elem.get_text())
+        # if elem.get('class'):
+        if elem.get('class')[0]=='mw-heading':
+            st.write(elem.get_text()[:-6])
     # elements = [elem for elem in body if (elem.name == 'div' and elem.get('class_') == re.compile(r'mw-heading mw-heading'))) or elem.name in ['ul', 'p','ol']]
     # body = soup.find_all('div',class_="mw-content-ltr mw-parser-output")[0].find_all()
     # body = soup.find_all('main',id='content',class_='mw-body')[0].get_text()
