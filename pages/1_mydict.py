@@ -183,15 +183,29 @@ def parse_wiktionary_by_bs(word):
     soup = bs(page_html, 'html.parser')
     body = soup.find_all('div',class_='mw-content-ltr mw-parser-output')[0]
     elements = body.find_all(['div', 'ul','ol','p'])
-    for elem in elements[1:]:
+    section_dict = {}
+    section_stack = []  
+    current_section = section_dict  # Start at root level
+    for elem in elements:
         # st.write(elem.name)
         if elem.get('class') and elem.get('class')[0]=='mw-heading':
-            st.write(elem.get_text()[:-6])
+            level=elem.get('class')[1][-1]
+            section_name=elem.get_text()[:-6]
+            while len(section_stack)+2 > int(level):
+                section_stack.pop()
+            parent = section_dict
+            for sec in section_stack:
+                parent = parent[sec]
+            parent[section_name] = {}
+            section_stack.append(section_name)
+            
     # elements = [elem for elem in body if (elem.name == 'div' and elem.get('class_') == re.compile(r'mw-heading mw-heading'))) or elem.name in ['ul', 'p','ol']]
     # body = soup.find_all('div',class_="mw-content-ltr mw-parser-output")[0].find_all()
     # body = soup.find_all('main',id='content',class_='mw-body')[0].get_text()
     # mw-heading mw-heading2
-    return 
+    return section_dict
+ 
+
 st.write(parse_wiktionary_by_bs(word))
 
 
