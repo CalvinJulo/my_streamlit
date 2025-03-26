@@ -135,7 +135,6 @@ def parser_wikitionary_data(word):
     
     for line in lines:
         line = line.strip()
-        st.write(line)
         if not line:
             continue  # Skip empty lines
         # Check if it's a section header (Markdown format: == Section ==)
@@ -187,8 +186,6 @@ def parse_wiktionary_by_bs(word):
     section_stack = []  
     current_section = section_dict  # Start at root level
     for elem in elements:
-        if elem.name=='ul' and not section_name=="Translations":
-            st.write(elem)
         if elem.get('class') and elem.get('class')[0]=='mw-heading':
             level=elem.get('class')[1][-1]
             section_name=elem.get_text().replace('[edit]','').strip()
@@ -217,12 +214,9 @@ def parse_wiktionary_by_bs(word):
                 current_section.setdefault("content", []).append(text)
         elif elem.name=='ol':
             for li in elem.find_all('li'):
-                #st.write('***')
-                # st.write(li)
                 meanings={}
                 examples=[]
                 definition=li.get_text()
-                # st.write(definition)
                 for ul in li.find_all('ul'):
                     if ul:
                         definition=definition.replace(ul.get_text(), '')
@@ -233,7 +227,6 @@ def parse_wiktionary_by_bs(word):
                         definition=definition.replace(example, '')
                 meanings['definition'] = definition.strip()
                 meanings['examples'] =examples
-                # st.write(meanings)
                 if li.find('a') is not None:
                     current_section.setdefault('meaning', []).append(meanings)
 
