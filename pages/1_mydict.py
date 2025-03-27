@@ -174,7 +174,9 @@ def parse_wiktionary_by_bs(word):
                         definition=definition.replace(example, '')
                 meanings['definition'] = definition.strip()
                 meanings['examples'] =examples
-                if li.find('a') is not None:
+                if li.find(class_='citation-whole') is not None and li.find(class_="usage-label-sense") is None:
+                    pass
+                else:
                     current_section.setdefault('meaning', []).append(meanings)
 
     return section_dict
