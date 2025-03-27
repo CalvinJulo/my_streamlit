@@ -98,6 +98,7 @@ def output_to_streamlit(word):
 # st.write("tree",a1.tree())
     
 st.write('## Data From wordnet by nltk')
+st.write(fetch_wordnet_data_nltk(word))
 # output_to_streamlit(word)
 
 
@@ -181,7 +182,7 @@ def parse_wiktionary_by_bs(word):
     return section_dict
  
 st.write('## Data From Wiktionay by pywikibot')
-# st.write(parse_wiktionary_by_bs(word))
+st.write(parse_wiktionary_by_bs(word))
 
 
 
