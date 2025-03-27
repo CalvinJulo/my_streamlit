@@ -190,8 +190,10 @@ def output_to_streamlit_from_pywikibot(word):
                 st.write('###',sect3)
                 if sect3_value['intro_']:
                     st.write(sect3_value['intro_'])
-                if sect3_value['Pronunciation']:
+                try:
                     st.write(set(sect3_value['Pronunciation']['content'][:2]))
+                except:
+                    pass
                 for sect4, sect4_value in sect3_value.items():
                     if sect4 not in ['intro_','Pronunciation']:
                         st.write('###',sect4)
