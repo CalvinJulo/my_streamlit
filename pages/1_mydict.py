@@ -98,7 +98,7 @@ def output_to_streamlit(word):
 # st.write("tree",a1.tree())
     
 st.write('## Data From wordnet by nltk')
-output_to_streamlit(word)
+# output_to_streamlit(word)
 
 
 
@@ -113,6 +113,11 @@ st.write(ety.tree(word))
 # Data From Wiktionay by pywikibot
 
 site = pywikibot.Site("en", "wiktionary")
+
+site1= pywikibot.Site("en", "wikipedia")
+page1 = pywikibot.Page(site, 'Sandbox')
+st.code('page1',page1.text)
+
 
 # Connect to English Wiktionary
 def fetch_wiktionary_text(word):
@@ -181,7 +186,7 @@ def parse_wiktionary_by_bs(word):
     return section_dict
  
 st.write('## Data From Wiktionay by pywikibot')
-st.write(parse_wiktionary_by_bs(word))
+# st.write(parse_wiktionary_by_bs(word))
 
 
 
