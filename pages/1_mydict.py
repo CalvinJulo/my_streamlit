@@ -187,7 +187,7 @@ def output_to_streamlit_from_pywikibot(word):
     for sect2, sect2_value in data_wiktionary.items():
         if sect2=='English':
             for sect3, sect3_value in sect2_value.items():
-                if sect3_value is None:
+                if sect3_value =={}:
                     continue
                 st.write('###',sect3)
                 if sect3_value['intro_']:
