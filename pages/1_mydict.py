@@ -178,7 +178,6 @@ def parse_wiktionary_by_bs(word):
                     pass
                 else:
                     current_section.setdefault('meaning', []).append(meanings)
-
     return section_dict
  
 st.write('## Data From Wiktionay by pywikibot')
