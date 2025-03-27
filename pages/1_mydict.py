@@ -185,10 +185,10 @@ st.write(parse_wiktionary_by_bs(word))
 def output_to_streamlit_from_pywikibot(word):
     data_wiktionary=parse_wiktionary_by_bs(word)
     for sect2, sect2_value in data_wiktionary.items():
-        if sect2_value is None:
-            continue
         if sect2=='English':
             for sect3, sect3_value in sect2_value.items():
+                if sect3_value is None:
+                    continue
                 st.write('###',sect3)
                 if sect3_value['intro_']:
                     st.write(sect3_value['intro_'])
