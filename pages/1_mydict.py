@@ -201,8 +201,8 @@ def output_to_streamlit_from_pywikibot(word):
                                 for value in sect4_value['meaning']:
                                     st.write('definition:',value['definition'])
                                     st.write('examples:', set(value['examples']))
-                            if sect5 not in ['intro_','meaning']:
-                                if sect4_value[sect5]['content']:
+                            if sect5 not in ['intro_','meaning'] :
+                                if sect4_value[sect5]['content'] is not None:
                                     st.write('***')
                                     st.write(sect5,set(sect4_value[sect5]['content']))
     
