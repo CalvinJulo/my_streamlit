@@ -116,7 +116,7 @@ site = pywikibot.Site("en", "wiktionary")
 
 site1= pywikibot.Site("en", "wikipedia")
 page1 = pywikibot.Page(site, 'Sandbox')
-st.code('page1',page1.text)
+st.code(page1.text)
 
 
 # Connect to English Wiktionary
