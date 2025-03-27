@@ -88,7 +88,7 @@ def output_to_streamlit(word):
         st.write('###', pos)
         for syn in synsets:
             st.write(syn['sense_num'],syn['synset_name'])
-            st.write('defintion:','**',syn['definition'],'**',)
+            st.write('defintion:','**'+syn['definition']+'**',)
             st.write('examples:',set(syn['examples']))
             st.write('synonyms:',set(syn['synonyms']),'antonyms:',set(syn['antonyms']),'derivation:',set(syn['derivation']),'pertainyms:',set(syn['pertainyms']))
 
