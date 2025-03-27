@@ -87,13 +87,13 @@ def output_to_streamlit(word):
     for pos,synsets in etymology.items():
         st.write('###', pos)
         for syn in synsets:
-            st.write(syn['sense_num'],syn['synset_name'])
-            st.write('defintion:',syn['definition'])
-            st.write('examples:',set(syn['examples']))
-            st.write('synonyms:',set(syn['synonyms']))
-            st.write('antonyms:',set(syn['antonyms']))
-            st.write('derivation:',set(syn['derivation']))
-            st.write('pertainyms:',set(syn['pertainyms']))
+            st.text(syn['sense_num'],syn['synset_name'])
+            st.text('defintion:',syn['definition'])
+            st.text('examples:',set(syn['examples']))
+            st.text('synonyms:',set(syn['synonyms']))
+            st.text('antonyms:',set(syn['antonyms']))
+            st.text('derivation:',set(syn['derivation']))
+            st.text('pertainyms:',set(syn['pertainyms']))
 
 # st.write("tree",a1.tree())
     
