@@ -191,7 +191,7 @@ def output_to_streamlit_from_pywikibot(word):
                 if sect3_value['intro_']:
                     st.write(sect3_value['intro_'])
                 if sect3_value['Pronunciation']:
-                    st.write(sect3_value['Pronunciation']['content'][:2])
+                    st.write(set(sect3_value['Pronunciation']['content'][:2]))
                 for sect4, sect4_value in sect3_value.items():
                     if sect4 not in ['intro_','Pronunciation']:
                         st.write('###',sect4)
@@ -199,9 +199,11 @@ def output_to_streamlit_from_pywikibot(word):
                         for sect5, sect5_value in sect4_value.items():
                             if sect5=='meaning':
                                 for value in sect4_value['meaning']:
-                                    st.write(value)
+                                    st.write('definition:',value['definition'])
+                                    st.write('examples:', set(value['examples']))
                             if sect5 not in ['intro_','meaning']:
-                                st.write(sect5,set(sect4_value[sect5]['content']))
+                                if sect4_value[sect5]['content']:
+                                    st.write(sect5,set(sect4_value[sect5]['content']))
     
 output_to_streamlit_from_pywikibot(word)
 
