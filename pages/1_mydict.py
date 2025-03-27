@@ -90,7 +90,8 @@ def output_to_streamlit(word):
             st.write(syn['sense_num'],syn['synset_name'])
             st.write('defintion:','**'+syn['definition']+'**',)
             st.write('examples:',set(syn['examples']))
-            st.write('synonyms:',set(syn['synonyms']),'antonyms:',set(syn['antonyms']),'derivation:',set(syn['derivation']),'pertainyms:',set(syn['pertainyms']))
+            st.write('synonyms:',set(syn['synonyms']),'antonyms:',set(syn['antonyms']),
+                     'derivation:',set(syn['derivation']),'pertainyms:',set(syn['pertainyms']))
 
 # st.write("tree",a1.tree())
 
@@ -181,6 +182,28 @@ def parse_wiktionary_by_bs(word):
 st.write('## Data From Wiktionay by pywikibot')
 st.write(parse_wiktionary_by_bs(word))
 
+def output_to_streamlit_from_pywikibot(word):
+    data_wiktionary=parse_wiktionary_by_bs(word)
+    for sect2, sect2_value in data_wiktionary.items():
+        if sect2=='English':
+            for sect3, sect3_value in sect2_value.items():
+                st.write('###',sect3)
+                if sect3_value['intro_']:
+                    st.write(sect3_value['intro_'])
+                if sect3_value['Pronunciation']:
+                    st.write(sect3_value['Pronunciation']['content'][:2])
+                for sect4, sect4_value in sect3_value.items():
+                    if sect4 not in ['intro_','Pronunciation']:
+                        st.write('###',sect4)
+                        st.write(sect4_value['intro_'])
+                        for sect5, sect5_value in sect4_value.items():
+                            if sect5=='meaning':
+                                for value in sect4_value['meaning']:
+                                    st.write(value)
+                            if sect5 not in ['intro_','meaning']:
+                                st.write(sect5,set(sect4_value[sect5]['content']))
+    
+output_to_streamlit_from_pywikibot(word)
 
 
 # ********************************************************************
