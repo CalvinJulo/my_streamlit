@@ -114,13 +114,6 @@ st.write(ety.tree(word))
 
 site = pywikibot.Site("en", "wiktionary")
 
-site1= pywikibot.Site("en", "wikipedia")
-page1 = pywikibot.Page(site1, 'Sandbox')
-st.code(page1.text)
-page2 = pywikibot.Page(site1, 'Wikipedia:Sandbox')
-st.code(page2.text)
-
-
 # Connect to English Wiktionary
 def fetch_wiktionary_text(word):
     page = pywikibot.Page(site, word)
