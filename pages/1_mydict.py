@@ -93,9 +93,9 @@ def output_to_streamlit(word):
             st.write('synonyms:',set(syn['synonyms']),'antonyms:',set(syn['antonyms']),'derivation:',set(syn['derivation']),'pertainyms:',set(syn['pertainyms']))
 
 # st.write("tree",a1.tree())
-    
+
 st.write('## Data From wordnet by nltk')
-st.write(fetch_wordnet_data_nltk(word))
+# st.write(fetch_wordnet_data_nltk(word))
 output_to_streamlit(word)
 
 
