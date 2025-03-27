@@ -99,7 +99,7 @@ def output_to_streamlit(word):
     
 st.write('## Data From wordnet by nltk')
 st.write(fetch_wordnet_data_nltk(word))
-# output_to_streamlit(word)
+output_to_streamlit(word)
 
 
 
