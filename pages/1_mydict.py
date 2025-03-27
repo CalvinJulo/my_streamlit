@@ -203,6 +203,7 @@ def output_to_streamlit_from_pywikibot(word):
                                     st.write('examples:', set(value['examples']))
                             if sect5 not in ['intro_','meaning']:
                                 if sect4_value[sect5]['content']:
+                                    st.write('***')
                                     st.write(sect5,set(sect4_value[sect5]['content']))
     
 output_to_streamlit_from_pywikibot(word)
