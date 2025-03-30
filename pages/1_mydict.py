@@ -248,9 +248,9 @@ def fetch_dictionaryapi_data(word):
 
 def output_dictionaryAPI(word):
     data_dictionaryAPI=fetch_dictionaryapi_data(word)
-
     stack = [data_dictionaryAPI]  # Start with the outer dictionary
     results = []  # Store extracted dictionaries
+    st.write(stack)
 
     while stack:
         current = stack.pop()  # Process the last element (LIFO)
