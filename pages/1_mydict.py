@@ -217,21 +217,22 @@ st.write('## kkkkkkkkkkkk')
 def output_333_1(word):
     data_wiktionary=parse_wiktionary_by_bs(word)
     stack = [data_wiktionary['English']]  # Start with the outer dictionary
-    result = []  # Store extracted dictionaries
+    results = []  # Store extracted dictionaries
 
     while stack:
         current = stack.pop()  # Process the last element (LIFO)
         if isinstance(current, dict):
-            result.append(current)  # Store the dictionary
+            results.append(current)  # Store the dictionary
             for value in current.values():  # Add all dictionary values to the stack
                 if isinstance(value, dict):  # Only add dictionaries
                     stack.append(value)
 
     # Print extracted dictionaries
-    for key,value in result.items():
-        st.write('***')
-        if not isinstance(value, dict):
-            st.write(key, set(value))
+
+    for result in results:
+        for key,value in result.items():
+            if not isinstance(value, dict) and value is not None:
+                st.write(key, set(value))
 
 output_333_1(word)
 
@@ -249,12 +250,12 @@ def output_dictionaryAPI(word):
     data_dictionaryAPI=fetch_dictionaryapi_data(word)
 
     stack = [data_dictionaryAPI]  # Start with the outer dictionary
-    result = []  # Store extracted dictionaries
+    results = []  # Store extracted dictionaries
 
     while stack:
         current = stack.pop()  # Process the last element (LIFO)
         if isinstance(current, dict):
-            result.append(current)  # Store the dictionary
+            results.append(current)  # Store the dictionary
             for value in current.values():  # Add all dictionary values to the stack
                 if isinstance(value, dict):  # Only add dictionaries
                     stack.append(value)
@@ -262,10 +263,10 @@ def output_dictionaryAPI(word):
                     for item in value:
                         if isinstance(item, dict):  # Add nested dictionaries in lists
                             stack.append(item)
-    for key,value in result.items():
-        st.write('***')
-        if not isinstance(value, dict) and value is not None:
-            st.write(key, set(value))
+    for result in results:
+        for key,value in result.items():
+            if not isinstance(value, dict) and value is not None:
+                st.write(key, set(value))
 st.write('## Data from DictionaryAPI.dev')
 output_dictionaryAPI(word)
 
