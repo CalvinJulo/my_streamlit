@@ -232,7 +232,7 @@ def output_333_1(word):
     for result in results:
         for key,value in result.items():
             if not isinstance(value, dict) and value is not None:
-                st.write(key, set(value))
+                st.write(key, value)
 
 output_333_1(word)
 
@@ -266,7 +266,7 @@ def output_dictionaryAPI(word):
     for result in results:
         for key,value in result.items():
             if not isinstance(value, dict) and value is not None:
-                st.write(key, set(value))
+                st.write(key, value)
 st.write('## Data from DictionaryAPI.dev')
 output_dictionaryAPI(word)
 
