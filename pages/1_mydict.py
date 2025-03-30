@@ -214,7 +214,7 @@ def output_to_streamlit_from_pywikibot(word):
 # output_to_streamlit_from_pywikibot(word)
 
 st.write('## kkkkkkkkkkkk')
-def output_to_streamlit_from_pywikibot_1(word):
+def output_333_1(word):
     data_wiktionary=parse_wiktionary_by_bs(word)
     stack = [data_wiktionary]['English']  # Start with the outer dictionary
     result = []  # Store extracted dictionaries
@@ -233,7 +233,7 @@ def output_to_streamlit_from_pywikibot_1(word):
         if not isinstance(value, dict):
             st.write(key, set(value))
 
-output_to_streamlit_from_pywikibot_1(word)
+output_333_1(word)
 
 # ********************************************************************
 # Data from DictionaryAPI.dev
