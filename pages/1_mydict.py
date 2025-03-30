@@ -211,8 +211,28 @@ def output_to_streamlit_from_pywikibot(word):
                                 except:
                                     pass
     
-output_to_streamlit_from_pywikibot(word)
+# output_to_streamlit_from_pywikibot(word)
 
+
+def output_to_streamlit_from_pywikibot_1(word):
+    data_wiktionary=parse_wiktionary_by_bs(word)
+    stack = [data_wiktionary]['English']  # Start with the outer dictionary
+    result = []  # Store extracted dictionaries
+
+    while stack:
+        current = stack.pop()  # Process the last element (LIFO)
+        if isinstance(current, dict):
+            result.append(current)  # Store the dictionary
+            for value in current.values():  # Add all dictionary values to the stack
+                if isinstance(value, dict):  # Only add dictionaries
+                    stack.append(value)
+
+    # Print extracted dictionaries
+    for key,value in result.items():
+        if not isinstance(value, dict):
+            st.write(key, set(value))
+
+output_to_streamlit_from_pywikibot_1(word)
 
 # ********************************************************************
 # Data from DictionaryAPI.dev
