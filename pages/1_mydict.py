@@ -229,6 +229,7 @@ def output_to_streamlit_from_pywikibot_1(word):
 
     # Print extracted dictionaries
     for key,value in result.items():
+        st.write('***')
         if not isinstance(value, dict):
             st.write(key, set(value))
 
