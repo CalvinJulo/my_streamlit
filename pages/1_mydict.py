@@ -244,10 +244,30 @@ def fetch_dictionaryapi_data(word):
     if response.status_code == 200:
         api_data = response.json()
     return api_data
-st.write('## Data from DictionaryAPI.dev')
-data_dictionaryAPI=fetch_dictionaryapi_data(word)
-st.write(data_dictionaryAPI)
 
+def output_dictionaryAPI(word):
+    data_dictionaryAPI=fetch_dictionaryapi_data(word)
+
+    stack = [data_dictionaryAPI]  # Start with the outer dictionary
+    result = []  # Store extracted dictionaries
+
+    while stack:
+        current = stack.pop()  # Process the last element (LIFO)
+        if isinstance(current, dict):
+            result.append(current)  # Store the dictionary
+            for value in current.values():  # Add all dictionary values to the stack
+                if isinstance(value, dict):  # Only add dictionaries
+                    stack.append(value)
+                elif isinstance(value, list):  # If value is a list, check each element
+                    for item in value:
+                        if isinstance(item, dict):  # Add nested dictionaries in lists
+                            stack.append(item)
+    for key,value in result.items():
+        st.write('***')
+        if not isinstance(value, dict) and value is not None:
+            st.write(key, set(value))
+st.write('## Data from DictionaryAPI.dev')
+output_dictionaryAPI(word)
 
 # ********************************************************************
 # Data from Stand4 network
@@ -264,6 +284,8 @@ def fetch_stand4_data(word):
     return api_data
 st.write('## Data from Stand4 network')
 st.write(fetch_stand4_data(word))
+
+
 
 
 # ********************************************************************
