@@ -216,7 +216,7 @@ def output_to_streamlit_from_pywikibot(word):
 st.write('## kkkkkkkkkkkk')
 def output_333_1(word):
     data_wiktionary=parse_wiktionary_by_bs(word)
-    stack = [data_wiktionary]['English']  # Start with the outer dictionary
+    stack = [data_wiktionary['English']]  # Start with the outer dictionary
     result = []  # Store extracted dictionaries
 
     while stack:
