@@ -223,11 +223,11 @@ def output_333_1(word):
         current = stack.pop()  # Process the last element (LIFO)
         if isinstance(current, dict):
             results.append(current)  # Store the dictionary
-            for value in current.values():  # Add all dictionary values to the stack
+            for key, value in current.items():  # Add all dictionary values to the stack
                 if isinstance(value, dict):  # Only add dictionaries
                     stack.append(value)
                 if not isinstance(value, dict):
-                    st.write(current.keys(),value)
+                    st.write(key,value)
 
     # Print extracted dictionaries
 
