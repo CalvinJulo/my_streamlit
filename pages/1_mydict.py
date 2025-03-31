@@ -226,13 +226,17 @@ def output_333_1(word):
             for value in current.values():  # Add all dictionary values to the stack
                 if isinstance(value, dict):  # Only add dictionaries
                     stack.append(value)
+                if not isinstance(value, dict):
+                    st.write(current.keys(),value)
 
     # Print extracted dictionaries
 
     for result in results:
         for key,value in result.items():
             if not isinstance(value, dict) and value is not None:
-                st.write(key, value)
+                pass
+                # st.write()
+                #st.write(key, value)
 
 output_333_1(word)
 
