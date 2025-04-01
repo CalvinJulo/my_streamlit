@@ -224,9 +224,16 @@ def output_333_1(word):
         st.write('lllll')
         for k1,v1 in current['English'].items():
                 for k2,v2 in v1.items():
-                    if not isinstance(v2, str):
+                    if isinstance(v2, str):
                         st.write(k1,v2)
-
+                    elif isinstance(v2, list):
+                        st.write(k2,set(v2))
+                    elif isinstance(v2, dict):
+                        for k3,v3 in v2.items():
+                            if isinstance(v3, str):
+                                st.write(k2,v2)
+                            elif isinstance(v2, list):
+                                st.write(k2,set(v3))
     # Print extracted dictionaries
 
 output_333_1(word)
