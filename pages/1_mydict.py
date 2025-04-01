@@ -222,8 +222,7 @@ def output_333_1(word):
     while stack:
         current = stack.pop()  # Process the last element (LIFO)
         st.write('lllll')
-        st.write(current)
-        for k1,v1 in current.items():
+        for k1,v1 in current['English'].items():
                 for k2,v2 in v1.items():
                     if not isinstance(v2, dict):
                         st.write(k1,v2)
