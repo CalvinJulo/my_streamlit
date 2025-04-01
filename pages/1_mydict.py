@@ -225,6 +225,7 @@ def output_333_1(word):
         for k1,v1 in current['English'].items():
                 for k2,v2 in v1.items():
                     if isinstance(v2, str):
+                        st.write('bbbbb')
                         st.write(k1,v2)
                     elif isinstance(v2, list):
                         st.write('aaaaaa')
@@ -234,7 +235,7 @@ def output_333_1(word):
                             if isinstance(v3, str):
                                 st.write('nnnnnn',k3)
                                 st.write(k2,v2)
-                            elif isinstance(v2, list):
+                            elif isinstance(v3, list):
                                 st.write('ggggg')
                                 st.write(k2,set(v3))
     # Print extracted dictionaries
