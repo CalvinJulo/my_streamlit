@@ -233,11 +233,11 @@ def output_333_1(word):
                     elif isinstance(v2, dict):
                         for k3,v3 in v2.items():
                             if isinstance(v3, str):
-                                st.write('nnnnnn',k3)
-                                st.write(k2,v2)
+                                st.write('nnnnnn')
+                                st.write(k2,v3)
                             elif isinstance(v3, list):
                                 st.write('ggggg')
-                                st.write(k2,set(v3))
+                                st.write(k2,v3)
     # Print extracted dictionaries
 
 output_333_1(word)
