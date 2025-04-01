@@ -227,12 +227,15 @@ def output_333_1(word):
                     if isinstance(v2, str):
                         st.write(k1,v2)
                     elif isinstance(v2, list):
+                        st.write('aaaaaa')
                         st.write(k2,set(v2))
                     elif isinstance(v2, dict):
                         for k3,v3 in v2.items():
                             if isinstance(v3, str):
+                                st.write('nnnnnn',k3)
                                 st.write(k2,v2)
                             elif isinstance(v2, list):
+                                st.write('ggggg')
                                 st.write(k2,set(v3))
     # Print extracted dictionaries
 
