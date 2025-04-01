@@ -216,27 +216,17 @@ def output_to_streamlit_from_pywikibot(word):
 st.write('## kkkkkkkkkkkk')
 def output_333_1(word):
     data_wiktionary=parse_wiktionary_by_bs(word)
-    stack = [data_wiktionary]  # Start with the outer dictionary
+    stack = [{'English':data_wiktionary['English']}]  # Start with the outer dictionary
     results = []  # Store extracted dictionaries
 
     while stack:
         current = stack.pop()  # Process the last element (LIFO)
-        if isinstance(current, dict):
-            results.append(current)  # Store the dictionary
-            for key, value in current.items():  # Add all dictionary values to the stack
-                if isinstance(value, dict):  # Only add dictionaries
-                    stack.append(value)
-                if not isinstance(value, dict):
-                    st.write(key,value)
+        for k1,v1 in current.items():
+                for k2,v2 in v1.items():
+                    if not isinstance(v2, dict):
+                        st.write(k1,v2)
 
     # Print extracted dictionaries
-
-    for result in results:
-        for key,value in result.items():
-            if not isinstance(value, dict) and value is not None:
-                pass
-                # st.write()
-                #st.write(key, value)
 
 output_333_1(word)
 
