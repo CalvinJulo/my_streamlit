@@ -302,6 +302,7 @@ st.write(fetch_stand4_data(word))
 # www.definitions.net
 # www.beedictionary.com/
 # www.finedictionary.com/
+# https://www.vocabulary.com/
 
 st.write('## Other network')
 st.write(f'https://www.merriam-webster.com/dictionary/{word}')
