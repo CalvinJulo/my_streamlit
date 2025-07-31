@@ -25,7 +25,7 @@ import streamlit as st
 API1 = "https://api.dictionaryapi.dev/api/v2/entries/en/"
 API2 = "https://freedictionaryapi.com/api/v1/entries/en/"
 
-
+'''
 def parse_json(data, indent=0):
     space = "." * indent
     if isinstance(data, dict):
@@ -44,7 +44,7 @@ def parse_json(data, indent=0):
     else:
         st.write(f"{space}{data}")
 
-
+'''
 
 
 
@@ -54,24 +54,50 @@ def parse_json(data, indent=0):
 def fetch_dictionaryapi_data(word):
     dictionaryapi_API = "https://api.dictionaryapi.dev/api/v2/entries/en/" + word
     try:
-        dictionaryapi_resp = requests.get(dictionaryapi_API).json()[0]
+        dictionaryapi_resp = requests.get(dictionaryapi_API).json()
     except:
         dictionaryapi_resp =[]
         pass
-    return dictionaryapi_resp
+    return dictionaryapi_resp  # list type
 
 def parse_dictionaryapi_data(word):
     data = fetch_dictionaryapi_data(word)
-    st.subheader(f"{data['word']}  •  {data.get('phonetic','')}")
-    for p in data.get('phonetics',[]):
-        if 'audio' in p:
-            st.audio(p['audio'])
-    for m in data.get('meanings',[]):
-        st.write(f"**{m['partOfSpeech']}**")
-        for d in m['definitions']:
-            st.write("-", d['definition']) 
-            if 'example' in d:
-                st.write("  >", d['example'])
+    def parse_data(data):
+        if isinstance(data, dict):
+            for key, value in data.items():
+                if value == '':
+                    pass
+                elif value == []:
+                    pass
+                elif key == 'phonetics':
+                    for index, item in enumerate(key):
+                        st.write(item['text'])
+                        if item['audio'] and item['audio'] is not '':
+                            st.audio(item['audio'])
+                elif key == 'partOfSpeech':
+                    st.write(f"**{value}**")
+                elif key == 'definitions':
+                    for d in value:
+                        st.write("-", d['definition'])
+                        if 'example' in d and d['example'] is not '':
+                            st.write("  >", d['example'])
+                        if 'synonyms' in d and d['synonyms'] is not '':
+                            st.write("  >", d['synonyms'])
+                        if 'antonyms' in d and d['antonyms'] is not '':
+                            st.write("  >", d['antonyms'])
+                elif key == 'antonyms':
+                    st.write("  >", d['antonyms'])
+                elif key == 'synonyms':
+                    st.write("  >", d['synonyms'])
+                else:
+                    parse_data(value)
+        elif isinstance(data, list):
+            for index, item in enumerate(data):
+                if item['word']:
+                    st.subheader(f"{item['word']}  •  {item.get('phonetic')}")
+                parse_data(item)
+        else:
+            pass
 
 
 # *****************************************************************
@@ -93,8 +119,7 @@ def parse_freedictionaryapi_data_by_bs(word):
         st.write(data['etymology'])
 
 word = st.text_input("Enter a word")
-# st.write(parse_dictionaryapi_data(word))
+st.write(parse_dictionaryapi_data(word))
 # st.write(parse_freedictionaryapi_data_by_bs(word))
 
-parse_json(fetch_dictionaryapi_data(word), indent=0)
-parse_json(fetch_freedictionaryapi_data(word), indent=0)
+#parse_json(fetch_freedictionaryapi_data(word), indent=0)
