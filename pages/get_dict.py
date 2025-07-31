@@ -28,14 +28,14 @@ API2 = "https://freedictionaryapi.com/api/v1/entries/en/"
 
 
 def parse_json(data, indent=0):
-    space = "  " * indent
+    space = "==" * indent
     if isinstance(data, dict):
         for key, value in data.items():
             st.write(f"{space}{key}:")
             parse_json(value, indent + 1)
     elif isinstance(data, list):
         for index, item in enumerate(data):
-            st.write(f"{space}- Item {index + 1}:")
+            # st.write(f"{space}- Item {index + 1}:")
             parse_json(item, indent + 1)
     else:
         st.write(f"{space}{data}")
