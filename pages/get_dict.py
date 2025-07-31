@@ -112,12 +112,12 @@ def parse_freedictionaryapi_data(word):
             
         st.write("Senses / Definitions:")
         for s in entry.get('senses', []):
-            st.write("- Definition:", s.get('definition'))
+            st.write("-", "Definition:", s.get('definition'))
             #if s.get('tags'):
             #     st.write("  Tags:", set(s.get('tags')))
             if s.get('examples'):
                 for ex in s.get('examples'):
-                    st.write("  Example:", ex)
+                    st.write("  >", "Example:", ex)
             if s.get('synonyms'):
                 st.write("  Synonyms:", ", ".join(s['synonyms']))
             if s.get('antonyms'):
@@ -125,7 +125,7 @@ def parse_freedictionaryapi_data(word):
             if s.get('quotes'):
                 st.write("  Quotes:")
                 for q in s['quotes']:
-                    st.write("–", q.get('text'), "(", q.get('reference'), ")")
+                    st.write("  >", q.get('text'), "(", q.get('reference'), ")")
 
             for subs in s['subsenses']:
                 st.write(" – Sub-definition:", subs.get('definition'))
@@ -133,11 +133,11 @@ def parse_freedictionaryapi_data(word):
                 #    st.write("  Tags:", set(subs.get('tags')))
                 if subs.get('examples'):
                     for ex in subs.get('examples'):
-                        st.write("  Example:", ex)
+                        st.write("  >", "Example:", ex)
                 if subs.get('quotes'):
                     st.write("  Quotes:")
                     for q in subs['quotes']:
-                        st.write("–", q.get('text'), "(", q.get('reference'), ")")
+                        st.write("  >", q.get('text'), "(", q.get('reference'), ")")
                 if subs.get('synonyms'):
                     st.write("  Synonyms:", ", ".join(subs['synonyms']))
                 if subs.get('antonyms'):
