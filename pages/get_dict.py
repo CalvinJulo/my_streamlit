@@ -68,6 +68,10 @@ def parse_dictionaryapi_data(word):
                 st.audio(p['audio'])       
         for meaning in data.get('meanings',[]):
             st.write(f"**{meaning['partOfSpeech']}**")
+            if "synonyms" in meaning and meaning["synonyms"] != []:
+                st.write("  >",'synonyms',set(meaning['synonyms']))
+            if "antonyms" in meaning and meaning["antonyms"] != []:
+                st.write("  >",'antonyms',set(meaning['antonyms']))
             for d in meaning['definitions']:
                 st.write("-", d['definition'])
                 if "synonyms" in d and d["synonyms"] != []:
@@ -96,6 +100,6 @@ def parse_freedictionaryapi_data(word):
         st.write(data['etymology'])
 
 word = st.text_input("Enter a word")
-# st.write(parse_dictionaryapi_data(word))
+st.write(parse_dictionaryapi_data(word))
 st.write(parse_freedictionaryapi_data(word))
 
