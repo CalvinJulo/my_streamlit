@@ -25,6 +25,37 @@ import streamlit as st
 API1 = "https://api.dictionaryapi.dev/api/v2/entries/en/"
 API2 = "https://freedictionaryapi.com/api/v1/entries/en/"
 
+
+# *****************************************************************
+# Data From dictionaryapi
+
+def fetch_dictionaryapi_data(word):
+    dictionaryapi_API = "https://api.dictionaryapi.dev/api/v2/entries/en/" + word
+    dictionaryapi_resp = requests.get(dictionaryapi_API).json()
+    return dictionaryapi_resp
+
+def parse_dictionaryapi_data(word):
+    pass
+
+
+# *****************************************************************
+# Data From freedictionaryapi
+
+def fetch_freedictionaryapi_data(word):
+    freedictionaryapi_API = "https://freedictionaryapi.com/api/v1/entries/en/" + word
+    freedictionaryapi_resp = requests.get(freedictionaryapi_API).json()
+    return freedictionaryapi_resp
+
+def parse_freedictionaryapi_data_by_bs(word):
+    pass
+
+
+q = st.text_input("Enter a word")
+st.write(fetch_dictionaryapi_data(q))
+st.write(fetch_freedictionaryapi_data(q))
+
+
+'''
 def lookup(word):
     data = {'source1': None, 'source2': None}
     try:
@@ -59,3 +90,6 @@ if q:
     if s2 and 'etymology' in s2:
         st.subheader("Etymology")
         st.write(s2['etymology'])
+
+
+'''
