@@ -355,7 +355,7 @@ st.audio('https://en.wiktionary.org/wiki/File:en-us-word.ogg')
 # st.write(parse_freedictionaryapi_data(word))
 # st.write(parse_stand4_data(word))
 # st.write(parse_ety_data(word))
-st.write(parse_wordnet_data_by_nltk(word))
+# st.write(parse_wordnet_data_by_nltk(word))
 
 
 
