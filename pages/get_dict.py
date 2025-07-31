@@ -26,7 +26,6 @@ API1 = "https://api.dictionaryapi.dev/api/v2/entries/en/"
 API2 = "https://freedictionaryapi.com/api/v1/entries/en/"
 
 
-
 def parse_json(data, indent=0):
     space = "==" * indent
     if isinstance(data, dict):
