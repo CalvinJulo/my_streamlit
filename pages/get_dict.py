@@ -61,49 +61,24 @@ def fetch_dictionaryapi_data(word):
     return dictionaryapi_resp  # list type
 
 def parse_dictionaryapi_data(word):
-    data = fetch_dictionaryapi_data(word)
-    st.write('lllllllllll')
-    st.write(data)
-    def parse_data(data):
-        if isinstance(data, dict):
-            st.write('ggggggg')
-            st.write(data)
-            for key, value in data.items():
-                if value == '':
-                    pass
-                elif value == []:
-                    pass
-                elif key == 'phonetics':
-                    for index, item in enumerate(key):
-                        st.write(item['text'])
-                        if item['audio'] and item['audio'] is not '':
-                            st.audio(item['audio'])
-                elif key == 'partOfSpeech':
-                    st.write(f"**{value}**")
-                elif key == 'definitions':
-                    for d in value:
-                        st.write("-", d['definition'])
-                        if 'example' in d and d['example'] is not '':
-                            st.write("  >", d['example'])
-                        if 'synonyms' in d and d['synonyms'] is not '':
-                            st.write("  >", d['synonyms'])
-                        if 'antonyms' in d and d['antonyms'] is not '':
-                            st.write("  >", d['antonyms'])
-                elif key == 'antonyms':
-                    st.write("  >", d['antonyms'])
-                elif key == 'synonyms':
-                    st.write("  >", d['synonyms'])
-                else:
-                    parse_data(value)
-        elif isinstance(data, list):
-            st.write('ooooooooo')
-            for index, item in enumerate(data):
-                if item['word']:
-                    st.subheader(f"{item['word']}  •  {item.get('phonetic')}")
-                st.write(data)
-                parse_data(item)
-        else:
-            pass
+    data_list = fetch_dictionaryapi_data(word)
+    for index, data in enumerate(data_list):
+        st.subheader(f"{data['word']}  •  {data.get('phonetic')}")
+        for p in data.get('phonetics'):
+            st.write(p['text'])
+            if 'audio' in p and p['audio'] is not '':
+                st.audio(p['audio'])       
+        for meaning in data.get('meanings',[]):
+            st.write(f"**{meaning['partOfSpeech']}**")
+            for d in meaning['definitions']:
+                st.write("-", d['definition'])
+                if "synonyms" in d and d["synonyms"] is not []:
+                    st.write(d['synonyms'])
+                if "antonyms" in d and d["antonyms"] is not []:
+                    st.write(d['synonyms'])
+                if 'example' in d:
+                    st.write("  >", d['example'])
+                
 
 
 # *****************************************************************
