@@ -99,11 +99,16 @@ def parse_freedictionaryapi_data(word):
     for entry in data['entries']:
         st.write(f"**{entry['partOfSpeech']}**")
         st.write("Pronunciations:")
-        for pr in entry['pronunciations']:
-            st.write("-", pr.get('type'), pr.get('text'), pr.get('tags'))
-        st.write("Forms (word family):")
-        for f in entry['forms']:
-            st.write("-", f.get('word'), f.get('tags', []))
+        columns=st.columns(len(entry['pronunciations']))
+        for num, col in enumerate(columns):
+            pr = entry['pronunciations'][num]
+            col.write(pr.get('type'))
+            col.write(pr.get('text'))
+            col.write(pr.get('tags'))
+            
+        #st.write("Forms (word family):")
+        #for f in entry['forms']:
+        #    st.write("-", f.get('word'), f.get('tags', []))
         
 
         st.write("Senses / Definitions:")
@@ -141,11 +146,11 @@ def parse_freedictionaryapi_data(word):
                     st.write("  Antonyms:", ", ".join(subs['antonyms']))
 
                 # Translations if present
-                if subs.get('translations'):
-                    st.write("  Translations:")
-                    for tr in subs['translations']:
-                        lang2 = tr.get('language', {})
-                        st.write(f"    {lang2.get('name')} ({lang2.get('code')}): {tr.get('word')}")
+                #if subs.get('translations'):
+                #    st.write("  Translations:")
+                #    for tr in subs['translations']:
+                #        lang2 = tr.get('language', {})
+                #        st.write(f"    {lang2.get('name')} ({lang2.get('code')}): {tr.get('word')}")
                 # Subsenses
                 if subs.get('subsenses'):
                     st.write("  Subsenses:")
