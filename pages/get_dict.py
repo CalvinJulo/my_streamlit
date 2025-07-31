@@ -21,6 +21,7 @@ sys.path.append(parent_dir)
 import requests, 
 import streamlit as st
 
+
 API1 = "https://api.dictionaryapi.dev/api/v2/entries/en/"
 API2 = "https://api.freedictionaryapi.com/v2/entries/en/"
 
