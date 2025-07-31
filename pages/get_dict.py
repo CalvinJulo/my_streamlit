@@ -42,7 +42,6 @@ st.title("📘 My Streamlit Dictionary")
 q = st.text_input("Enter a word")
 if q:
     results = lookup(q)
-    st.write(results)
     s1, s2 = results['source1'], results['source2']
     if s1:
         st.write(s1)
