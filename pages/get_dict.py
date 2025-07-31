@@ -102,20 +102,19 @@ def parse_freedictionaryapi_data(word):
         columns=st.columns(len(entry['pronunciations']))
         for num, col in enumerate(columns):
             pr = entry['pronunciations'][num]
-            col.write(pr.get('type'))
+            # col.write(pr.get('type'))
             col.write(pr.get('text'))
-            col.write(pr.get('tags'))
+            # col.write(pr.get('tags'))
             
         #st.write("Forms (word family):")
         #for f in entry['forms']:
         #    st.write("-", f.get('word'), f.get('tags', []))
-        
-
+            
         st.write("Senses / Definitions:")
         for s in entry.get('senses', []):
             st.write("- Definition:", s.get('definition'))
-            if s.get('tags'):
-                st.write("  Tags:", s.get('tags'))
+            #if s.get('tags'):
+            #     st.write("  Tags:", set(s.get('tags')))
             if s.get('examples'):
                 for ex in s.get('examples'):
                     st.write("  Example:", ex)
@@ -123,23 +122,22 @@ def parse_freedictionaryapi_data(word):
                 st.write("  Synonyms:", ", ".join(s['synonyms']))
             if s.get('antonyms'):
                 st.write("  Antonyms:", ", ".join(s['antonyms']))
-            # Quotes
             if s.get('quotes'):
                 st.write("  Quotes:")
                 for q in s['quotes']:
-                    st.write("   –", q.get('text'), "(", q.get('reference'), ")")
+                    st.write("–", q.get('text'), "(", q.get('reference'), ")")
 
             for subs in s['subsenses']:
                 st.write(" – Sub-definition:", subs.get('definition'))
-                if subs.get('tags'):
-                    st.write("  Tags:", subs.get('tags'))
+                # if subs.get('tags'):
+                #    st.write("  Tags:", set(subs.get('tags')))
                 if subs.get('examples'):
                     for ex in subs.get('examples'):
                         st.write("  Example:", ex)
                 if subs.get('quotes'):
                     st.write("  Quotes:")
                     for q in subs['quotes']:
-                        st.write("   –", q.get('text'), "(", q.get('reference'), ")")
+                        st.write("–", q.get('text'), "(", q.get('reference'), ")")
                 if subs.get('synonyms'):
                     st.write("  Synonyms:", ", ".join(subs['synonyms']))
                 if subs.get('antonyms'):
