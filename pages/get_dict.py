@@ -43,8 +43,8 @@ q = st.text_input("Enter a word")
 if q:
     results = lookup(q)
     s1, s2 = results['source1'], results['source2']
+
     if s1:
-        st.write(s1)
         st.subheader(f"{s1['word']}  •  {s1.get('phonetic','')}")
         for p in s1.get('phonetics',[]):
             if 'audio' in p:
@@ -58,5 +58,3 @@ if q:
     if s2 and 'etymology' in s2:
         st.subheader("Etymology")
         st.write(s2['etymology'])
-
-  
