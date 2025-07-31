@@ -31,7 +31,11 @@ API2 = "https://freedictionaryapi.com/api/v1/entries/en/"
 
 def fetch_dictionaryapi_data(word):
     dictionaryapi_API = "https://api.dictionaryapi.dev/api/v2/entries/en/" + word
-    dictionaryapi_resp = requests.get(dictionaryapi_API).json()[0]
+    try:
+        dictionaryapi_resp = requests.get(dictionaryapi_API).json()[0]
+    except:
+        dictionaryapi_resp =[]
+        pass
     return dictionaryapi_resp
 
 def parse_dictionaryapi_data(word):
@@ -53,7 +57,11 @@ def parse_dictionaryapi_data(word):
 
 def fetch_freedictionaryapi_data(word):
     freedictionaryapi_API = "https://freedictionaryapi.com/api/v1/entries/en/" + word
-    freedictionaryapi_resp = requests.get(freedictionaryapi_API).json()
+    try:
+        freedictionaryapi_resp = requests.get(freedictionaryapi_API).json()
+    except:
+        freedictionaryapi_resp =[]
+        pass
     return freedictionaryapi_resp
 
 def parse_freedictionaryapi_data_by_bs(word):
