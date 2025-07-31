@@ -27,7 +27,7 @@ API2 = "https://freedictionaryapi.com/api/v1/entries/en/"
 
 
 def parse_json(data, indent=0):
-    space = "==" * indent
+    space = "." * indent
     if isinstance(data, dict):
         for key, value in data.items():
             if value == '':
