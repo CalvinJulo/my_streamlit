@@ -31,11 +31,21 @@ API2 = "https://freedictionaryapi.com/api/v1/entries/en/"
 
 def fetch_dictionaryapi_data(word):
     dictionaryapi_API = "https://api.dictionaryapi.dev/api/v2/entries/en/" + word
-    dictionaryapi_resp = requests.get(dictionaryapi_API).json()
+    dictionaryapi_resp = requests.get(dictionaryapi_API).json()[0]
     return dictionaryapi_resp
 
 def parse_dictionaryapi_data(word):
-    pass
+    data = fetch_dictionaryapi_data(word)
+    st.subheader(f"{data['word']}  •  {data.get('phonetic','')}")
+    for p in data.get('phonetics',[]):
+        if 'audio' in p:
+            st.audio(p['audio'])
+    for m in data.get('meanings',[]):
+        st.write(f"**{m['partOfSpeech']}**")
+        for d in m['definitions']:
+            st.write("-", d['definition']) 
+            if 'example' in d:
+                st.write("  >", d['example'])
 
 
 # *****************************************************************
@@ -47,49 +57,13 @@ def fetch_freedictionaryapi_data(word):
     return freedictionaryapi_resp
 
 def parse_freedictionaryapi_data_by_bs(word):
-    pass
-
-
-q = st.text_input("Enter a word")
-st.write(fetch_dictionaryapi_data(q))
-st.write(fetch_freedictionaryapi_data(q))
-
-
-'''
-def lookup(word):
-    data = {'source1': None, 'source2': None}
-    try:
-        resp1 = requests.get(API1 + word).json()
-        data['source1'] = resp1[0]
-    except: pass
-    try:
-        resp2 = requests.get(API2 + word).json()
-        data['source2'] = resp2['entries'][0]
-    except: pass
-    return data
-
-st.title("📘 My Streamlit Dictionary")
-
-q = st.text_input("Enter a word")
-if q:
-    results = lookup(q)
-    st.write(results)
-    s1, s2 = results['source1'], results['source2']
-
-    if s1:
-        st.subheader(f"{s1['word']}  •  {s1.get('phonetic','')}")
-        for p in s1.get('phonetics',[]):
-            if 'audio' in p:
-                st.audio(p['audio'])
-        for meaning in s1.get('meanings',[]):
-            st.write(f"**{meaning['partOfSpeech']}**")
-            for d in meaning['definitions']:
-                st.write("-", d['definition'])
-                if 'example' in d:
-                    st.write("  >", d['example'])
-    if s2 and 'etymology' in s2:
+    data = fetch_freedictionaryapi_data(word)
+    if data and 'etymology' in data:
         st.subheader("Etymology")
-        st.write(s2['etymology'])
+        st.write(data['etymology'])
+
+word = st.text_input("Enter a word")
+st.write(parse_dictionaryapi_data(word))
+st.write(parse_freedictionaryapi_data_by_bs(word))
 
 
-'''
