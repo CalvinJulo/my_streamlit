@@ -47,7 +47,6 @@ def parse_json(data, indent=0):
 '''
 
 
-
 # *****************************************************************
 # Data From dictionaryapi
 
@@ -86,20 +85,17 @@ def parse_dictionaryapi_data(word):
 def fetch_freedictionaryapi_data(word):
     freedictionaryapi_API = "https://freedictionaryapi.com/api/v1/entries/en/" + word
     try:
-        freedictionaryapi_resp = requests.get(freedictionaryapi_API).json()
-    except:
-        freedictionaryapi_resp =[]
-        pass
-    return freedictionaryapi_resp
+        return requests.get(freedictionaryapi_API).json()
+    except Exception:
+        return []
 
-def parse_freedictionaryapi_data_by_bs(word):
+def parse_freedictionaryapi_data(word):
     data = fetch_freedictionaryapi_data(word)
     if data and 'etymology' in data:
         st.subheader("Etymology")
         st.write(data['etymology'])
 
 word = st.text_input("Enter a word")
-st.write(parse_dictionaryapi_data(word))
-# st.write(parse_freedictionaryapi_data_by_bs(word))
+# st.write(parse_dictionaryapi_data(word))
+st.write(parse_freedictionaryapi_data(word))
 
-#parse_json(fetch_freedictionaryapi_data(word), indent=0)
