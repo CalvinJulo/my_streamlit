@@ -65,7 +65,8 @@ def parse_dictionaryapi_data(word):
     for index, data in enumerate(data_list):
         st.subheader(f"{data['word']}  •  {data.get('phonetic')}")
         for p in data.get('phonetics'):
-            st.write(p['text'])
+            if 'text' in p and p['text'] != '':
+                st.write(p['text'])
             if 'audio' in p and p['audio'] != '':
                 st.audio(p['audio'])       
         for meaning in data.get('meanings',[]):
