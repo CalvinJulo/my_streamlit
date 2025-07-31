@@ -121,6 +121,84 @@ def parse_wordnet_data_by_nltk(word):
 
 
 
+
+# ********************************************************************
+# Data From Wiktionay by pywikibot
+site = pywikibot.Site("en", "wiktionary")
+
+# Connect to English Wiktionary
+def fetch_wiktionary_text(word):
+    page = pywikibot.Page(site, word)
+    page_text = page.text
+    return page_text
+
+
+def fetch_wiktionary_data_by_bs(word):
+    page = pywikibot.Page(site, word)
+    page_html = page.get_parsed_page()
+    soup = bs(page_html, 'html.parser')
+    body = soup.find_all('div',class_='mw-content-ltr mw-parser-output')[0]
+    elements = body.find_all(['div', 'ul','ol','p'])
+    section_dict = {}
+    section_stack = []  
+    current_section = section_dict  # Start at root level
+    for elem in elements:
+        if elem.get('class') and elem.get('class')[0]=='mw-heading':
+            level=elem.get('class')[1][-1]
+            section_name=elem.get_text().replace('[edit]','').strip()
+            while len(section_stack)+2 > int(level):
+                section_stack.pop()
+            parent = section_dict
+            for sec in section_stack:
+                parent = parent[sec]
+            parent[section_name] = {}
+            current_section=parent[section_name]
+            section_stack.append(section_name)
+        elif elem.get('class') and elem.get('class')[0]=='NavFrame':
+            Navhead = elem.find_all(class_='NavHead')[0].get_text()
+            for li in elem.find_all('li'):
+                text =li.get_text()
+                current_section.setdefault(Navhead, []).append(text)
+        elif elem.name=='p':
+            current_section['intro_']=elem.get_text()
+        elif elem.name=='ul' and not section_name=="Translations" and elem.find(class_='citation-whole') is None:
+            for li in elem.find_all('li'):
+                audio = li.find_all('a')
+                if len(audio)==2 and audio[1].get_text()=='file':
+                    text=li.get_text()+'https://en.wiktionary.org'+audio[1].get('href')
+                else:
+                    text =li.get_text()
+                current_section.setdefault("content", []).append(text)
+        elif elem.name=='ol':
+            for li in elem.find_all('li'):
+                meanings={}
+                examples=[]
+                definition=li.get_text()
+                for ul in li.find_all('ul'):
+                    if ul:
+                        definition=definition.replace(ul.get_text(), '')
+                for dd in li.find_all('dd'):
+                    if dd:
+                        example = dd.get_text()
+                        examples.append(example)
+                        definition=definition.replace(example, '')
+                meanings['definition'] = definition.strip()
+                meanings['examples'] =examples
+                if li.find(class_='citation-whole') is not None and li.find(class_="usage-label-sense") is None:
+                    pass
+                else:
+                    current_section.setdefault('meaning', []).append(meanings)
+    return section_dict
+
+
+def parse_wiktionary_data(word)):
+    data = fetch_wiktionary_data_by_bs(word)
+    
+
+
+
+
+
 # ********************************************************************
 # Data From Ety
 def fetch_ety_data(word):
@@ -128,7 +206,7 @@ def fetch_ety_data(word):
 
 def parse_ety_data(word):
     # data = fetch_ety_data(word)
-    st.write(ety.origins(word, recursive=True))
+    # st.write(ety.origins(word, recursive=True))
     st.write(ety.tree(word))
 
 
@@ -271,10 +349,12 @@ def parse_freedictionaryapi_data(word):
 
 
 word = st.text_input("Enter a word")
+st.audio('https://en.wiktionary.org/wiki/File:LL-Q1860_(eng)-Vealhurl-enumerate.wav')
+st.audio('https://en.wiktionary.org/wiki/File:en-us-word.ogg')
 # st.write(parse_dictionaryapi_data(word))
 # st.write(parse_freedictionaryapi_data(word))
 # st.write(parse_stand4_data(word))
-st.write(parse_ety_data(word))
+# st.write(parse_ety_data(word))
 st.write(parse_wordnet_data_by_nltk(word))
 
 
