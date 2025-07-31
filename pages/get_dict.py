@@ -18,7 +18,8 @@ parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 
 
-import requests, streamlit as st
+import requests, 
+import streamlit as st
 
 API1 = "https://api.dictionaryapi.dev/api/v2/entries/en/"
 API2 = "https://api.freedictionaryapi.com/v2/entries/en/"
@@ -40,9 +41,10 @@ st.title("📘 My Streamlit Dictionary")
 q = st.text_input("Enter a word")
 if q:
     results = lookup(q)
+    st.write(results)
     s1, s2 = results['source1'], results['source2']
-
     if s1:
+        st.write(s1)
         st.subheader(f"{s1['word']}  •  {s1.get('phonetic','')}")
         for p in s1.get('phonetics',[]):
             if 'audio' in p:
