@@ -95,9 +95,11 @@ def parse_dictionaryapi_data(word):
                 else:
                     parse_data(value)
         elif isinstance(data, list):
+            st.write('ooooooooo')
             for index, item in enumerate(data):
                 if item['word']:
                     st.subheader(f"{item['word']}  •  {item.get('phonetic')}")
+                st.write(data)
                 parse_data(item)
         else:
             pass
