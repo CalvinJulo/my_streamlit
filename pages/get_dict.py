@@ -31,7 +31,7 @@ def parse_json(data, indent=0):
     space = "==" * indent
     if isinstance(data, dict):
         for key, value in data.items():
-            if value is None:
+            if value == '':
                 pass
             else:
                 st.write(f"{space}{key}:")
