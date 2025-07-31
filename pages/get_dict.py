@@ -54,11 +54,9 @@ def parse_json(data, indent=0):
 def fetch_dictionaryapi_data(word):
     dictionaryapi_API = "https://api.dictionaryapi.dev/api/v2/entries/en/" + word
     try:
-        dictionaryapi_resp = requests.get(dictionaryapi_API).json()
-    except:
-        dictionaryapi_resp =[]
-        pass
-    return dictionaryapi_resp  # list type
+        return requests.get(dictionaryapi_API).json()
+    except Exception:
+        return []
 
 def parse_dictionaryapi_data(word):
     data_list = fetch_dictionaryapi_data(word)
@@ -74,9 +72,9 @@ def parse_dictionaryapi_data(word):
             for d in meaning['definitions']:
                 st.write("-", d['definition'])
                 if "synonyms" in d and d["synonyms"] != []:
-                    st.write(set(d['synonyms']))
+                    st.write('Synonyms',set(d['synonyms']))
                 if "antonyms" in d and d["antonyms"] != []:
-                    st.write(set(d['synonyms']))
+                    st.write('Antonyms',set(d['antonyms']))
                 if 'example' in d:
                     st.write("  >", d['example'])
                 
