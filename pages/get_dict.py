@@ -47,6 +47,28 @@ def parse_json(data, indent=0):
 '''
 
 
+
+# *****************************************************************
+# Data from Stand4 network
+
+def fetch_stand4_data(word):
+    api_url = f"https://www.stands4.com/services/v2/defs.php?uid=13205&tokenid=01eaLfSB05gMMM8a&word={word}&format=json"
+    # st.write(f'https://www.definitions.net/definition/{word}')
+    try:
+        return requests.get(api_url).json()
+    except Exception:
+        return []
+
+def parse_stand4_data(word):
+    data = fetch_stand4_data(word)['result']
+    for term in data:
+        st.subheader(f"{term['term']} ")
+        st.write(f"**{term['partofSpeech']}**")
+        st.write("-", term['definition'])
+        if not isinstance(data_list, dict):
+            st.write("  >", term['example'])
+
+
 # *****************************************************************
 # Data From dictionaryapi
 
@@ -164,5 +186,5 @@ def parse_freedictionaryapi_data(word):
 
 word = st.text_input("Enter a word")
 # st.write(parse_dictionaryapi_data(word))
-st.write(parse_freedictionaryapi_data(word))
-
+# st.write(parse_freedictionaryapi_data(word))
+st.write(parse_stand4_data(word))
