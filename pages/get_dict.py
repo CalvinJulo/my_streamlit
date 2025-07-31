@@ -61,6 +61,7 @@ def fetch_stand4_data(word):
 
 def parse_stand4_data(word):
     data = fetch_stand4_data(word)
+    st.write(data)
     st.write('sdjkads')
     for term in data['result']:
         st.subheader(f"{term['term']} ")
