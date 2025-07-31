@@ -66,15 +66,15 @@ def parse_dictionaryapi_data(word):
         st.subheader(f"{data['word']}  •  {data.get('phonetic')}")
         for p in data.get('phonetics'):
             st.write(p['text'])
-            if 'audio' in p and p['audio'] is not '':
+            if 'audio' in p and p['audio'] != '':
                 st.audio(p['audio'])       
         for meaning in data.get('meanings',[]):
             st.write(f"**{meaning['partOfSpeech']}**")
             for d in meaning['definitions']:
                 st.write("-", d['definition'])
-                if "synonyms" in d and d["synonyms"] is not []:
+                if "synonyms" in d and d["synonyms"] != []:
                     st.write(d['synonyms'])
-                if "antonyms" in d and d["antonyms"] is not []:
+                if "antonyms" in d and d["antonyms"] != []:
                     st.write(d['synonyms'])
                 if 'example' in d:
                     st.write("  >", d['example'])
