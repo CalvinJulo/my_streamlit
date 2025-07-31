@@ -74,9 +74,9 @@ def parse_dictionaryapi_data(word):
             for d in meaning['definitions']:
                 st.write("-", d['definition'])
                 if "synonyms" in d and d["synonyms"] != []:
-                    st.write(d['synonyms'])
+                    st.write(set(d['synonyms']))
                 if "antonyms" in d and d["antonyms"] != []:
-                    st.write(d['synonyms'])
+                    st.write(set(d['synonyms']))
                 if 'example' in d:
                     st.write("  >", d['example'])
                 
