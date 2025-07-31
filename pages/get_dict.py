@@ -32,6 +32,8 @@ def parse_json(data, indent=0):
         for key, value in data.items():
             if value == '':
                 pass
+            elif value == []:
+                pass
             else:
                 st.write(f"{space}{key}:")
                 parse_json(value, indent + 1)
