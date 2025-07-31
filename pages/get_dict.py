@@ -18,12 +18,7 @@ parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 
 
-import requests
-import streamlit as st
 
-
-API1 = "https://api.dictionaryapi.dev/api/v2/entries/en/"
-API2 = "https://freedictionaryapi.com/api/v1/entries/en/"
 
 '''
 def parse_json(data, indent=0):
@@ -46,6 +41,95 @@ def parse_json(data, indent=0):
 
 '''
 
+
+
+import streamlit as st
+from gtts import gTTS
+import nltk
+from nltk.corpus import wordnet as wn
+from io import BytesIO
+import json
+import requests
+import pywikibot
+import re
+import ety
+from bs4 import BeautifulSoup as bs
+
+
+
+# *****************************************************************
+# Data From wordnet by nltk
+
+# Download nltk resources
+nltk.download("wordnet")
+
+langs= ['als', 'arb', 'bul', 'cat', 'cmn', 'dan', 'ell', 'eng', 'eus',
+'fin', 'fra', 'glg', 'heb', 'hrv', 'ind', 'isl', 'ita', 'ita_iwn',
+'jpn', 'lit', 'nld', 'nno', 'nob', 'pol', 'por', 'ron', 'slk',
+'slv', 'spa', 'swe', 'tha', 'zsm']
+
+# st.write(len(set(wn.all_lemma_names())))
+# st.write(len(set(wn.all_synsets())))
+# st.write('langs',wn.langs())
+# st.write('sorted(wn.langs())', sorted(wn.langs()))
+# st.write('wn.synonyms(word)', wn.synonyms(word))
+
+def fetch_synset_info(synset):
+    syn = synset
+    syn_detail ={
+        'synset_name':syn.name(),
+        "definition": syn.definition(),
+        'syn_offset':syn.offset(),
+        "examples": syn.examples(),
+        "hypernyms":syn.hypernyms(),
+        "hyponyms":syn.hyponyms(),
+        "entailments":syn.entailments(),
+        "synonyms": list(set([lemma.name() for lemma in syn.lemmas()])),
+        "antonyms": list(set([ant.name() for lemma in syn.lemmas() for ant in lemma.antonyms()])),
+        "derivation": list(set([drf.name() for lemma in syn.lemmas() for drf in lemma.derivationally_related_forms()])),
+        "pertainyms": list(set([per.name() for lemma in syn.lemmas() for per in lemma.pertainyms()])),
+        "lemma_keys": list(set([lemma.key() for lemma in syn.lemmas()])),}
+    return syn_detail
+
+
+
+def fetch_wordnet_data_by_nltk(word):
+    pos_tags = list(set([synset.pos() for synset in wn.synsets(word)]))
+    details = {"word": word, 'etymology':{}}
+    for pos in pos_tags:
+        details['etymology'][pos]=[]
+        for sense_num in range(len(wn.synsets(word,pos=pos))):
+            synset=wn.synset(f'{word}.{pos}.{sense_num+1}')
+            detail = fetch_synset_info(synset)
+            detail['sense_num']= f'{word}.{pos}.{sense_num+1}'
+            details['etymology'][pos].append(detail)
+    return details
+
+
+def parse_wordnet_data_by_nltk(word):
+    data_nltk_wn=fetch_wordnet_data_by_nltk(word)
+    etymology=data_nltk_wn['etymology']
+    st.write('##', data_nltk_wn['word'])
+    for pos,synsets in etymology.items():
+        st.write('###', pos)
+        for syn in synsets:
+            st.write(syn['sense_num'],syn['synset_name'])
+            st.write('defintion:','**'+syn['definition']+'**',)
+            st.write('examples:',set(syn['examples']))
+            st.write('synonyms:',set(syn['synonyms']),'antonyms:',set(syn['antonyms']),
+                     'derivation:',set(syn['derivation']),'pertainyms:',set(syn['pertainyms']))
+
+
+
+# ********************************************************************
+# Data From Ety
+def fetch_ety_data(word):
+    return 
+
+def parse_ety_data(word):
+    # data = fetch_ety_data(word)
+    st.write(ety.origins(word, recursive=True))
+    st.write(ety.tree(word))
 
 
 # *****************************************************************
@@ -189,4 +273,9 @@ def parse_freedictionaryapi_data(word):
 word = st.text_input("Enter a word")
 # st.write(parse_dictionaryapi_data(word))
 # st.write(parse_freedictionaryapi_data(word))
-st.write(parse_stand4_data(word))
+# st.write(parse_stand4_data(word))
+st.write(parse_ety_data(word))
+st.write(parse_wordnet_data_by_nltk(word))
+
+
+
