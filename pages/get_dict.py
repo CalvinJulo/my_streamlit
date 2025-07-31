@@ -18,7 +18,7 @@ parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 
 
-import requests, 
+import requests
 import streamlit as st
 
 
@@ -42,6 +42,7 @@ st.title("📘 My Streamlit Dictionary")
 q = st.text_input("Enter a word")
 if q:
     results = lookup(q)
+    st.write(results)
     s1, s2 = results['source1'], results['source2']
 
     if s1:
