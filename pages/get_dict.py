@@ -23,7 +23,7 @@ import streamlit as st
 
 
 API1 = "https://api.dictionaryapi.dev/api/v2/entries/en/"
-API2 = "https://api.freedictionaryapi.com/v2/entries/en/"
+API2 = "https://freedictionaryapi.com/api/v1/entries/en/"
 
 def lookup(word):
     data = {'source1': None, 'source2': None}
