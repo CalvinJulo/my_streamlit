@@ -33,6 +33,8 @@ sys.path.append(parent_dir)
 # www.dictionary.com/
 # www.merriam-webster.com/
 # www.wordreference.com/
+# https://dictionaryapi.dev/
+# https://freedictionaryapi.com/
 
 
 
