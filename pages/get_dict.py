@@ -191,7 +191,7 @@ def fetch_wiktionary_data_by_bs(word):
     return section_dict
 
 
-def parse_wiktionary_data(word)):
+def parse_wiktionary_data(word):
     data = fetch_wiktionary_data_by_bs(word)
     
 
