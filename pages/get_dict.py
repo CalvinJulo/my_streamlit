@@ -63,6 +63,7 @@ def fetch_dictionaryapi_data(word):
 def parse_dictionaryapi_data(word):
     data = fetch_dictionaryapi_data(word)
     st.write('lllllllllll')
+    st.write(data)
     def parse_data(data):
         if isinstance(data, dict):
             st.write('ggggggg')
