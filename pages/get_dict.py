@@ -26,6 +26,24 @@ API1 = "https://api.dictionaryapi.dev/api/v2/entries/en/"
 API2 = "https://freedictionaryapi.com/api/v1/entries/en/"
 
 
+
+def parse_json(data, indent=0):
+    space = "  " * indent
+    if isinstance(data, dict):
+        for key, value in data.items():
+            st.write(f"{space}{key}:")
+            parse_json(value, indent + 1)
+    elif isinstance(data, list):
+        for index, item in enumerate(data):
+            st.write(f"{space}- Item {index + 1}:")
+            parse_json(item, indent + 1)
+    else:
+        st.write(f"{space}{data}")
+
+
+
+
+
 # *****************************************************************
 # Data From dictionaryapi
 
@@ -71,7 +89,8 @@ def parse_freedictionaryapi_data_by_bs(word):
         st.write(data['etymology'])
 
 word = st.text_input("Enter a word")
-st.write(parse_dictionaryapi_data(word))
-st.write(parse_freedictionaryapi_data_by_bs(word))
+# st.write(parse_dictionaryapi_data(word))
+# st.write(parse_freedictionaryapi_data_by_bs(word))
 
-
+parse_json(fetch_dictionaryapi_data(word), indent=0)
+parse_json(fetch_freedictionaryapi_data(word), indent=0)
