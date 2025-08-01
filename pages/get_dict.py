@@ -366,4 +366,16 @@ st.write(parse_wiktionary_data(word))
 # st.write(parse_wordnet_data_by_nltk(word))
 
 
+with st.expander("dictionaryapi"):
+    st.write(parse_dictionaryapi_data(word))
+with st.expander("freedictionaryapi"):
+    st.write(parse_freedictionaryapi_data(word))
+with st.expander("stand4"):
+    st.write(parse_stand4_data(word))
+with st.expander("ety"):
+    st.write(parse_ety_data(word))
+with st.expander("wordnet"):
+    st.write(parse_wordnet_data_by_nltk(word))
+with st.expander("wiktionary"):
+    st.write(parse_wiktionary_data(word))
 
