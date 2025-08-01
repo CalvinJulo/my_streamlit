@@ -352,7 +352,7 @@ def parse_freedictionaryapi_data(word):
 
 word = st.text_input("Enter a word")
 
-st.write(parse_wiktionary_data(word))
+# st.write(parse_wiktionary_data(word))
 
 #st.audio('https://en.wiktionary.org/wiki/File:LL-Q1860_(eng)-Vealhurl-enumerate.wav')
 #st.audio('https://en.wiktionary.org/wiki/File:en-us-word.ogg')
