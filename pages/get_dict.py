@@ -224,7 +224,10 @@ def fetch_stand4_data(word):
         return []
 
 def parse_stand4_data(word):
-    data = fetch_stand4_data(word)
+    try:
+        data = fetch_stand4_data(word)
+    except:
+        data = dict()
     st.write(data)
     st.write('sdjkads')
     for term in data['result']:
