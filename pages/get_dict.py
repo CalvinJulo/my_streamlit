@@ -20,7 +20,6 @@ sys.path.append(parent_dir)
 
 
 
-'''
 def parse_json(data, indent=0):
     space = "." * indent
     if isinstance(data, dict):
@@ -39,7 +38,6 @@ def parse_json(data, indent=0):
     else:
         st.write(f"{space}{data}")
 
-'''
 
 
 
@@ -193,6 +191,7 @@ def fetch_wiktionary_data_by_bs(word):
 
 def parse_wiktionary_data(word):
     data = fetch_wiktionary_data_by_bs(word)
+    parse_json(data)
     
 
 
@@ -349,10 +348,13 @@ def parse_freedictionaryapi_data(word):
 
 
 word = st.text_input("Enter a word")
-st.audio('https://en.wiktionary.org/wiki/File:LL-Q1860_(eng)-Vealhurl-enumerate.wav')
-st.audio('https://en.wiktionary.org/wiki/File:en-us-word.ogg')
-st.audio("https://commons.wikimedia.org/wiki/Special:FilePath/LL-Q1860_(eng)-Vealhurl-enumerate.wav")
-st.audio("https://commons.wikimedia.org/wiki/Special:FilePath/en-us-word.ogg")
+
+st.write(parse_wiktionary_data(word))
+
+#st.audio('https://en.wiktionary.org/wiki/File:LL-Q1860_(eng)-Vealhurl-enumerate.wav')
+#st.audio('https://en.wiktionary.org/wiki/File:en-us-word.ogg')
+#st.audio("https://commons.wikimedia.org/wiki/Special:FilePath/LL-Q1860_(eng)-Vealhurl-enumerate.wav")
+#st.audio("https://commons.wikimedia.org/wiki/Special:FilePath/en-us-word.ogg")
 
 # st.write(parse_dictionaryapi_data(word))
 # st.write(parse_freedictionaryapi_data(word))
