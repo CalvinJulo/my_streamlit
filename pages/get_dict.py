@@ -355,6 +355,8 @@ def parse_freedictionaryapi_data(word):
             st.write("Entry Antonyms:", ", ".join(entry['antonyms']))
 
 
+st.write('* Dictionary')
+
 word = st.text_input("Enter a word")
 
 # st.write(parse_wiktionary_data(word))
@@ -364,11 +366,6 @@ word = st.text_input("Enter a word")
 #st.audio("https://commons.wikimedia.org/wiki/Special:FilePath/LL-Q1860_(eng)-Vealhurl-enumerate.wav")
 #st.audio("https://commons.wikimedia.org/wiki/Special:FilePath/en-us-word.ogg")
 
-# st.write(parse_dictionaryapi_data(word))
-# st.write(parse_freedictionaryapi_data(word))
-# st.write(parse_stand4_data(word))
-# st.write(parse_ety_data(word))
-# st.write(parse_wordnet_data_by_nltk(word))
 
 
 with st.expander("dictionaryapi"):
