@@ -230,12 +230,14 @@ def parse_stand4_data(word):
         data = dict()
     st.write(data)
     st.write('sdjkads')
-    for term in data['result']:
-        st.subheader(f"{term['term']} ")
-        st.write(f"**{term['partofSpeech']}**")
-        st.write("-", term['definition'])
-        if not isinstance(data_list, dict):
-            st.write("  >", term['example'])
+    if data['result']:
+        for term in data['result']:
+            st.subheader(f"{term['term']} ")
+            st.write(f"**{term['partofSpeech']}**")
+            st.write("-", term['definition'])
+            if not isinstance(data_list, dict):
+                st.write("  >", term['example'])
+# need rewrite stand4
 
 
 # *****************************************************************
@@ -373,7 +375,7 @@ with st.expander("dictionaryapi"):
     st.write(parse_dictionaryapi_data(word))
 with st.expander("freedictionaryapi"):
     st.write(parse_freedictionaryapi_data(word))
-with st.expander("stand4"):
+with st.expander("stand4 (need rewrite)"):
     st.write(parse_stand4_data(word))
 with st.expander("ety"):
     st.write(parse_ety_data(word))
