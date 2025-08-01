@@ -376,7 +376,10 @@ with st.expander("dictionaryapi"):
 with st.expander("freedictionaryapi"):
     st.write(parse_freedictionaryapi_data(word))
 with st.expander("stand4 (need rewrite)"):
-    st.write(parse_stand4_data(word))
+    try:
+        st.write(parse_stand4_data(word))
+    except:
+        pass
 with st.expander("ety"):
     st.write(parse_ety_data(word))
 with st.expander("wordnet"):
