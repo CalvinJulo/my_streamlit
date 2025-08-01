@@ -190,7 +190,10 @@ def fetch_wiktionary_data_by_bs(word):
 
 
 def parse_wiktionary_data(word):
-    data = fetch_wiktionary_data_by_bs(word)
+    try:
+        data = fetch_wiktionary_data_by_bs(word)
+    except:
+        data = dict()
     parse_json(data)
     
 
