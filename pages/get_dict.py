@@ -385,6 +385,10 @@ with st.expander("wordnet"):
     st.write(parse_wordnet_data_by_nltk(word))
 with st.expander("wiktionary"):
     st.write(parse_wiktionary_data(word))
-
-st.write(fetch_wiktionary_text(word))
+with st.expander("1"):
+    page = pywikibot.Page(site, word)
+    page_html = page.get_parsed_page()
+    st.write(page_html)
+with st.expander("2"):
+    st.write(fetch_wiktionary_text(word))
 
