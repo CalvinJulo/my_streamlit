@@ -407,4 +407,6 @@ for elem_2nd in elements:
         
         if elem_2nd.get('class') and elem_2nd.get('class')[0]=='mw-heading':
             st.write('kksdklakdla')
+        if elem_2nd.get('class') and 'mw-heading' in elem_2nd.get('class'):
+            st.write('kksdklakdla9129010')
             
