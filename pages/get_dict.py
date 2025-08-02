@@ -195,6 +195,8 @@ def parse_wiktionary_data(word):
     except:
         data = dict()
     parse_json(data)
+
+        
     
 
 
@@ -383,4 +385,6 @@ with st.expander("wordnet"):
     st.write(parse_wordnet_data_by_nltk(word))
 with st.expander("wiktionary"):
     st.write(parse_wiktionary_data(word))
+
+st.write(fetch_wiktionary_text(word))
 
