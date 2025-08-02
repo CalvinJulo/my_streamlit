@@ -48,10 +48,31 @@ sys.path.append(parent_dir)
 # www.vocabulary.com/
 # www.dictionary.com/
 
-st.write('## Other network')
-st.write(f'https://www.merriam-webster.com/dictionary/{word}')
-st.write(f'https://dictionary.cambridge.org/dictionary/english/{word}')
-st.write(f'https://www.wordreference.com/es/translation.asp?tranword={word}')
+#st.write('## Other network')
+#st.write(f'https://www.merriam-webster.com/dictionary/{word}')
+#st.write(f'https://dictionary.cambridge.org/dictionary/english/{word}')
+#st.write(f'https://www.wordreference.com/es/translation.asp?tranword={word}')
+
+
+
+def parse_json(data, indent=0):
+    space = "." * indent
+    if isinstance(data, dict):
+        for key, value in data.items():
+            if value == '':
+                pass
+            elif value == []:
+                pass
+            else:
+                st.write(f"{space}{key}:")
+                parse_json(value, indent + 1)
+    elif isinstance(data, list):
+        for index, item in enumerate(data):
+            # st.write(f"{space}- Item {index + 1}:")
+            parse_json(item, indent + 1)
+    else:
+        st.write(f"{space}{data}")
+
 
 
 
@@ -68,8 +89,6 @@ import ety
 from bs4 import BeautifulSoup as bs
 
 
-st.title("English Dictionary")
-word = st.text_input("Enter a word:", "")
 
 # *****************************************************************
 # Data From wordnet by nltk
@@ -81,12 +100,12 @@ langs= ['als', 'arb', 'bul', 'cat', 'cmn', 'dan', 'ell', 'eng', 'eus',
 'fin', 'fra', 'glg', 'heb', 'hrv', 'ind', 'isl', 'ita', 'ita_iwn',
 'jpn', 'lit', 'nld', 'nno', 'nob', 'pol', 'por', 'ron', 'slk',
 'slv', 'spa', 'swe', 'tha', 'zsm']
-st.write(len(set(wn.all_lemma_names())))
-st.write(len(set(wn.all_synsets())))
+
+# st.write(len(set(wn.all_lemma_names())))
+# st.write(len(set(wn.all_synsets())))
 # st.write('langs',wn.langs())
 # st.write('sorted(wn.langs())', sorted(wn.langs()))
 # st.write('wn.synonyms(word)', wn.synonyms(word))
-
 
 def fetch_synset_info(synset):
     syn = synset
@@ -107,7 +126,7 @@ def fetch_synset_info(synset):
 
 
 
-def fetch_wordnet_data_nltk(word):
+def fetch_wordnet_data_by_nltk(word):
     pos_tags = list(set([synset.pos() for synset in wn.synsets(word)]))
     details = {"word": word, 'etymology':{}}
     for pos in pos_tags:
@@ -120,8 +139,8 @@ def fetch_wordnet_data_nltk(word):
     return details
 
 
-def output_to_streamlit(word):
-    data_nltk_wn=fetch_wordnet_data_nltk(word)
+def parse_wordnet_data_by_nltk(word):
+    data_nltk_wn=fetch_wordnet_data_by_nltk(word)
     etymology=data_nltk_wn['etymology']
     st.write('##', data_nltk_wn['word'])
     for pos,synsets in etymology.items():
@@ -133,24 +152,11 @@ def output_to_streamlit(word):
             st.write('synonyms:',set(syn['synonyms']),'antonyms:',set(syn['antonyms']),
                      'derivation:',set(syn['derivation']),'pertainyms:',set(syn['pertainyms']))
 
-# st.write("tree",a1.tree())
-
-st.write('## Data From wordnet by nltk')
-# st.write(fetch_wordnet_data_nltk(word))
-output_to_streamlit(word)
 
 
-
-# ********************************************************************
-# Data From Ety
-
-st.write('## Data From Ety')
-# st.write(ety.origins(word, recursive=True))
-st.write(ety.tree(word))
 
 # ********************************************************************
 # Data From Wiktionay by pywikibot
-
 site = pywikibot.Site("en", "wiktionary")
 
 # Connect to English Wiktionary
@@ -159,15 +165,14 @@ def fetch_wiktionary_text(word):
     page_text = page.text
     return page_text
 
-# ********************************************************************
-# parse the wiktionary by page.get_parsed_page and beautifulsoup
 
-def parse_wiktionary_by_bs(word):
+def fetch_wiktionary_data_by_bs(word):
     page = pywikibot.Page(site, word)
     page_html = page.get_parsed_page()
     soup = bs(page_html, 'html.parser')
     body = soup.find_all('div',class_='mw-content-ltr mw-parser-output')[0]
-    elements = body.find_all(['div', 'ul','ol','p'])
+    elements = body.children
+    
     section_dict = {}
     section_stack = []  
     current_section = section_dict  # Start at root level
@@ -218,106 +223,30 @@ def parse_wiktionary_by_bs(word):
                 else:
                     current_section.setdefault('meaning', []).append(meanings)
     return section_dict
- 
-st.write('## Data From Wiktionay by pywikibot')
-st.write(parse_wiktionary_by_bs(word))
 
-def output_to_streamlit_from_pywikibot(word):
-    data_wiktionary=parse_wiktionary_by_bs(word)
-    for sect2, sect2_value in data_wiktionary.items():
-        if sect2=='English':
-            for sect3, sect3_value in sect2_value.items():
-                if sect3_value =={}:
-                    continue
-                st.write('###',sect3)
-                if sect3_value['intro_']:
-                    st.write(sect3_value['intro_'])
-                try:
-                    st.write(set(sect3_value['Pronunciation']['content'][:2]))
-                except:
-                    pass
-                for sect4, sect4_value in sect3_value.items():
-                    if sect4 not in ['intro_','Pronunciation']:
-                        st.write('###',sect4)
-                        st.write(sect4_value['intro_'])
-                        for sect5, sect5_value in sect4_value.items():
-                            if sect5=='meaning':
-                                for value in sect4_value['meaning']:
-                                    st.write('definition:',value['definition'])
-                                    st.write('examples:', set(value['examples']))
-                            if sect5 not in ['intro_','meaning'] :
-                                try:
-                                    st.write(sect5,set(sect4_value[sect5]['content']))
-                                except:
-                                    pass
-    
-# output_to_streamlit_from_pywikibot(word)
 
-st.write('## kkkkkkkkkkkk')
-def output_333_1(word):
-    data_wiktionary=parse_wiktionary_by_bs(word)
-    stack = [{'English':data_wiktionary['English']}]  # Start with the outer dictionary
-    results = []  # Store extracted dictionaries
+def parse_wiktionary_data(word):
+    try:
+        data = fetch_wiktionary_data_by_bs(word)
+    except:
+        data = dict()
+    parse_json(data)
 
-    while stack:
-        current = stack.pop()  # Process the last element (LIFO)
-        st.write('lllll')
-        for k1,v1 in current['English'].items():
-                for k2,v2 in v1.items():
-                    if isinstance(v2, str):
-                        st.write('bbbbb')
-                        st.write(k1,v2)
-                    elif isinstance(v2, list):
-                        st.write('aaaaaa')
-                        st.write(k2,set(v2))
-                    elif isinstance(v2, dict):
-                        for k3,v3 in v2.items():
-                            if isinstance(v3, str):
-                                st.write('nnnnnn')
-                                st.write(k2,v3)
-                            elif isinstance(v3, list):
-                                st.write('ggggg')
-                                st.write(k2,v3)
-    # Print extracted dictionaries
-
-output_333_1(word)
-
-# ********************************************************************
-# Data from DictionaryAPI.dev
-def fetch_dictionaryapi_data(word):
-    api_url = f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}"
-    st.write(api_url)
-    response = requests.get(api_url)
-    if response.status_code == 200:
-        api_data = response.json()
-    return api_data
-
-def output_dictionaryAPI(word):
-    data_dictionaryAPI=fetch_dictionaryapi_data(word)
-    stack = [i for i in data_dictionaryAPI]  # Start with the outer dictionary
-    results = []  # Store extracted dictionaries
-
-    while stack:
-        current = stack.pop()  # Process the last element (LIFO)
-        if isinstance(current, dict):
-            results.append(current)  # Store the dictionary
-            for value in current.values():  # Add all dictionary values to the stack
-                if isinstance(value, dict):  # Only add dictionaries
-                    stack.append(value)
-                elif isinstance(value, list):  # If value is a list, check each element
-                    for item in value:
-                        if isinstance(item, dict):  # Add nested dictionaries in lists
-                            stack.append(item)
-    for result in results:
-        for key,value in result.items():
-            if not isinstance(value, dict) and value is not None:
-                st.write(key, value)
-st.write('## Data from DictionaryAPI.dev')
-output_dictionaryAPI(word)
-
+         
 
 
 # ********************************************************************
+# Data From Ety
+def fetch_ety_data(word):
+    return 
+
+def parse_ety_data(word):
+    # data = fetch_ety_data(word)
+    # st.write(ety.origins(word, recursive=True))
+    st.write(ety.tree(word))
+
+
+# *****************************************************************
 # Data from Stand4 network
 
 def fetch_stand4_data(word):
@@ -329,15 +258,20 @@ def fetch_stand4_data(word):
         return []
 
 def parse_stand4_data(word):
-    data = fetch_stand4_data(word)['result']
-    for term in data:
-        st.subheader(f"{term['term']} ")
-        st.write(f"**{term['partofSpeech']}**")
-        st.write("-", term['definition'])
-        if not isinstance(data_list, dict):
-            st.write("  >", term['example'])
-        
-
+    try:
+        data = fetch_stand4_data(word)
+    except:
+        data = dict()
+    st.write(data)
+    st.write('sdjkads')
+    if data['result']:
+        for term in data['result']:
+            st.subheader(f"{term['term']} ")
+            st.write(f"**{term['partofSpeech']}**")
+            st.write("-", term['definition'])
+            if not isinstance(data_list, dict):
+                st.write("  >", term['example'])
+# need rewrite stand4
 
 
 # *****************************************************************
@@ -453,3 +387,14 @@ def parse_freedictionaryapi_data(word):
             st.write("Entry Synonyms:", ", ".join(entry['synonyms']))
         if entry.get('antonyms'):
             st.write("Entry Antonyms:", ", ".join(entry['antonyms']))
+
+
+
+# *****************************************************************
+
+
+#st.audio('https://en.wiktionary.org/wiki/File:LL-Q1860_(eng)-Vealhurl-enumerate.wav')
+#st.audio('https://en.wiktionary.org/wiki/File:en-us-word.ogg')
+#st.audio("https://commons.wikimedia.org/wiki/Special:FilePath/LL-Q1860_(eng)-Vealhurl-enumerate.wav")
+#st.audio("https://commons.wikimedia.org/wiki/Special:FilePath/en-us-word.ogg")
+
