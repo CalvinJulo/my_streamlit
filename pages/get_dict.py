@@ -399,14 +399,36 @@ soup = bs(page_html, 'html.parser')
 body = soup.find_all('div',class_='mw-content-ltr mw-parser-output')[0]
 
 elements = body.children
-for elem_2nd in elements:
-    if elem_2nd.name == 'div' and elem_2nd.get('class'):
-        st.write(elem_2nd.name)
-        st.write(elem_2nd.get('class'))
-        st.write(elem_2nd.get('class')[0])
-        
-        if elem_2nd.get('class') and elem_2nd.get('class')[0]=='mw-heading':
-            st.write('kksdklakdla')
-        if elem_2nd.get('class') and 'mw-heading' in elem_2nd.get('class'):
-            st.write('kksdklakdla9129010')
-            
+for elem in elements:
+    if elem.name == 'div' and 'mw-heading' in elem.get('class'):
+        level = 'h' + elem.get('class')[1][-1]
+        for h in elem.find_all('level'):
+            st.write(h.get('id'))
+    elif elem.name == 'ul':
+        for li in elem.find_all('li'):
+            for ipa in li.find_all(class_='IPA'):
+                st.write(ipa.get_text())
+            for aud in li.find_all(class_="mw-tmh-play"):
+                audio_url = "https://commons.wikimedia.org/wiki/Special:FilePath/" + aud.get('href')
+                new_url = audio_url.replace("/wiki/File:", "https://commons.wikimedia.org/wiki/Special:FilePath/")
+                st.audio(new_url)
+    elif elem.name == 'p':
+        st.write(elem.get_text())
+    elif elem.name == 'ol':
+        means = elem.children
+        for mean in means:
+            st.write(means.get_text())
+            submeans = mean.children
+            for submean in submeans:
+                if submean.name == 'ul':
+                    for li in submean.find_all('li'):
+                        source= li.find_all(class_='cited-source')[0].get_text()
+                        quotation =li.find_all(class_='h-quotation')[0].get_text()
+                        st.write(quotation,'(', source,')')
+                if submean.name == 'ol':
+                    for li in submean.find_all('li'):
+                        st.write(li.get_text())
+                        for q in li.find_all(class_='cited-source'):
+                            source= q.find_all(class_='cited-source')[0].get_text()
+                            quotation =q.find_all(class_='h-quotation')[0].get_text()
+                            st.write(quotation,'(', source,')')
