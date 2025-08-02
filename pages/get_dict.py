@@ -406,10 +406,10 @@ body = soup.find_all('div',class_='mw-content-ltr mw-parser-output')[0]
 
 elements = body.children
 for elem_2nd in elements:
-    if elem_2nd.name == 'div' and elem.get('class'):
-        st.write(elem.get('class'))
-        st.write(elem.get('class')[0])
+    if elem_2nd.name == 'div' and elem_2nd.get('class'):
+        st.write(elem_2nd.get('class'))
+        st.write(elem_2nd.get('class')[0])
         
-        if elem.get('class') and elem.get('class')[0]=='mw-heading':
+        if elem_2nd.get('class') and elem_2nd.get('class')[0]=='mw-heading':
             st.write('kksdklakdla')
             
