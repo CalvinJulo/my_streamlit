@@ -136,7 +136,14 @@ def fetch_wiktionary_data_by_bs(word):
     page_html = page.get_parsed_page()
     soup = bs(page_html, 'html.parser')
     body = soup.find_all('div',class_='mw-content-ltr mw-parser-output')[0]
-    elements = body.find_all(['div', 'ul','ol','p'])
+    elements = body.children
+    for elem_2nd in elements:
+        if elem_2nd.name == 'div' and 'mw-heading' in 
+        
+    for child in body.children:
+    st.write(child.name)
+
+    
     section_dict = {}
     section_stack = []  
     current_section = section_dict  # Start at root level
@@ -385,18 +392,24 @@ with st.expander("wordnet"):
     st.write(parse_wordnet_data_by_nltk(word))
 with st.expander("wiktionary"):
     st.write(parse_wiktionary_data(word))
-'''
+
 with st.expander("1"):
     page = pywikibot.Page(site, word)
     page_html = page.get_parsed_page()
     st.write(page_html)
+'''
 
 page = pywikibot.Page(site, word)
 page_html = page.get_parsed_page()
 soup = bs(page_html, 'html.parser')
 body = soup.find_all('div',class_='mw-content-ltr mw-parser-output')[0]
 
-for child in body.children:
-    st.write(child.name)
-
-
+elements = body.children
+for elem_2nd in elements:
+    if elem_2nd.name == 'div' and elem.get('class'):
+        st.write(elem.get('class'))
+        st.write(elem.get('class')[0])
+        
+        if elem.get('class') and elem.get('class')[0]=='mw-heading':
+            st.write('kksdklakdla')
+            
