@@ -137,12 +137,6 @@ def fetch_wiktionary_data_by_bs(word):
     soup = bs(page_html, 'html.parser')
     body = soup.find_all('div',class_='mw-content-ltr mw-parser-output')[0]
     elements = body.children
-    for elem_2nd in elements:
-        if elem_2nd.name == 'div' and 'mw-heading' in 
-        
-    for child in body.children:
-    st.write(child.name)
-
     
     section_dict = {}
     section_stack = []  
