@@ -368,7 +368,7 @@ word = st.text_input("Enter a word")
 #st.audio("https://commons.wikimedia.org/wiki/Special:FilePath/LL-Q1860_(eng)-Vealhurl-enumerate.wav")
 #st.audio("https://commons.wikimedia.org/wiki/Special:FilePath/en-us-word.ogg")
 
-
+'''
 
 with st.expander("dictionaryapi"):
     st.write(parse_dictionaryapi_data(word))
@@ -385,10 +385,18 @@ with st.expander("wordnet"):
     st.write(parse_wordnet_data_by_nltk(word))
 with st.expander("wiktionary"):
     st.write(parse_wiktionary_data(word))
+'''
 with st.expander("1"):
     page = pywikibot.Page(site, word)
     page_html = page.get_parsed_page()
     st.write(page_html)
-with st.expander("2"):
-    st.write(fetch_wiktionary_text(word))
+
+page = pywikibot.Page(site, word)
+page_html = page.get_parsed_page()
+soup = bs(page_html, 'html.parser')
+body = soup.find_all('div',class_='mw-content-ltr mw-parser-output')[0]
+
+for child in body.children:
+    st.write(child.name)
+
 
