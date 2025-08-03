@@ -50,3 +50,19 @@ st.write(f'https://www.merriam-webster.com/dictionary/{word}')
 st.write(f'https://dictionary.cambridge.org/dictionary/english/{word}')
 st.write(f'https://www.wordreference.com/es/translation.asp?tranword={word}')
 
+
+# Show 
+
+# Word Saving and Review: 
+# ✅ Save words to "My Vocabulary List" 🔁 Mark words as known / unknown / hard 
+# 🗃️ Filter and categorize by part of speech, topic, or level 📅 Review word history
+
+# Memory Reinforcement
+# 🧠 Spaced repetition (SRS) system using simple scheduling (like Anki):Hard → review tomorrow, Medium → review in 3 days, Easy → review in a week
+
+# Interactive Practice
+# 📝 Fill-in-the-blank quizzes from example sentences ❓ Multiple-choice definitions
+#🔊 Listen and type (audio-based recall) 📷 Image matching (for visual learners)
+
+
+
