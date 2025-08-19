@@ -25,7 +25,7 @@ if st.button("Start Download", use_container_width=True):
         params = {}
         params = lt.parse_magnet_uri(magnet_link)
         # params['save_path'] = os.getcwd()
-        params['storage_mode'] = lt.storage_mode_t.storage_mode_sparse
+        # params['storage_mode'] = lt.storage_mode_t.storage_mode_sparse
         handle = ses.add_torrent(params)
         st.write('Handle')
         while not handle.is_seed():
