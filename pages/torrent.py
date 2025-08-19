@@ -51,6 +51,8 @@ def download_magnet_link(magnet_link, download_path='.'):
     st.write("\nDownload complete!")
 
 # Example usage (replace with your magnet link)
-# magnet_link_example = "magnet:?xt=urn:btih:..."
-# download_magnet_link(magnet_link_example, './downloads')
+magnet_link_example = magnet_link
+st.write('start...')
+download_magnet_link(magnet_link_example, './downloads')
+st.write('Done')
 
