@@ -15,7 +15,7 @@ parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 
 import streamlit as st
-st.write('torrent')
+st.write('torrent11')
 
 
 import subprocess
