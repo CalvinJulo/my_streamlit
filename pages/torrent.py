@@ -23,6 +23,8 @@ import os
 import time
 import uuid # For unique directory names
 
+
+
 # --- Configuration ---
 DOWNLOAD_BASE_DIR = "downloads" # Where torrents will be downloaded
 STATUS_FILE = "download_status.txt" # File for communication
@@ -83,7 +85,6 @@ if st.button("Start Download", use_container_width=True):
             subprocess.Popen(["python", DOWNLOAD_SCRIPT, TORRENT_INFO_FILE, DOWNLOAD_BASE_DIR])
             
             st.session_state["download_message"] = "Download initiated. Checking progress..."
-            st.experimental_rerun() # Rerun immediately to show initial message
             
         except Exception as e:
             st.error(f"Error starting download: {e}")
@@ -141,7 +142,8 @@ if st.session_state["download_active"] and not st.session_state["download_finish
             break # Stop polling once done
         
         time.sleep(1) # Wait a bit before checking again
-        st.experimental_rerun() # Force rerun to update UI
+
+
 
 st.markdown("---")
 
