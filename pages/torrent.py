@@ -45,7 +45,8 @@ def download_magnet_link(magnet_link, download_path='.'):
         st.write(f"\rProgress: {s.progress * 100:.2f}% | "
               f"Download speed: {s.download_rate / 1000:.2f} kB/s | "
               f"Peers: {s.num_peers} | "
-              f"ETA: {s.eta / 60 if s.eta is not None else 'N/A':.2f} min", end="")
+              #f"ETA: {s.eta / 60 if s.eta is not None else 'N/A':.2f} min", end=""
+                )
         
     
     st.write("\nDownload complete!")
