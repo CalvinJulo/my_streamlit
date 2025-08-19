@@ -17,9 +17,8 @@ sys.path.append(parent_dir)
 import streamlit as st
 import libtorrent as lt
 
-st.write('torrent11')
-st.write('c',current_dir)
-st.write('p',parent_dir)
+DOWNLOAD_BASE_DIR = "downloads"
+os.makedirs(DOWNLOAD_BASE_DIR)
 
 magnet_link = st.text_input("Paste Magnet Link here:", placeholder="magnet:?xt=urn:btih:...")
 
@@ -28,7 +27,7 @@ if st.button("Start Download", use_container_width=True):
         ses = lt.session({'listen_interfaces': '0.0.0.0:6881'})
         params = {}
         params = lt.parse_magnet_uri(magnet_link)
-        params['save_path'] = os.path.join(current_dir)
+        params['save_path'] = DOWNLOAD_BASE_DIR
         params['storage_mode'] = lt.storage_mode_t.storage_mode_sparse
         handle = ses.add_torrent(params)
         st.write('Handle')
