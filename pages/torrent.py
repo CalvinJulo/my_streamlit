@@ -28,7 +28,7 @@ if st.button("Start Download", use_container_width=True):
         ses = lt.session({'listen_interfaces': '0.0.0.0:6881'})
         params = {}
         params = lt.parse_magnet_uri(magnet_link)
-        params['save_path'] = os.path.join(current_dir, "data")
+        params['save_path'] = os.path.join(current_dir)
         params['storage_mode'] = lt.storage_mode_t.storage_mode_sparse
         handle = ses.add_torrent(params)
         st.write('Handle')
