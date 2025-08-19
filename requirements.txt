@@ -13,6 +13,7 @@ pyphonetics
 ety
 bs4
 libtorrent
+uuid
 
 
 # pyttsx3
