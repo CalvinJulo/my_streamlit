@@ -12,8 +12,6 @@ pywikibot
 pyphonetics
 ety
 bs4
-subprocess
-uuid
 libtorrent
 
 
