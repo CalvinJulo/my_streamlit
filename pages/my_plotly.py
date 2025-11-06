@@ -28,7 +28,7 @@ import plotly.express as px
 def pick_dataset(dataset_name):
         dataset_dict ={
                 'iris':px.data.iris(),
-                'absolute_import':px.data.absolute_import(),
+                # 'absolute_import':px.data.absolute_import(),
                 'carshare':px.data.carshare(),
                 'election':px.data.election(),
                 'election_geojson':px.data.election_geojson(),
@@ -43,18 +43,16 @@ def pick_dataset(dataset_name):
         }
         return dataset_dict[dataset_name]
 
-dataset_list =['absolute_import', 'carshare', 'election', 'election_geojson', 'experiment', 'gapminder', 'iris', 'medals_long', 'medals_wide', 'stocks', 'tips', 'wind']
+dataset_list =['carshare', 'election', 'election_geojson', 'experiment', 'gapminder', 'iris', 'medals_long', 'medals_wide', 'stocks', 'tips', 'wind']
 
 dataset = st.pills('Dataset',dataset_list)
 
-# df = pick_dataset(dataset)
-df = px.data.iris()
+df = pick_dataset(dataset)
+# df = px.data.iris()
 st.write(df.head())
 st.write(df.describe())
 
-df1 = px.data.absolute_import()
-st.write(df1.head())
-st.write(df1.describe())
+
 
 
 
