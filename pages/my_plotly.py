@@ -45,9 +45,9 @@ def pick_dataset(dataset_name):
     else:
         return dataset_dict[dataset_name]
 
-dataset_list =['carshare', 'election', 'election_geojson', 'experiment', 'gapminder', 'iris', 'medals_long', 'medals_wide', 'stocks', 'tips', 'wind']
+dataset_list =[None,'carshare', 'election', 'election_geojson', 'experiment', 'gapminder', 'iris', 'medals_long', 'medals_wide', 'stocks', 'tips', 'wind']
 
-dataset = st.pills('Dataset',dataset_list,None)
+dataset = st.pills('Dataset',dataset_list)
 df = pick_dataset(dataset)
 if dataset ='election_geojson':
     st.write(df)
