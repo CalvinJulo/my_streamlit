@@ -152,6 +152,7 @@ data15 = dict(
     number=[39, 27.4, 20.6, 11, 2],
     stage=["Website visit", "Downloads", "Potential customers", "Requested price", "Invoice sent"])
 fig15 = px.funnel(data15, x='number', y='stage')
+st.plotly_chart(fig15)
 
 
 
