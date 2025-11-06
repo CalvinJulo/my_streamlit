@@ -40,12 +40,9 @@ def pick_dataset(dataset_name):
         'tips':px.data.tips(), 
         'wind':px.data.wind()                 
         }
-    if dataset_name==None:
-        return None
-    else:
-        return dataset_dict[dataset_name]
+    return dataset_dict[dataset_name]
 
-dataset_list =[None,'carshare', 'election', 'election_geojson', 'experiment', 'gapminder', 'iris', 'medals_long', 'medals_wide', 'stocks', 'tips', 'wind']
+dataset_list =['carshare', 'election', 'election_geojson', 'experiment', 'gapminder', 'iris', 'medals_long', 'medals_wide', 'stocks', 'tips', 'wind']
 
 dataset = st.pills('Dataset',dataset_list)
 df = pick_dataset(dataset)
