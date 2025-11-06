@@ -24,6 +24,8 @@ import pandas as pd
 import plotly.express as px
 
 
+dataset_list = dir(px.data)
+dataset = st.pills('Dataset',dataset_list)
 
 
 
