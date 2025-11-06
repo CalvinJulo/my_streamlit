@@ -50,6 +50,8 @@ df = pick_dataset(dataset)
 if dataset =='election_geojson':
     show_df = {'type':df['type'],'features':df['features'][:2]}
     st.write(show_df)
+elif dataset==None:
+    pass
 else:
     st.write(df.head())
     st.write(df.describe(include='all'))
