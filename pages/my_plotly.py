@@ -39,12 +39,13 @@ def pick_dataset(dataset_name):
                 'stocks':px.data.stocks(), 
                 'tips':px.data.tips(), 
                 'wind':px.data.wind() 
+                
         }
         return dataset_dict[dataset_name]
 
 dataset_list =['absolute_import', 'carshare', 'election', 'election_geojson', 'experiment', 'gapminder', 'iris', 'medals_long', 'medals_wide', 'stocks', 'tips', 'wind']
 
-dataset = st.pills('Dataset',dataset_list,None)
+dataset = st.pills('Dataset',dataset_list)
 
 df = pick_dataset(dataset)
 st.write(df.head())
