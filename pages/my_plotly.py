@@ -79,7 +79,7 @@ fig1 = px.scatter(df1, x="sepal_width", y="sepal_length", color="species")
 st.plotly_chart(fig1)
 
 fig2 = px.scatter(df1, x="sepal_width", y="sepal_length", color="species", marginal_y="violin",
-           marginal_x="box", trendline="ols", template="simple_white")
+           marginal_x="box", template="simple_white")
 
 st.plotly_chart(fig2)
 
