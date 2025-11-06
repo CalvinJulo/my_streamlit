@@ -40,7 +40,7 @@ def pick_dataset(dataset_name):
         'tips':px.data.tips(), 
         'wind':px.data.wind()                 
         }
-    if dataset_name=None:
+    if dataset_name==None:
         return None
     else:
         return dataset_dict[dataset_name]
