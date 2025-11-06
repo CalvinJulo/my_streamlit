@@ -39,16 +39,20 @@ def pick_dataset(dataset_name):
         'tips':px.data.tips(), 
         'wind':px.data.wind()                 
         }
-    return dataset_dict[dataset_name]
+    if dataset_name ==None:
+        return None
+    else:
+        return dataset_dict[dataset_name]
 
 dataset_list =['carshare', 'election', 'election_geojson', 'experiment', 'gapminder', 'iris', 'medals_long', 'medals_wide', 'stocks', 'tips', 'wind']
 dataset = st.pills('Dataset',dataset_list)
 df = pick_dataset(dataset)
 if dataset =='election_geojson':
-    st.write(df)
+    show_df = {'type':df['type'],'features':df['features'][:2]}
+    st.write(show_df)
 else:
     st.write(df.head())
-    st.write(df.describe())
+    st.write(df.describe(include='all'))
 
 
 
