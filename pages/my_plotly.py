@@ -84,7 +84,7 @@ fig2 = px.scatter(df1, x="sepal_width", y="sepal_length", color="species", margi
 st.plotly_chart(fig2)
 
 df1["e"] = df1["sepal_width"]/100
-fig3 = px.scatter(df, x="sepal_width", y="sepal_length", color="species", error_x="e", error_y="e")
+fig3 = px.scatter(df1, x="sepal_width", y="sepal_length", color="species", error_x="e", error_y="e")
 st.plotly_chart(fig3)
 
 df4 = px.data.tips()
