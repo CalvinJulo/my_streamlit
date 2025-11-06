@@ -47,9 +47,14 @@ dataset_list =['absolute_import', 'carshare', 'election', 'election_geojson', 'e
 
 dataset = st.pills('Dataset',dataset_list)
 
-df = pick_dataset(dataset)
+# df = pick_dataset(dataset)
+df = px.data.iris()
 st.write(df.head())
 st.write(df.describe())
+
+df1 = px.data.absolute_import()
+st.write(df1.head())
+st.write(df1.describe())
 
 
 
