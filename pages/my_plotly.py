@@ -27,13 +27,13 @@ import plotly.express as px
 
 def pick_dataset(dataset_name):
         dataset_dict ={
+                'iris':px.data.iris(),
                 'absolute_import':px.data.absolute_import(),
                 'carshare':px.data.carshare(),
                 'election':px.data.election(),
                 'election_geojson':px.data.election_geojson(),
                 'experiment':px.data.experiment(), 
                 'gapminder':px.data.gapminder(),
-                'iris':px.data.iris(),
                 'medals_long':px.data.medals_long(), 
                 'medals_wide':px.data.medals_wide(), 
                 'stocks':px.data.stocks(), 
