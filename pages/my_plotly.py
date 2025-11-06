@@ -60,13 +60,98 @@ else:
 
 
 
-
+st.write('''Basics: scatter, line, area, bar, funnel, timeline
+Part-of-Whole: pie, sunburst, treemap, icicle, funnel_area
+1D Distributions: histogram, box, violin, strip, ecdf
+2D Distributions: density_heatmap, density_contour
+Matrix or Image Input: imshow
+3-Dimensional: scatter_3d, line_3d
+Multidimensional: scatter_matrix, parallel_coordinates, parallel_categories
+Tile Maps: scatter_map, line_map, choropleth_map, density_map
+Outline Maps: scatter_geo, line_geo, choropleth
+Polar Charts: scatter_polar, line_polar, bar_polar
+Ternary Charts: scatter_ternary, line_ternary''')
 
         
     
+df1 = px.data.iris()
+fig1 = px.scatter(df1, x="sepal_width", y="sepal_length", color="species")
+st.plotly_chart(fig1)
+
+fig2 = px.scatter(df1, x="sepal_width", y="sepal_length", color="species", marginal_y="violin",
+           marginal_x="box", trendline="ols", template="simple_white")
+
+st.plotly_chart(fig2)
+
+df1["e"] = df1["sepal_width"]/100
+fig3 = px.scatter(df, x="sepal_width", y="sepal_length", color="species", error_x="e", error_y="e")
+st.plotly_chart(fig3)
+
+df4 = px.data.tips()
+fig4 = px.bar(df4, x="sex", y="total_bill", color="smoker", barmode="group")
+st.plotly_chart(fig4)
+
+df5 = px.data.medals_long()
+fig5 = px.bar(df5, x="medal", y="count", color="nation",
+             pattern_shape="nation", pattern_shape_sequence=[".", "x", "+"])
+
+st.plotly_chart(fig5)
+
+df6 = px.data.tips()
+fig6 = px.bar(df6, x="sex", y="total_bill", color="smoker", barmode="group", facet_row="time", facet_col="day",
+       category_orders={"day": ["Thur", "Fri", "Sat", "Sun"], "time": ["Lunch", "Dinner"]})
+st.plotly_chart(fig6)
+
+df7 = px.data.iris()
+fig7 = px.scatter_matrix(df7, dimensions=["sepal_width", "sepal_length", "petal_width", "petal_length"], color="species")
+st.plotly_chart(fig7)
+
+df8 = px.data.iris()
+fig8 = px.parallel_coordinates(df8, color="species_id", labels={"species_id": "Species",
+                  "sepal_width": "Sepal Width", "sepal_length": "Sepal Length",
+                  "petal_width": "Petal Width", "petal_length": "Petal Length", },
+                    color_continuous_scale=px.colors.diverging.Tealrose, color_continuous_midpoint=2)
+
+st.plotly_chart(fig8)
+df9 = px.data.tips()
+fig9 = px.parallel_categories(df9, color="size", color_continuous_scale=px.colors.sequential.Inferno)
+st.plotly_chart(fig9)
+
+df10 = px.data.gapminder()
+fig10 = px.scatter(df10.query("year==2007"), x="gdpPercap", y="lifeExp", size="pop", color="continent",
+           hover_name="country", log_x=True, size_max=60)
+st.plotly_chart(fig10)
+
+df11 = px.data.gapminder()
+fig11 = px.scatter(df11, x="gdpPercap", y="lifeExp", animation_frame="year", animation_group="country",
+           size="pop", color="continent", hover_name="country", facet_col="continent",
+           log_x=True, size_max=45, range_x=[100,100000], range_y=[25,90])
+st.plotly_chart(fig11)
 
 
+df12 = px.data.gapminder()
+fig12 = px.line(df12, x="year", y="lifeExp", color="continent", line_group="country", hover_name="country",
+        line_shape="spline", render_mode="svg")
+st.plotly_chart(fig12)
 
+df13 = px.data.gapminder()
+fig13 = px.area(df13, x="year", y="pop", color="continent", line_group="country")
+st.plotly_chart(fig13)
+
+
+df14 = pd.DataFrame([
+    dict(Task="Job A", Start='2009-01-01', Finish='2009-02-28', Resource="Alex"),
+    dict(Task="Job B", Start='2009-03-05', Finish='2009-04-15', Resource="Alex"),
+    dict(Task="Job C", Start='2009-02-20', Finish='2009-05-30', Resource="Max")
+])
+
+fig14 = px.timeline(df14, x_start="Start", x_end="Finish", y="Resource", color="Resource")
+st.plotly_chart(fig14)
+
+data15 = dict(
+    number=[39, 27.4, 20.6, 11, 2],
+    stage=["Website visit", "Downloads", "Potential customers", "Requested price", "Invoice sent"])
+fig15 = px.funnel(data15, x='number', y='stage')
 
 
 
