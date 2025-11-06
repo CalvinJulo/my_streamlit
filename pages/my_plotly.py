@@ -24,7 +24,6 @@ import pandas as pd
 import plotly.express as px
 
 
-
 def pick_dataset(dataset_name):
     dataset_dict ={
         'iris':px.data.iris(),
@@ -43,7 +42,6 @@ def pick_dataset(dataset_name):
     return dataset_dict[dataset_name]
 
 dataset_list =['carshare', 'election', 'election_geojson', 'experiment', 'gapminder', 'iris', 'medals_long', 'medals_wide', 'stocks', 'tips', 'wind']
-
 dataset = st.pills('Dataset',dataset_list)
 df = pick_dataset(dataset)
 if dataset ='election_geojson':
