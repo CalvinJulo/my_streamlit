@@ -24,8 +24,29 @@ import pandas as pd
 import plotly.express as px
 
 
-dataset_list = dir(px.data)
-dataset = st.pills('Dataset',dataset_list)
+
+def pick_dataset(dataset_name):
+        dataset_dict ={
+                'absolute_import':px.data.absolute_import(),
+                'carshare':px.data.carshare(),
+                'election':px.data.election(),
+                'election_geojson':px.data.election_geojson(),
+                'experiment':px.data.experiment(), 
+                'gapminder':px.data.gapminder(),
+                'iris':px.data.iris(),
+                'medals_long':px.data.medals_long(), 
+                'medals_wide':px.data.medals_wide(), 
+                'stocks':px.data.stocks(), 
+                'tips':px.data.tips(), 
+                'wind':px.data.wind() 
+        }
+        return dataset_dict[dataset_name]
+
+dataset_list =['absolute_import', 'carshare', 'election', 'election_geojson', 'experiment', 'gapminder', 'iris', 'medals_long', 'medals_wide', 'stocks', 'tips', 'wind']
+
+dataset = st.pills('Dataset',dataset_list,None)
+
+df = pick_dataset(dataset)
 
 
 
