@@ -26,31 +26,34 @@ import plotly.express as px
 
 
 def pick_dataset(dataset_name):
-        dataset_dict ={
-                'iris':px.data.iris(),
-                # 'absolute_import':px.data.absolute_import(),
-                'carshare':px.data.carshare(),
-                'election':px.data.election(),
-                'election_geojson':px.data.election_geojson(),
-                'experiment':px.data.experiment(), 
-                'gapminder':px.data.gapminder(),
-                'medals_long':px.data.medals_long(), 
-                'medals_wide':px.data.medals_wide(), 
-                'stocks':px.data.stocks(), 
-                'tips':px.data.tips(), 
-                'wind':px.data.wind() 
-                
+    dataset_dict ={
+        'iris':px.data.iris(),
+        # 'absolute_import':px.data.absolute_import(),
+        'carshare':px.data.carshare(),
+        'election':px.data.election(),
+        'election_geojson':px.data.election_geojson(),
+        'experiment':px.data.experiment(), 
+        'gapminder':px.data.gapminder(),
+        'medals_long':px.data.medals_long(), 
+        'medals_wide':px.data.medals_wide(), 
+        'stocks':px.data.stocks(), 
+        'tips':px.data.tips(), 
+        'wind':px.data.wind()                 
         }
+    if dataset_name=None:
+        return None
+    else:
         return dataset_dict[dataset_name]
 
 dataset_list =['carshare', 'election', 'election_geojson', 'experiment', 'gapminder', 'iris', 'medals_long', 'medals_wide', 'stocks', 'tips', 'wind']
 
-dataset = st.pills('Dataset',dataset_list)
-
+dataset = st.pills('Dataset',dataset_list,None)
 df = pick_dataset(dataset)
-# df = px.data.iris()
-st.write(df.head())
-st.write(df.describe())
+if dataset ='election_geojson':
+    st.write(df)
+else:
+    st.write(df.head())
+    st.write(df.describe())
 
 
 
