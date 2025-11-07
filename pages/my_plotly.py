@@ -158,7 +158,7 @@ st.plotly_chart(fig15)
 
 
 df16 = px.data.gapminder().query("year == 2007").query("continent == 'Europe'")
-df16.loc[df['pop'] < 2.e6, 'country'] = 'Other countries' # Represent only large countries
+df16.loc[df16['pop'] < 2.e6, 'country'] = 'Other countries' # Represent only large countries
 fig16 = px.pie(df16, values='pop', names='country', title='Population of European continent')
 st.plotly_chart(fig16)
 
