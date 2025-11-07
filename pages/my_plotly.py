@@ -179,7 +179,7 @@ st.plotly_chart(fig19)
 
 
 df20 = px.data.tips()
-fig20 = px.histogram(df20, x="total_bill", y="tip", color="sex", marginal="rug", hover_data=df.columns)
+fig20 = px.histogram(df20, x="total_bill", y="tip", color="sex", marginal="rug", hover_data=df20.columns)
 st.plotly_chart(fig20)
 
 
@@ -189,7 +189,7 @@ st.plotly_chart(fig21)
 
 
 df22 = px.data.tips()
-fig22 = px.violin(df22, y="tip", x="smoker", color="sex", box=True, points="all", hover_data=df.columns)
+fig22 = px.violin(df22, y="tip", x="smoker", color="sex", box=True, points="all", hover_data=df22.columns)
 st.plotly_chart(fig22)
 
 df23 = px.data.tips()
