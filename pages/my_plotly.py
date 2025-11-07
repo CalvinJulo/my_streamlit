@@ -254,6 +254,15 @@ fig32 = px.scatter_polar(df32, r="frequency", theta="direction", color="strength
 st.plotly_chart(fig32)
 
 
+df33 = px.data.wind()
+fig33 = px.line_polar(df33, r="frequency", theta="direction", color="strength", line_close=True,
+            color_discrete_sequence=px.colors.sequential.Plasma_r)
+st.plotly_chart(fig33)
+
+df34 = px.data.wind()
+fig34 = px.bar_polar(df34, r="frequency", theta="direction", color="strength", template="plotly_dark",
+            color_discrete_sequence= px.colors.sequential.Plasma_r)
+st.plotly_chart(fig34)
 
 
 
