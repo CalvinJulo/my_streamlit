@@ -188,6 +188,63 @@ fig21 = px.box(df21, x="day", y="total_bill", color="smoker", notched=True)
 st.plotly_chart(fig21)
 
 
+df22 = px.data.tips()
+fig22 = px.violin(df22, y="tip", x="smoker", color="sex", box=True, points="all", hover_data=df22.columns)
+st.plotly_chart(fig22)
+
+df23 = px.data.tips()
+fig23 = px.ecdf(df23, x="total_bill", color="sex")
+st.plotly_chart(fig23)
+
+df24 = px.data.tips()
+fig24 = px.strip(df24, x="total_bill", y="time", orientation="h", color="smoker")
+st.plotly_chart(fig24)
+
+
+df25 = px.data.iris()
+fig25 = px.density_contour(df25, x="sepal_width", y="sepal_length")
+st.plotly_chart(fig25)
+
+
+df26 = px.data.iris()
+fig26 = px.density_heatmap(df26, x="sepal_width", y="sepal_length", marginal_x="rug", marginal_y="histogram")
+st.plotly_chart(fig26)
+
+
+data27=[[1, 25, 30, 50, 1], [20, 1, 60, 80, 30], [30, 60, 1, 5, 20]]
+fig27 = px.imshow(data27,
+                labels=dict(x="Day of Week", y="Time of Day", color="Productivity"),
+                x=['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                y=['Morning', 'Afternoon', 'Evening']
+               )
+fig27.update_xaxes(side="top")
+st.plotly_chart(fig27)
+
+
+df28 = px.data.carshare()
+fig28 = px.scatter_map(df28, lat="centroid_lat", lon="centroid_lon", color="peak_hour", size="car_hours",
+                  color_continuous_scale=px.colors.cyclical.IceFire, size_max=15, zoom=10,
+                  map_style="carto-positron")
+st.plotly_chart(fig28)
+
+df29 = px.data.election()
+geojson29 = px.data.election_geojson()
+fig29 = px.choropleth_map(df29, geojson=geojson29, color="Bergeron",
+                           locations="district", featureidkey="properties.district",
+                           center={"lat": 45.5517, "lon": -73.7073},
+                           map_style="carto-positron", zoom=9)
+st.plotly_chart(fig29)
+
+df30 = px.data.gapminder()
+fig30 = px.scatter_geo(df30, locations="iso_alpha", color="continent", hover_name="country", size="pop",
+               animation_frame="year", projection="natural earth")
+
+st.plotly_chart(fig30)
+
+df31 = px.data.gapminder()
+fig31 = px.choropleth(df31, locations="iso_alpha", color="lifeExp", hover_name="country", animation_frame="year", range_color=[20,80])
+st.plotly_chart(fig31)
+
 
 
 
