@@ -248,7 +248,33 @@ st.plotly_chart(fig31)
 
 
 
+df32 = px.data.wind()
+fig32 = px.scatter_polar(df32, r="frequency", theta="direction", color="strength", symbol="strength",
+            color_discrete_sequence=px.colors.sequential.Plasma_r)
+st.plotly_chart(fig32)
 
+
+df33 = px.data.wind()
+fig33 = px.line_polar(df33, r="frequency", theta="direction", color="strength", line_close=True,
+            color_discrete_sequence=px.colors.sequential.Plasma_r)
+st.plotly_chart(fig33)
+
+df34 = px.data.wind()
+fig34 = px.bar_polar(df34, r="frequency", theta="direction", color="strength", template="plotly_dark",
+            color_discrete_sequence= px.colors.sequential.Plasma_r)
+st.plotly_chart(fig34)
+
+df35 = px.data.election()
+fig35 = px.scatter_3d(df35, x="Joly", y="Coderre", z="Bergeron", color="winner", size="total", hover_name="district",
+                  symbol="result", color_discrete_map = {"Joly": "blue", "Bergeron": "green", "Coderre":"red"})
+
+st.plotly_chart(fig35）
+
+df36 = px.data.election()
+fig36 = px.scatter_ternary(df36, a="Joly", b="Coderre", c="Bergeron", color="winner", size="total", hover_name="district",
+                   size_max=15, color_discrete_map = {"Joly": "blue", "Bergeron": "green", "Coderre":"red"} )
+
+st.plotly_chart(fig36)
 
 
 
