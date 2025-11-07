@@ -267,14 +267,13 @@ st.plotly_chart(fig34)
 
 
 
-df35 = px.data.election()
-fig35 = px.scatter_3d(df35, x="Joly", y="Coderre", z="Bergeron", color="winner", size="total", hover_name="district",
-                  symbol="result", color_discrete_map = {"Joly": "blue", "Bergeron": "green", "Coderre":"red"})
-
-st.plotly_chart(fig35）
 
 
 
 
+df36 = px.data.election()
+fig36 = px.scatter_ternary(df36, a="Joly", b="Coderre", c="Bergeron", color="winner", size="total", hover_name="district",
+                   size_max=15, color_discrete_map = {"Joly": "blue", "Bergeron": "green", "Coderre":"red"} )
+st.plotly_chart(fig36)
 
 
